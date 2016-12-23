@@ -1,0 +1,19 @@
+{
+  "name": "chreddit",
+  "version": "1.0.0",
+  "description": "A cousin of reddit with simpler UI",
+  "main": "server/chreddit-server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elliotaplant/chreddit.git"
+  },
+  "author": "Elliot Plant",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elliotaplant/chreddit/issues"
+  },
+  "homepage": "https://github.com/elliotaplant/chreddit#readme"
+}
