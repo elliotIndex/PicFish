@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/elliotaplant/chreddit#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "http": "0.0.0"
   }
 }
