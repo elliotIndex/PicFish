@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/elliotaplant/chreddit/issues"
   },
-  "homepage": "https://github.com/elliotaplant/chreddit#readme"
+  "homepage": "https://github.com/elliotaplant/chreddit#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }
