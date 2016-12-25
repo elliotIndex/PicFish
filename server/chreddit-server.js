@@ -5,9 +5,11 @@ var parseFrontPage = require('./parseFrontPage');
 
 var redditLinks = [];
 
+console.log('Fetching')
 parseFrontPage(function (err, window) {
+  console.log('Parsing');
   var $ = window.$;
-  var links = $(".title.may-blank");
+  var links = $('.title.may-blank');
   links.each(function() {
     var element = $(this);
     redditLinks.push({
@@ -15,8 +17,13 @@ parseFrontPage(function (err, window) {
       href: element.attr('href')
     })
   });
-  console.log("Finished parsing");
+  console.log('Filtering');
+  redditLinks = redditLinks.filter(function (link) {
+    return link.href.indexOf('imgur') > -1;
+  });
+  console.log('Ready!');
 });
+
 
 app.get('/frontpage', function(req, res) {
   res.send(redditLinks);
