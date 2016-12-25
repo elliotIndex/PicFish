@@ -1,23 +1,25 @@
 var express = require('express')
 var app = express()
 
-var fetchFrontPage = require('./fetchFrontPage');
 var parseFrontPage = require('./parseFrontPage');
 
-var redditResponse = {};
-var redditPage = null;
+var redditLinks = [];
 
-fetchFrontPage(function (error, response, body) {
-  console.log("Recieved response from reddit!");
-  redditResponse.error = error;
-  redditResponse.response = response;
-  redditResponse.body = body;
-  redditPage = parseFrontPage(body)
+parseFrontPage(function (err, window) {
+  var $ = window.$;
+  var links = $(".title.may-blank");
+  links.each(function() {
+    var element = $(this);
+    redditLinks.push({
+      text: element.text(),
+      href: element.attr('href')
+    })
+  });
+  console.log("Finished parsing");
 });
 
 app.get('/frontpage', function(req, res) {
-  console.log("type", typeof(redditResponse.body));
-  res.send(redditPage);
+  res.send(redditLinks);
 });
 
 app.listen(3000, function() {
