@@ -4,6 +4,7 @@ var request = require('request');
 var parseFrontPage = require('./parseFrontPage');
 
 var redditLinks = [];
+var linkMap = {};
 
 console.log('Fetching')
 parseFrontPage(function (err, window) {
@@ -15,7 +16,7 @@ parseFrontPage(function (err, window) {
     var element = $(this);
     allLinks.push({
       text: element.text(),
-      href: element.attr('href')
+      href: element.attr('href'),
     })
   });
   console.log('Mapping');
@@ -31,8 +32,10 @@ parseFrontPage(function (err, window) {
   allLinks.forEach(function (link) {
     request(link.href, function (error, response, body) {
       if (!error && response.statusCode == 200) {
+        link.id = Math.floor(Math.random() * 100000) + '';
+        linkMap[link.id] = link;
         redditLinks.push(link);
-        console.log('pushed a link:', link.href);
+        console.log('pushed a link:', link.id);
       }
     });
   });
@@ -42,6 +45,11 @@ parseFrontPage(function (err, window) {
 app.get('/frontpage', function (req, res) {
   console.log('serving request');
   res.send(redditLinks);
+});
+
+app.get('/share/:id', function (req, res) {
+  console.log('getting id');
+  res.send(linkMap[req.params.id]);
 });
 
 app.listen(3000, function () {

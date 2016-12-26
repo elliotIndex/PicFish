@@ -24,3 +24,7 @@ function buildListItem(link) {
   listItem.append(image);
   return listItem;
 }
+
+function buildShareLink(link) {
+  return 'localhost:3000/share/' + link.id;
+}
