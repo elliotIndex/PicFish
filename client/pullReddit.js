@@ -14,13 +14,17 @@ $(function() {
 function buildRedditList(links) {
   var imageList = $('#image-list');
   links.forEach(function (link) {
-    var listItem = $('<li>');
-    var anchor = $('<a>', { href: link.href, text: link.text });
-    console.log('Link:', link.href);
-    var image = $('<img>', { src: link.href, class: 'link-img' });
-    listItem.append(anchor);
-    listItem.append(image);
-    imageList.append(listItem);
+    imageList.append(buildListItem(link));
   });
-  console.log('Built list');
 }
+
+function buildListItem(link) {
+  var listItem = $('<li>', { 'class': 'list-group-item'});
+  var anchor = $('<a>', { href: link.href, text: link.text });
+  var image = $('<img>', { src: link.href, class: 'link-img' });
+  listItem.append(anchor);
+  listItem.append(image);
+  return listItem;
+}
+
+console.log('Built list');
