@@ -19,7 +19,7 @@ function buildRedditList(links) {
 }
 
 function buildListItem(link) {
-  var listItem = $('<li>', { 'class': 'list-group-item'});
+  var listItem = $('<li>'); // , { 'class': 'list-group-item'});
   var anchor = $('<a>', { href: link.href, text: link.text, class: 'link-title' });
   var image = $('<img>', { src: link.href, class: 'link-img' });
   listItem.append(anchor);

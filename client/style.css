@@ -1,10 +1,37 @@
+li {
+  list-style: none;
+}
+
 .link-title {
   display: block;
 }
 
 .link-img {
   max-width: 100%;
-  max-height: 100%;
+}
+
+@media only screen and (min-height: 330px)  {
+  .link-img { max-height: 330px; }
+}
+
+@media only screen and (min-height: 400px)  {
+  .link-img { max-height: 400px; }
+}
+
+@media only screen and (min-height: 600px)  {
+  .link-img { max-height: 600px; }
+}
+
+@media only screen and (min-height: 900px)  {
+  .link-img { max-height: 900px; }
+}
+
+@media only screen and (min-height: 1024px)  {
+  .link-img { max-height: 1024px; }
+}
+
+@media only screen and (min-height: 2000px)  {
+  .link-img { max-height: 2000px; }
 }
 
 .list-container {
