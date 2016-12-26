@@ -8,10 +8,15 @@ li {
 
 .link-img {
   max-width: 100%;
+  min-height: 100px;
 }
 
-@media only screen and (min-height: 330px)  {
-  .link-img { max-height: 330px; }
+@media only screen and (min-height: 200px)  {
+  .link-img { max-height: 200px; }
+}
+
+@media only screen and (min-height: 300px)  {
+  .link-img { max-height: 300px; }
 }
 
 @media only screen and (min-height: 400px)  {
