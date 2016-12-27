@@ -2,7 +2,7 @@ function pullReddit() {
   var id = window.location.pathname.slice(1);
 
   $.get(id ? 'picture/' + id : 'frontpage', function(response) {
-    console.log('resp:', response);
+    console.log('response:', response);
     buildRedditList(response);
   });
 
@@ -30,5 +30,6 @@ function buildListItem(link) {
 }
 
 function buildShareLink(link) {
-  return 'localhost:3000/share/' + link.id;
+  var host = window.location.host;
+  return [host, link.id].join('/');
 }
