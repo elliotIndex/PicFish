@@ -1,8 +1,17 @@
 function pullReddit() {
   console.log('Pulling reddit!')
-  $.get('frontpage', function(response) {
-    buildRedditList(response);
-  });
+  var id = window.location.pathname.slice(1);
+  console.log(id);
+  if (id) {
+    $.get('picture/' + id, function(response) {
+      console.log('resp:', response);
+      buildRedditList([response]);
+    });
+  } else {
+    $.get('frontpage', function(response) {
+      buildRedditList(response);
+    });
+  }
 }
 
 // Shorthand for $( document ).ready()

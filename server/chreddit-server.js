@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var request = require('request');
+var path = require('path');
 var parseFrontPage = require('./parseFrontPage');
 
 var redditLinks = [];
@@ -29,6 +30,13 @@ parseFrontPage(function (err, window) {
     }
     return link;
   });
+  console.log('Filtering');
+  allLinks = allLinks.filter(function (link) {
+    if (link.text.indexOf('/r/') > -1) {
+      return false;
+    }
+    return true;
+  })
   allLinks.forEach(function (link) {
     request(link.href, function (error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -41,19 +49,24 @@ parseFrontPage(function (err, window) {
   });
 });
 
+app.use(express.static('../client'));
 
 app.get('/frontpage', function (req, res) {
   console.log('serving request');
   res.send(redditLinks);
 });
 
-app.get('/share/:id', function (req, res) {
-  console.log('getting id');
+app.get('/:id', function (req, res) {
+  console.log('Sharing page');
+  res.sendFile(path.resolve(__dirname + '/../client/index.html'));
+});
+
+app.get('/picture/:id', function (req, res) {
+  console.log('Sharing picture');
   res.send(linkMap[req.params.id]);
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
-});
 
-app.use(express.static('../client'));
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});
