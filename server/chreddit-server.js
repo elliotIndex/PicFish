@@ -40,7 +40,7 @@ parseFrontPage(function (err, window) {
   allLinks.forEach(function (link) {
     request(link.href, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        link.id = Math.floor(Math.random() * 100000) + '';
+        link.id = Math.floor(Math.random() * 10000000);
         linkMap[link.id] = link;
         redditLinks.push(link);
         console.log('pushed a link:', link.id);
@@ -52,7 +52,7 @@ parseFrontPage(function (err, window) {
 app.use(express.static('../client'));
 
 app.get('/frontpage', function (req, res) {
-  console.log('serving request');
+  console.log('Full page');
   res.send(redditLinks);
 });
 
@@ -63,7 +63,13 @@ app.get('/:id', function (req, res) {
 
 app.get('/picture/:id', function (req, res) {
   console.log('Sharing picture');
-  res.send(linkMap[req.params.id]);
+  var defaultLink = {
+    text: 'Uh oh! We couldn\'t find the picture you were looking for. We\'ll try to fix it on our end :)',
+    href: 'http://imgur.com/PbcZq8t.jpg',
+    id: 47378
+  };
+
+  res.send([linkMap[req.params.id] || defaultLink]);
 });
 
 
