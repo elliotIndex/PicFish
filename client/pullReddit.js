@@ -1,11 +1,15 @@
 function pullReddit() {
-  var id = window.location.pathname.slice(1);
-
-  $.get(id ? 'picture/' + id : 'frontpage', function(response) {
-    console.log('response:', response);
-    buildRedditList(response);
-  });
-
+  var param1 = window.location.pathname.slice(1);
+  if (parseInt(param1)) {
+    console.log("getting an individual pic");
+    $.get('picture/' + param1, buildRedditList);
+  } else if (param1) {
+    console.log("getting a subreddit");
+    $.get('sub/' + param1, buildRedditList);
+  } else {
+    console.log("getting the default subreddit");
+    $.get('sub/aww' + param1, buildRedditList);
+  }
 }
 
 // Shorthand for $( document ).ready()
@@ -13,6 +17,7 @@ $(function() { pullReddit(); });
 
 function buildRedditList(links) {
   var imageList = $('#image-list');
+  console.log("links", links)
   links.forEach(function (link) {
     imageList.append(buildListItem(link));
   });

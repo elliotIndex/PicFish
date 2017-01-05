@@ -1,6 +1,7 @@
 module.exports = {
-  hasLink: function(links, link) {
-    return links.some(containedLink => link.text === containedLink.text);
+  hasLink: function(context, subreddit, link) {
+    return context[subreddit] &&
+      context[subreddit].linkList.some(containedLink => link.text === containedLink.text);
   },
 
   isImageResponse: function(res) {

@@ -5,7 +5,7 @@ const utils = require('./utils');
 function fetchSubreddit(subreddit) {
   return new Promise(function(resolve, reject) {
       jsdom.env({
-        url: "https://www.reddit.com/r/aww/",
+        url: "https://www.reddit.com/r/" + subreddit,
         scripts: ["http://code.jquery.com/jquery.js"],
         done: (err, page) => err ? reject(err) : resolve(page)
       });
@@ -57,17 +57,15 @@ function removeRedditReferences(links) {
   );
 }
 
-function validateLinks(context) {
+function validateLinks(context, subreddit) {
   return links => {
     console.log("Validating urls");
     links.forEach(link => {
       request(link.href, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-          if (utils.isImageResponse(response) && !utils.hasLink(context.redditLinks, link)){
+          if ( utils.isImageResponse(response) && !utils.hasLink(context, subreddit, link)){
             link.id = Math.floor(Math.random() * 10000000);
-            context.linkMap[link.id] = link;
-            context.redditLinks.push(link);
-            console.log('pushed a link:', link.id);
+            attachLinkToContext(link, context, subreddit);
           }
         }
       });
@@ -75,12 +73,23 @@ function validateLinks(context) {
   }
 }
 
+function attachLinkToContext(link, context, subreddit) {
+  if (!context[subreddit]) {
+    context[subreddit] = {
+      linkList: []
+    }
+  }
+  context.linkMap[link.id] = link;
+  context[subreddit].linkList.push(link);
+  console.log('pushed a link:', link.id);
+}
+
 function fetchSubredditLinks(subreddit, context) {
   fetchSubreddit(subreddit)
     .then(getLinks)
     .then(correctImgurUrls)
     .then(removeRedditReferences)
-    .then(validateLinks(context))
+    .then(validateLinks(context, subreddit))
     .catch(error => console.error("Error fetching subreddit", subreddit, error));
 }
 
