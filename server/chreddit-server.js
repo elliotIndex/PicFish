@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const parseFrontPage = require('./parseFrontPage');
+const fetchSubredditLinks = require('./fetchSubredditLinks');
 
 const globalStorageContext = {
   redditLinks: [],
@@ -9,7 +9,7 @@ const globalStorageContext = {
 }
 
 console.log('Fetching')
-parseFrontPage(globalStorageContext);
+fetchSubredditLinks('aww', globalStorageContext);
 
 app.use(express.static('../client'));
 

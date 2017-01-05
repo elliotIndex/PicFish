@@ -75,8 +75,7 @@ function validateLinks(context) {
   }
 }
 
-function parseFrontPage(context) {
-  const subreddit = 'aww';
+function fetchSubredditLinks(subreddit, context) {
   fetchSubreddit(subreddit)
     .then(getLinks)
     .then(correctImgurUrls)
@@ -86,4 +85,4 @@ function parseFrontPage(context) {
 }
 
 
-module.exports = parseFrontPage;
+module.exports = fetchSubredditLinks;
