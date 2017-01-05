@@ -7,65 +7,60 @@ function fetchSubreddit(subreddit) {
       jsdom.env({
         url: "https://www.reddit.com/r/aww/",
         scripts: ["http://code.jquery.com/jquery.js"],
-        done: (err, window) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(window);
-          }
-        }
+        done: (err, page) => err ? reject(err) : resolve(page)
       });
     }
   );
 }
 
-
-
-function parseFrontPage(context) {
-
-  fetchSubreddit('aww').then(window => {
-    console.log('Parsing');
-    let allLinks = [];
-    const $ = window.$;
-    const links = $('.title.may-blank');
-    links.each(function () {
-      const element = $(this);
-      allLinks.push({
-        text: element.text(),
-        href: element.attr('href'),
-      })
-    });
-    console.log('Mapping');
-    allLinks = allLinks.reduce(function (allLinks, link) {
-      if (link.href.indexOf('imgur') > -1 &&
-        !(link.href.endsWith('.jpg') ||
-        link.href.endsWith('.png') ||
-        link.href.endsWith('.gif')) ) {
-          const jpg = Object.assign({}, link);
-          const gif = Object.assign({}, link);
-
-          jpg.href = jpg.href + '.jpg';
-          gif.href = gif.href + '.gif';
-          allLinks.push(jpg);
-          allLinks.push(gif);
-      } else {
-        allLinks.push(link);
-      }
-
-      return allLinks;
-    }, []);
-    console.log('Filtering');
-    allLinks = allLinks.filter(function (link) {
-      if (
-        link.text.indexOf('/r/') > -1 ||
-        link.text.indexOf('reddit') > -1 ||
-        link.text.indexOf('Reddit') > -1
-      ) {
-        return false;
-      }
-      return true;
+function getLinks(page) {
+  console.log('Parsing');
+  const allLinks = [];
+  const $ = page.$;
+  const links = $('.title.may-blank');
+  links.each(function () {
+    const element = $(this);
+    allLinks.push({
+      text: element.text(),
+      href: element.attr('href'),
     })
-    allLinks.forEach(function (link) {
+  });
+
+  return allLinks;
+}
+
+function correctImgurUrls(links) {
+  console.log('Correcting imgur urls');
+  return links.reduce(function (correctedLinks, link) {
+    if (link.href.indexOf('imgur') > -1 && !(link.href.endsWith('.jpg') ||
+      link.href.endsWith('.png') || link.href.endsWith('.gif')) ) {
+        const jpg = Object.assign({}, link);
+        jpg.href = jpg.href + '.jpg';
+        correctedLinks.push(jpg);
+
+        const gif = Object.assign({}, link);
+        gif.href = gif.href + '.gif';
+        correctedLinks.push(gif);
+    } else {
+      correctedLinks.push(link);
+    }
+    return correctedLinks;
+  }, []);
+}
+
+function removeRedditReferences(links) {
+  console.log('Removing reddit references');
+  return links.filter(link => !(
+    link.text.indexOf('/r/') > -1 ||
+    link.text.indexOf('reddit') > -1 ||
+    link.text.indexOf('Reddit') > -1)
+  );
+}
+
+function validateLinks(context) {
+  return links => {
+    console.log("Validating urls");
+    links.forEach(link => {
       request(link.href, function (error, response, body) {
         if (!error && response.statusCode === 200) {
           if (utils.isImageResponse(response) && !utils.hasLink(context.redditLinks, link)){
@@ -77,7 +72,17 @@ function parseFrontPage(context) {
         }
       });
     });
-  });
+  }
+}
+
+function parseFrontPage(context) {
+  const subreddit = 'aww';
+  fetchSubreddit(subreddit)
+    .then(getLinks)
+    .then(correctImgurUrls)
+    .then(removeRedditReferences)
+    .then(validateLinks(context))
+    .catch(error => console.error("Error fetching subreddit", subreddit, error));
 }
 
 
