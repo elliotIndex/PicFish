@@ -1,75 +1,21 @@
 const express = require('express');
 const app = express();
-const request = require('request');
 const path = require('path');
 const parseFrontPage = require('./parseFrontPage');
-const utils = require('./utils');
 
-const redditLinks = [];
-const linkMap = {};
+const globalStorageContext = {
+  redditLinks: [],
+  linkMap: {},
+}
 
 console.log('Fetching')
-parseFrontPage(function (err, window) {
-  console.log('Parsing');
-  let allLinks = [];
-  const $ = window.$;
-  const links = $('.title.may-blank');
-  links.each(function () {
-    const element = $(this);
-    allLinks.push({
-      text: element.text(),
-      href: element.attr('href'),
-    })
-  });
-  console.log('Mapping');
-  allLinks = allLinks.reduce(function (allLinks, link) {
-    if (link.href.indexOf('imgur') > -1 &&
-      !(link.href.endsWith('.jpg') ||
-      link.href.endsWith('.png') ||
-      link.href.endsWith('.gif')) ) {
-        const jpg = Object.assign({}, link);
-        const gif = Object.assign({}, link);
-
-        jpg.href = jpg.href + '.jpg';
-        gif.href = gif.href + '.gif';
-        allLinks.push(jpg);
-        allLinks.push(gif);
-    } else {
-      allLinks.push(link);
-    }
-
-    return allLinks;
-  }, []);
-  console.log('Filtering');
-  allLinks = allLinks.filter(function (link) {
-    if (
-      link.text.indexOf('/r/') > -1 ||
-      link.text.indexOf('reddit') > -1 ||
-      link.text.indexOf('Reddit') > -1
-    ) {
-      return false;
-    }
-    return true;
-  })
-  allLinks.forEach(function (link) {
-    request(link.href, function (error, response, body) {
-      if (!error && response.statusCode === 200) {
-        if (utils.isImageResponse(response) && !utils.hasLink(redditLinks, link)){
-          link.id = Math.floor(Math.random() * 10000000);
-          linkMap[link.id] = link;
-          redditLinks.push(link);
-          console.log('pushed a link:', link.id);
-        }
-      }
-    });
-  });
-});
+parseFrontPage(globalStorageContext);
 
 app.use(express.static('../client'));
 
 app.get('/frontpage', function (req, res) {
   console.log('Full page');
-  res.send(redditLinks);
+  res.send(globalStorageContext.redditLinks);
 });
 
 app.get('/:id', function (req, res) {
@@ -85,7 +31,7 @@ app.get('/picture/:id', function (req, res) {
     id: 47378
   };
 
-  res.send([linkMap[req.params.id] || defaultLink]);
+  res.send([globalStorageContext.linkMap[req.params.id] || defaultLink]);
 });
 
 
