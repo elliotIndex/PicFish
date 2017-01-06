@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const fetchSubredditLinks = require('./fetchSubredditLinks');
+const scheduleLinkRefresh = require('./scheduleLinkRefresh');
 
 const globalStorageContext = { linkMap: {} };
 
@@ -11,11 +11,8 @@ const defaultLink = {
   id: 47378
 };
 
-console.log('Fetching')
-fetchSubredditLinks('funny', globalStorageContext);
-fetchSubredditLinks('aww', globalStorageContext);
-fetchSubredditLinks('pics', globalStorageContext);
-fetchSubredditLinks('gifs', globalStorageContext);
+console.log('Fetching');
+scheduleLinkRefresh(globalStorageContext);
 
 app.use(express.static('../client'));
 
