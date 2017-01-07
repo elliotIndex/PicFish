@@ -21,14 +21,8 @@ app.get('/sub/:subname', function (req, res) {
 
 app.get('/picture/:linkId', function (req, res) {
   database.findLink(req.params.linkId)
-  .then(link => {
-    console.log("Found link:", link);
-    res.send([link]);
-  })
-  .catch(error => {
-    console.log("Could not find link:", req.params.linkId);
-    res.send([globals.defaultLink]);
-  })
+  .then(link => res.send([link]))
+  .catch(error => res.send([globals.defaultLink]));
 });
 
 
