@@ -1,6 +1,7 @@
 var cron = require('node-cron');
 const fetchSubredditLinks = require('./fetchSubredditLinks');
 const globals = require('./globals');
+const database = require('./database');
 
 function fetchAllSubreddits(subreddits, context) {
   subreddits.forEach(subreddit => {
@@ -8,8 +9,15 @@ function fetchAllSubreddits(subreddits, context) {
     .then(links => {
       console.log("Updated subreddit: ", subreddit);
       context[subreddit] = links
-    });
+      return links;
+    })
+    .then(addLinksToDb)
+    .catch(error => console.error("Error storing subreddit:", subreddit, error));
   });
+}
+
+function addLinksToDb(links) {
+  database.insertLinks(links);
 }
 
 function scheduleLinkRefresh(subreddits, context) {

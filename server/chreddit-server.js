@@ -3,6 +3,8 @@ const app = express();
 const path = require('path');
 const scheduleLinkRefresh = require('./scheduleLinkRefresh');
 const globals = require('./globals');
+const cleanup = require('./cleanup');
+const database = require('./database');
 
 const globalStorageContext = { linkMap: {} };
 
@@ -17,13 +19,17 @@ app.get('/sub/:subname', function (req, res) {
   res.send(sub || [globals.defaultLink]);
 });
 
-app.get('/picture/:id', function (req, res) {
-  res.send([globalStorageContext.linkMap[req.params.id] || globals.defaultLink]);
+app.get('/picture/:linkId', function (req, res) {
+  res.send([globalStorageContext.linkMap[req.params.linkId] || globals.defaultLink]);
 });
 
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('Express server connected');
 });
+
+
+database.connect();
+cleanup.prepForCleanup();
 
 scheduleLinkRefresh(globals.subreddits, globalStorageContext);

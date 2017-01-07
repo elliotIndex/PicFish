@@ -36,5 +36,5 @@ function buildListItem(link) {
 
 function buildShareLink(link) {
   var host = window.location.host;
-  return [host, link.id].join('/');
+  return [host, link.linkId].join('/');
 }

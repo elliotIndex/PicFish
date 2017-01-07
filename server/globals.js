@@ -8,7 +8,7 @@ module.exports = {
   defaultLink: {
     text: 'Uh oh! We couldn\'t find the picture you were looking for. We\'ll try to fix it on our end :)',
     href: 'http://imgur.com/PbcZq8t.jpg',
-    id: 47378
+    linkId: 47378
   },
   chronInterval: '*/10 * * * *',
 }

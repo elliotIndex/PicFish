@@ -20,10 +20,11 @@ function getLinks(page) {
   const links = $('.title.may-blank');
   links.each(function () {
     const element = $(this);
+    const href = element.attr('href');
     allLinks.push({
       text: element.text(),
-      href: element.attr('href'),
-      id: Math.floor(Math.random() * 10000000)
+      href,
+      linkId: utils.generateHashCode(href),
     })
   });
 
