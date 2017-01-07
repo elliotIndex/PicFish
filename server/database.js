@@ -3,6 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 // Connection URL
 // change for prod?
 var url = 'mongodb://localhost:27017/linksDb';
+let _db = null;
 let linksCollection = null;
 
 module.exports = {
@@ -11,6 +12,7 @@ module.exports = {
       if (err) {
         console.error("Failed to connect to DB:", err);
       } else {
+        _db = db;
         linksCollection = db.collection('linksCollection');
       }
     });
@@ -30,4 +32,9 @@ module.exports = {
       }
     });
   },
+
+  close: () => {
+    console.log("Closing Database");
+    _db.close();
+  }
 }

@@ -32,6 +32,6 @@ app.listen(3000, function () {
 
 
 database.connect();
-cleanup.prepForCleanup();
+cleanup.prepForCleanup(database.close);
 
 scheduleLinkRefresh(globals.subreddits, globalStorageContext);
