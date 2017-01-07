@@ -48,7 +48,10 @@ module.exports = {
       hash  = ((hash << 5) - hash) + chr;
       hash |= 0; // Convert to 32bit integer
     }
-    return hash;
+    if (hash < 0) {
+      hash = ~hash;
+    }
+    return hash.toString();
   },
 
 }

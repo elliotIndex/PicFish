@@ -20,7 +20,15 @@ app.get('/sub/:subname', function (req, res) {
 });
 
 app.get('/picture/:linkId', function (req, res) {
-  res.send([globalStorageContext.linkMap[req.params.linkId] || globals.defaultLink]);
+  database.findLink(req.params.linkId)
+  .then(link => {
+    console.log("Found link:", link);
+    res.send([link]);
+  })
+  .catch(error => {
+    console.log("Could not find link:", req.params.linkId);
+    res.send([globals.defaultLink]);
+  })
 });
 
 
