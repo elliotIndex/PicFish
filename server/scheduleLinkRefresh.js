@@ -3,7 +3,13 @@ const fetchSubredditLinks = require('./fetchSubredditLinks');
 const globals = require('./globals');
 
 function fetchAllSubreddits(subreddits, context) {
-  subreddits.forEach(subreddit => fetchSubredditLinks(subreddit, context));
+  subreddits.forEach(subreddit => {
+    fetchSubredditLinks(subreddit, context)
+    .then(links => {
+      console.log("Updated subreddit: ", subreddit);
+      context[subreddit] = links
+    });
+  });
 }
 
 function scheduleLinkRefresh(subreddits, context) {

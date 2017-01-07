@@ -14,7 +14,7 @@ app.get('/:anything', function (req, res) {
 
 app.get('/sub/:subname', function (req, res) {
   const sub = globalStorageContext[req.params.subname];
-  res.send(sub ? sub.linkList : [globals.defaultLink]);
+  res.send(sub || [globals.defaultLink]);
 });
 
 app.get('/picture/:id', function (req, res) {

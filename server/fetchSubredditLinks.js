@@ -4,13 +4,13 @@ const utils = require('./utils');
 
 function fetchSubreddit(subreddit) {
   return new Promise(function(resolve, reject) {
-      jsdom.env({
-        url: "https://www.reddit.com/r/" + subreddit,
-        scripts: ["http://code.jquery.com/jquery.js"],
-        done: (err, page) => err ? reject(err) : resolve(page)
-      });
-    }
-  );
+    jsdom.env({
+      url: "https://www.reddit.com/r/" + subreddit,
+      scripts: ["http://code.jquery.com/jquery.js"],
+      done: (err, page) => err ? reject(err) : resolve(page)
+    });
+  }
+);
 }
 
 function getLinks(page) {
@@ -33,14 +33,14 @@ function correctImgurUrls(links) {
   console.log('Correcting imgur urls');
   return links.reduce(function (correctedLinks, link) {
     if (link.href.indexOf('imgur') > -1 && !(link.href.endsWith('.jpg') ||
-      link.href.endsWith('.png') || link.href.endsWith('.gif')) ) {
-        const jpg = Object.assign({}, link);
-        jpg.href = jpg.href + '.jpg';
-        correctedLinks.push(jpg);
+    link.href.endsWith('.png') || link.href.endsWith('.gif')) ) {
+      const jpg = Object.assign({}, link);
+      jpg.href = jpg.href + '.jpg';
+      correctedLinks.push(jpg);
 
-        const gif = Object.assign({}, link);
-        gif.href = gif.href + '.gif';
-        correctedLinks.push(gif);
+      const gif = Object.assign({}, link);
+      gif.href = gif.href + '.gif';
+      correctedLinks.push(gif);
     } else {
       correctedLinks.push(link);
     }
@@ -57,40 +57,37 @@ function removeRedditReferences(links) {
   );
 }
 
-function validateLinks(context, subreddit) {
+function validateLinks(subreddit) {
   return links => {
     console.log("Validating urls");
-    links.forEach(link => {
-      request(link.href, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          if ( utils.isImageResponse(response) && !utils.hasLink(context, subreddit, link)){
+    const unfilteredLinksPromise = links.map(link => {
+      return new Promise((resolve, reject) => {
+        request(link.href, function (error, response, body) {
+          if (
+            !error &&
+            response.statusCode === 200 &&
+            utils.isImageResponse(response)
+          ) {
             link.id = Math.floor(Math.random() * 10000000);
-            attachLinkToContext(link, context, subreddit);
+            resolve(link);
+          } else {
+            reject("Invalid link");
           }
-        }
-      });
+        });
+      })
     });
+
+    return utils.getResolvedPromises(unfilteredLinksPromise);
   }
 }
 
-function attachLinkToContext(link, context, subreddit) {
-  if (!context[subreddit]) {
-    context[subreddit] = {
-      linkList: []
-    }
-  }
-  context.linkMap[link.id] = link;
-  context[subreddit].linkList.push(link);
-  console.log('pushed a link:', link.id);
-}
-
-function fetchSubredditLinks(subreddit, context) {
-  fetchSubreddit(subreddit)
-    .then(getLinks)
-    .then(correctImgurUrls)
-    .then(removeRedditReferences)
-    .then(validateLinks(context, subreddit))
-    .catch(error => console.error("Error fetching subreddit", subreddit, error));
+function fetchSubredditLinks(subreddit) {
+  return fetchSubreddit(subreddit)
+  .then(getLinks)
+  .then(correctImgurUrls)
+  .then(removeRedditReferences)
+  .then(validateLinks(subreddit))
+  .catch(error => console.error("Error fetching subreddit", subreddit, error));
 }
 
 
