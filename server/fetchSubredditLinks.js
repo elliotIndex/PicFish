@@ -23,6 +23,7 @@ function getLinks(page) {
     allLinks.push({
       text: element.text(),
       href: element.attr('href'),
+      id: Math.floor(Math.random() * 10000000)
     })
   });
 
@@ -48,14 +49,6 @@ function correctImgurUrls(links) {
   }, []);
 }
 
-function removeRedditReferences(links) {
-  console.log('Removing reddit references');
-  return links.filter(link => !(
-    link.text.indexOf('/r/') > -1 ||
-    link.text.indexOf('reddit') > -1 ||
-    link.text.indexOf('Reddit') > -1)
-  );
-}
 
 function validateLinks(subreddit) {
   return links => {
@@ -68,7 +61,6 @@ function validateLinks(subreddit) {
             response.statusCode === 200 &&
             utils.isImageResponse(response)
           ) {
-            link.id = Math.floor(Math.random() * 10000000);
             resolve(link);
           } else {
             reject("Invalid link");
@@ -85,8 +77,9 @@ function fetchSubredditLinks(subreddit) {
   return fetchSubreddit(subreddit)
   .then(getLinks)
   .then(correctImgurUrls)
-  .then(removeRedditReferences)
+  .then(utils.removeRedditReferences)
   .then(validateLinks(subreddit))
+  .then(utils.filterUniqueLinks)
   .catch(error => console.error("Error fetching subreddit", subreddit, error));
 }
 
