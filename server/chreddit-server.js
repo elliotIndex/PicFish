@@ -5,6 +5,7 @@ const scheduleLinkRefresh = require('./scheduleLinkRefresh');
 const globals = require('./globals');
 const cleanup = require('./cleanup');
 const database = require('./database');
+const environment = require('./environment');
 
 const globalStorageContext = { linkMap: {} };
 
@@ -26,7 +27,7 @@ app.get('/picture/:linkId', function (req, res) {
 });
 
 
-app.listen(3000, function () {
+app.listen(environment.port, function () {
   console.log('Express server connected');
 });
 

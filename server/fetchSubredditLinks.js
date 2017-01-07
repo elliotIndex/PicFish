@@ -9,11 +9,10 @@ function fetchSubreddit(subreddit) {
       scripts: ["http://code.jquery.com/jquery.js"],
       done: (err, page) => err ? reject(err) : resolve(page)
     });
-  }
-);
+  });
 }
 
-function getLinks(page) {
+function scrapeLinks(page) {
   console.log('Parsing');
   const allLinks = [];
   const $ = page.$;
@@ -76,7 +75,7 @@ function validateLinks(subreddit) {
 
 function fetchSubredditLinks(subreddit) {
   return fetchSubreddit(subreddit)
-  .then(getLinks)
+  .then(scrapeLinks)
   .then(correctImgurUrls)
   .then(utils.removeRedditReferences)
   .then(validateLinks(subreddit))
