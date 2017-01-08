@@ -1,3 +1,7 @@
+a:hover {
+  text-decoration: none;
+}
+
 .list-entry {
   list-style: none;
   padding: 20px;
@@ -5,13 +9,18 @@
 }
 
 .link-title {
-  display: block;
+  display: inline;
 }
 
 .link-img {
   max-width: 100%;
   min-height: 100px;
   border: 1px solid #eee;
+}
+
+.text-container {
+  display: block;
+  margin-top: 2vh;
 }
 
 @media only screen and (min-height: 200px)  {
