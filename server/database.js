@@ -19,7 +19,11 @@ module.exports = {
   },
 
   insertLinks: (links) => {
-    linksCollection.insert(links);
+    links.forEach(link => linksCollection.update(
+      { linkId: link.linkId },
+      link,
+      { upsert: true }
+    ));
   },
 
   findLink: (linkId) => {
