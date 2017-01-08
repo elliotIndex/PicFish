@@ -8,7 +8,7 @@ ul {
 
 .list-entry {
   list-style: none;
-  border-bottom: 1px solid #ccc;
+  margin-bottom: 2vh;
 }
 
 .link-title {
@@ -23,6 +23,7 @@ ul {
 .text-container {
   display: block;
   margin-top: 2vh;
+  padding: 0 1vh;
 }
 
 @media only screen and (min-height: 200px)  {
