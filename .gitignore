@@ -3,3 +3,4 @@ server/renderedSubreddits/*
 !server/renderedSubreddits/.gitkeep
 server/renderedSharedLinks/*
 !server/renderedSharedLinks/.gitkeep
+!server/renderedSharedLinks/defaultLink.html
