@@ -1,4 +1,5 @@
 const cron = require('node-cron');
+const fs = require('fs');
 const globals = require('./globals');
 
 function noOp() {};
@@ -32,6 +33,12 @@ module.exports = {
   scheduleFileCleanup: () => {
     cron.schedule(globals.fileCleanupInterval, () => {
       // fs."rm -rf" globals.shareLinkDir
+      const testFolder = './tests/';
+      fs.readdir(testFolder, (err, files) => {
+        files.forEach(file => {
+          console.log(file);
+        });
+      })
       // fs.create globals.shareLinkDir
     });
   }

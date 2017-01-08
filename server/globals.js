@@ -13,4 +13,7 @@ module.exports = {
   defaultFilename: 'defaultLink.html',
   linkRefreshInterval: '*/30 * * * *', // should be hourly
   fileCleanupInterval: '0 0 * * * *', // should be daily
+  renderedSubredditsDir: __dirname + '/renderedSubreddits/',
+  renderedSharedLinksDir: __dirname + '/renderedSharedLinks/',
+
 }

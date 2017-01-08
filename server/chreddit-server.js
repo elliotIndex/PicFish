@@ -9,9 +9,6 @@ const environment = require('./environment');
 const findOrCreatefile = require('./findOrCreatefile');
 const utils = require('./utils');
 
-globals.renderedSubredditsDir = __dirname + '/renderedSubreddits/';
-globals.renderedSharedLinksDir = __dirname + '/renderedSharedLinks/';
-
 app.use(express.static('../client'));
 
 app.get('/:terminal', function (req, res) {
@@ -29,9 +26,9 @@ app.get('/:terminal', function (req, res) {
       console.log("Sending back file", globals.renderedSharedLinksDir + filename);
       res.sendFile(globals.renderedSharedLinksDir + filename);
     })
-    .catch(err => res.sendFile(defaultLinkPath));
+    .catch(err => res.sendFile(globals.renderedSharedLinksDir + globals.defaultFilename));
   } else { // remove this one
-    res.sendFile(path.resolve(__dirname + '/../client/index.html'));
+    res.sendFile(globals.renderedSharedLinksDir + globals.defaultFilename)
   }
 });
 
