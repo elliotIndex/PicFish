@@ -6,13 +6,18 @@ const globals = require('./globals');
 const cleanup = require('./cleanup');
 const database = require('./database');
 const environment = require('./environment');
+const utils = require('./utils');
 
 const globalStorageContext = { linkMap: {} };
 
 app.use(express.static('../client'));
 
-app.get('/:anything', function (req, res) {
-  res.sendFile(path.resolve(__dirname + '/../client/index.html'));
+app.get('/:terminal', function (req, res) {
+  if (utils.isSubreddit(req.params.terminal)) {
+    res.sendFile(path.resolve(__dirname + '/rendered/' + req.params.terminal + '.html'));
+  } else {
+    res.sendFile(path.resolve(__dirname + '/../client/index.html'));
+  }
 });
 
 app.get('/sub/:subname', function (req, res) {

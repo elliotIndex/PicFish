@@ -1,11 +1,11 @@
 devEnvironment = {
-  mode: dev,
+  mode: "dev",
   domain: "localhost",
   port: 3000,
 }
 
 prodEnvironment = {
-  mode: prod,
+  mode: "prod",
   domain: "www.listoftheday.fish",
   port: 3000,
 }

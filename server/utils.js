@@ -1,14 +1,16 @@
+const globals = require('./globals');
+
 module.exports = {
-  hasLink: function(context, subreddit, link) {
+  hasLink: (context, subreddit, link) => {
     return context[subreddit] &&
     context[subreddit].some(containedLink => link.text === containedLink.text);
   },
 
-  isImageResponse: function(res) {
+  isImageResponse: (res) => {
     return ~res.headers['content-type'].indexOf('image');
   },
 
-  getResolvedPromises: function(promises) {
+  getResolvedPromises: (promises) => {
     const FAIL_TOKEN = {};
 
     return Promise.all(
@@ -18,7 +20,7 @@ module.exports = {
     );
   },
 
-  filterUniqueLinks: function(links) {
+  filterUniqueLinks: (links) => {
     console.log('Filtering unique links');
     const uniqIds = new Set();
     return links.reduce((uniqLinks, link) => {
@@ -31,7 +33,7 @@ module.exports = {
   },
 
 
-  removeRedditReferences: function(links) {
+  removeRedditReferences: (links) => {
     console.log('Removing reddit references');
     return links.filter(link => !(
       link.text.indexOf('/r/') > -1 ||
@@ -40,7 +42,7 @@ module.exports = {
     );
   },
 
-  generateHashCode: function(string) {
+  generateHashCode: (string) => {
     var hash = 0, i, chr, len;
     if (string.length === 0) return hash;
     for (i = 0, len = string.length; i < len; i++) {
@@ -54,4 +56,11 @@ module.exports = {
     return hash.toString();
   },
 
+  createFilePath: (filename) => {
+    return `./rendered/${filename}.html`
+  },
+
+  isSubreddit: (terminal) => {
+    return ~globals.subreddits.indexOf(terminal);
+  }
 }

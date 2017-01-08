@@ -1,9 +1,9 @@
 module.exports = {
   subreddits: [
     'funny',
-    'aww',
-    'pics',
-    'gifs',
+    // 'aww',
+    // 'pics',
+    // 'gifs',
   ],
   defaultLink: {
     text: 'Uh oh! We couldn\'t find the picture you were looking for. We\'ll try to fix it on our end :)',

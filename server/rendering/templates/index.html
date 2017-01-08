@@ -50,18 +50,16 @@
   </nav>
 
   <div class="list-container">
-    <ul id="image-list"></ul>
+    <ul id="image-list">
+      {{#links}}
+      <li class="list-entry">
+        <h3 class="link-title">{{text}}</h3>
+        <h5 class="link-share">{{linkId}}</h5>
+        <img src="{{href}}" class="link-img">
+      </li>
+      {{/links}}
+    </ul>
   </div>
-
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous">
-  </script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous">
-  </script>
-  <script src="pullReddit.js"></script>
 </body>
 
 </html>
