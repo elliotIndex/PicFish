@@ -5,10 +5,7 @@ module.exports = {
     return ~res.headers['content-type'].indexOf('image');
   },
 
-  isLinkId: (item) => {
-    console.log("linkId?", item);
-    return item && 1;
-  },
+  isLinkId: (item) => item && !isNaN(parseInt(item)),
 
   getResolvedPromises: (promises) => {
     const FAIL_TOKEN = {};

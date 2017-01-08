@@ -18,7 +18,7 @@ module.exports = (terminal) => {
         .then(filename => resolve(filename));
       } else {
         console.log('Found cached file');
-        resolve(terminal + '.html');
+        resolve(filename);
       }
     });
   });
