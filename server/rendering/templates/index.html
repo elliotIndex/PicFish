@@ -11,7 +11,7 @@
     crossorigin="anonymous" />
   <link href="style.css"
     rel="stylesheet" />
-  
+
 </head>
 
 <body>
@@ -47,15 +47,42 @@
             <h3 class="link-title">{{text}}</h3>
           </a>
         </div>
-        <div class="text-container">
-          <a href="http://localhost:3000/{{linkId}}">
-            <h5 class="link-share">localhost:3000/{{linkId}}</h5>
-          </a>
-        </div>
+        <!-- trigger modal -->
+        <button
+          type="button"
+          class="btn btn-primary btn-lg"
+          data-toggle="modal"
+          data-target="#share-link-modal"
+          data-link="localhost:3000/{{linkId}}">
+          Share Pic
+        </button>
       </li>
       {{/links}}
     </ul>
   </div>
+
+  <!-- modal -->
+  <div class="modal fade" id="share-link-modal">
+    <div class="modal-dialog">
+
+      <!-- modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Thanks for Sharing!</h4>
+        </div>
+        <div class="modal-body">
+          <p id="copy-target">Some example text to be copied to your clipboard</p>
+        </div>
+        <div class="modal-footer">
+          <button onclick="copyToClipboard()" class="btn btn-default" id="copy-button">Copy</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous">
@@ -64,6 +91,24 @@
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous">
   </script>
+  <script>
+    $('#share-link-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var shareLink = button.data('link');
+      var modal = $(this);
+      modal.find('#copy-target').text(shareLink);
+    })
+
+    function copyToClipboard() {
+      var copyTarget = document.getElementById("copy-target");
+      var range = document.createRange();
+
+      range.selectNode(copyTarget);
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+    }
+  </script>
+
 </body>
 
 </html>
