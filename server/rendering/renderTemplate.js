@@ -4,18 +4,6 @@ var utils = require('../utils');
 
 mu.root = __dirname + '/templates';
 
-function writeToPage(stream, filename) {
-  const filepath = utils.createFilePath(filename)
-
-  fs.writeFileStream(filepath, stream, { flag: 'w' }, (err) => {
-    if(err) {
-      return console.log(err);
-    }
-
-    console.log(filename, 'was saved!');
-  });
-}
-
 module.exports = (links, filename) => {
   const filepath = utils.createFilePath(filename)
 
