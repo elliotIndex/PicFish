@@ -12,5 +12,5 @@ module.exports = {
   },
   defaultFilename: 'defaultLink.html',
   linkRefreshInterval: '*/30 * * * *', // should be hourly
-  fileCleanupInterval: '*/59 * * * *', // should be daily
+  fileCleanupInterval: '0 0 * * * *', // should be daily
 }
