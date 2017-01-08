@@ -1,3 +1,5 @@
 node_modules
-server/rendered/*
-!server/rendered/.gitkeep
+server/renderedSubreddits/*
+!server/renderedSubreddits/.gitkeep
+server/renderedSharedLinks/*
+!server/renderedSharedLinks/.gitkeep

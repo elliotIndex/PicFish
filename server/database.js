@@ -35,6 +35,6 @@ module.exports = {
 
   close: () => {
     console.log("Closing Database");
-    _db.close();
+    _db && _db.close();
   }
 }

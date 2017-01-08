@@ -1,13 +1,13 @@
 const globals = require('./globals');
 
 module.exports = {
-  hasLink: (context, subreddit, link) => {
-    return context[subreddit] &&
-    context[subreddit].some(containedLink => link.text === containedLink.text);
-  },
-
   isImageResponse: (res) => {
     return ~res.headers['content-type'].indexOf('image');
+  },
+
+  isLinkId: (item) => {
+    console.log("linkId?", item);
+    return item && 1;
   },
 
   getResolvedPromises: (promises) => {
@@ -57,7 +57,7 @@ module.exports = {
   },
 
   createFilePath: (filename) => {
-    return `./rendered/${filename}.html`
+    return `./renderedSubreddits/${filename}.html`
   },
 
   isSubreddit: (terminal) => {

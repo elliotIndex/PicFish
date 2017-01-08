@@ -1,35 +1,31 @@
-var cron = require('node-cron');
+const cron = require('node-cron');
 const fetchSubredditLinks = require('./fetchSubredditLinks');
 const globals = require('./globals');
 const database = require('./database');
 const renderTemplate = require('./rendering/renderTemplate');
 
-function fetchAllSubreddits(subreddits, context) {
+function fetchAllSubreddits(subreddits) {
   subreddits.forEach(subreddit => {
-    fetchSubredditLinks(subreddit, context)
-    .then(links => {
-      console.log("Updated subreddit: ", subreddit);
-      context[subreddit] = links
-      return links;
-    })
-    .then(links => renderTemplate(links, subreddit))
-    .then(addLinksToDb)
+    const subredditLinks = fetchSubredditLinks(subreddit);
+
+    subredditLinks
+    .then(links => renderTemplate(links, subreddit + '.html', 'renderedSubreddits'))
+    .catch(error => console.error("Error rendering subreddit:", subreddit, error));
+
+    subredditLinks
+    .then(links => database.insertLinks(links))
     .catch(error => console.error("Error storing subreddit:", subreddit, error));
   });
 }
 
-function addLinksToDb(links) {
-  database.insertLinks(links)
-}
-
-function scheduleLinkRefresh(subreddits, context) {
+function scheduleLinkRefresh(subreddits) {
   console.log('Fetching all subreddits');
-  fetchAllSubreddits(subreddits, context);
+  fetchAllSubreddits(subreddits);
 
   console.log('Scheduling Link Refresh');
-  cron.schedule(globals.chronInterval, () => {
+  cron.schedule(globals.linkRefreshInterval, () => {
     console.log('Refreshing links');
-    fetchAllSubreddits(subreddits, context);
+    fetchAllSubreddits(subreddits);
   });
 }
 

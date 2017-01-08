@@ -4,19 +4,23 @@ var utils = require('../utils');
 
 mu.root = __dirname + '/templates';
 
-module.exports = (links, filename) => {
-  const filepath = utils.createFilePath(filename)
+module.exports = (links, filename, folder) => {
+  return new Promise((resolve, reject) => {
+    const filepath = './' + folder + '/' + filename;
+    const wstream = fs.createWriteStream(filepath);
+    const muStream = mu.compileAndRender('index.html', { links });
 
-  const wstream = fs.createWriteStream('./rendered/' + filename + '.html');
+    muStream.on('data', (renderedStream) => wstream.write(renderedStream));
 
-  const muStream = mu.compileAndRender('index.html', { links });
+    muStream.on('end', () => {
+      console.log('Finished rendering', filename);
+      console.log(wstream.toString());
+      setTimeout(() => {
+        wstream.end();
+        resolve(filename);
+      }, 0);
+    });
 
-  muStream.on('data', (renderedStream) => wstream.write(renderedStream));
-
-  muStream.on('end', () => {
-    console.log('Finished rendering', filename);
-    wstream.end();
+    muStream.on('error', () => reject(error));
   });
-
-  return links;
 }
