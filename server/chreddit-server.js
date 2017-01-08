@@ -9,10 +9,15 @@ const environment = require('./environment');
 const findOrCreatefile = require('./findOrCreatefile');
 const utils = require('./utils');
 
+
+app.get('/', function (req, res) {
+  console.log("Serving default subreddit");
+  res.sendFile(path.resolve(globals.renderedSubredditsDir + globals.subreddits[0] + '.html'));
+});
+
 app.use(express.static('../client'));
 
 app.get('/:terminal', function (req, res) {
-
   if (!req.params.terminal) {
     console.log("Serving default subreddit");
     res.sendFile(path.resolve(globals.renderedSubredditsDir + globals.subreddits[0] + '.html'));
