@@ -11,8 +11,8 @@ module.exports = {
     linkId: 47378
   },
   defaultFilename: 'defaultLink.html',
-  linkRefreshInterval: '*/30 * * * *', // should be hourly
-  fileCleanupInterval: '0 0 * * * *', // should be daily
+  linkRefreshInterval: '30 * * * *', // hourly on the **:30
+  fileCleanupInterval: '1 0 * * * *', // daily at 12:01am
   renderedSubredditsDir: __dirname + '/renderedSubreddits/',
   renderedSharedLinksDir: __dirname + '/renderedSharedLinks/',
 

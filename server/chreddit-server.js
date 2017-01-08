@@ -39,5 +39,6 @@ app.listen(environment.port, function () {
 database.connect();
 
 cleanup.prepForServerShutdown(database.close);
+cleanup.scheduleFileCleanup();
 
 scheduleLinkRefresh(globals.subreddits);

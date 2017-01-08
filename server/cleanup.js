@@ -1,6 +1,7 @@
 const cron = require('node-cron');
 const fs = require('fs');
 const globals = require('./globals');
+const utils = require('./utils');
 
 function noOp() {};
 module.exports = {
@@ -32,14 +33,14 @@ module.exports = {
 
   scheduleFileCleanup: () => {
     cron.schedule(globals.fileCleanupInterval, () => {
-      // fs."rm -rf" globals.shareLinkDir
-      const testFolder = './tests/';
-      fs.readdir(testFolder, (err, files) => {
+      fs.readdir(globals.renderedSharedLinksDir, (err, files) => {
+        console.log("Files to cleanup");
         files.forEach(file => {
-          console.log(file);
+          if (file !== ".gitkeep" && file !== "defaultLink.html") {
+            fs.unlink(globals.renderedSharedLinksDir + file);
+          }
         });
       })
-      // fs.create globals.shareLinkDir
     });
   }
 }
