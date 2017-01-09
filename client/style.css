@@ -6,9 +6,13 @@ ul {
   padding: 0;
 }
 
+.pop-share {
+  cursor: pointer;
+}
+
 .list-entry {
   list-style: none;
-  margin-bottom: 2vh;
+  margin-bottom: 4vh;
 }
 
 .link-title {
@@ -20,8 +24,14 @@ ul {
   min-height: 100px;
 }
 
+.link-text {
+  display: inline-block;
+  width: 75%;
+}
+
 .text-container {
-  display: block;
+  display: flex;
+  justify-content: center;
   margin-top: 2vh;
   padding: 0 1vh;
 }
@@ -56,7 +66,8 @@ ul {
 
 .list-container {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #image-list {

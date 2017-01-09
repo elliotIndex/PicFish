@@ -38,24 +38,24 @@
   </nav>
 
   <div class="list-container">
+    <p>
+      CLICK ON A PIC TO SHARE
+    </p>
     <ul id="image-list">
       {{#links}}
       <li class="list-entry">
-        <a href="http://localhost:3000/{{linkId}}"><img src="{{href}}" class="link-img"></a>
+          <img src="{{href}}" class="link-img pop-share"
+            data-toggle="modal"
+            data-target="#share-link-modal"
+            data-link="localhost:3000/{{linkId}}" />
         <div class="text-container">
-          <a href="http://localhost:3000/{{linkId}}">
-            <h3 class="link-title">{{text}}</h3>
-          </a>
+            <h3 class="link-title pop-share"
+              data-toggle="modal"
+              data-target="#share-link-modal"
+              data-link="localhost:3000/{{linkId}}">
+              {{text}}
+            </h3>
         </div>
-        <!-- trigger modal -->
-        <button
-          type="button"
-          class="btn btn-primary btn-lg"
-          data-toggle="modal"
-          data-target="#share-link-modal"
-          data-link="localhost:3000/{{linkId}}">
-          Share Pic
-        </button>
       </li>
       {{/links}}
     </ul>
