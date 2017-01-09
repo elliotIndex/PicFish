@@ -1,18 +1,16 @@
 const express = require('express');
 const app = express();
-const path = require('path');
 const scheduleLinkRefresh = require('./scheduleLinkRefresh');
 const globals = require('./globals');
 const cleanup = require('./cleanup');
 const database = require('./database');
 const environment = require('./environment');
-const findOrCreatefile = require('./findOrCreatefile');
+const fileServer = require('./fileServer');
 const utils = require('./utils');
 
 app.get('/', function (req, res) {
   database.incrementVisitCount();
-  console.log("Serving default subreddit");
-  res.sendFile(path.resolve(globals.renderedSubredditsDir + globals.subreddits['pics'] + '.html'));
+  fileServer.serveDefaultFile(req, res);
 });
 
 app.use(express.static('../client'));
@@ -20,18 +18,13 @@ app.use(express.static('../client'));
 app.get('/:terminal', function (req, res) {
   database.incrementVisitCount();
   if (!req.params.terminal) {
-    console.log("Serving default subreddit");
-    res.sendFile(path.resolve(globals.renderedSubredditsDir + globals.subreddits['pics'] + '.html'));
+    fileServer.serveDefaultFile(req, res);
   } else if (utils.isSubreddit(req.params.terminal)) {
-    console.log("Serving subreddit");
-    res.sendFile(path.resolve(globals.renderedSubredditsDir + req.params.terminal + '.html'));
+    fileServer.serveSubreddit(req, res, req.params.terminal);
   } else if (utils.isLinkId(req.params.terminal)) {
-    console.log("Serving shared link");
-    findOrCreatefile(req.params.terminal) // resolves with filepath, rejects if id not found
-    .then(filename => res.sendFile(globals.renderedSharedLinksDir + filename))
-    .catch(err => res.sendFile(globals.renderedSharedLinksDir + globals.defaultFilename));
-  } else { // remove this one
-    res.sendFile(globals.renderedSharedLinksDir + globals.defaultFilename)
+    fileServer.serveLinkFile(req, res, linkId);
+  } else {
+    fileServer.serveDefaultFile(req, res);
   }
 });
 

@@ -37,7 +37,7 @@ module.exports = {
     );
   },
 
-  removeNSFWlinks: (links) => links.filter(link => !link.text.indexOf('nsfw')),
+  removeNSFWlinks: (links) => links.filter(link => link.text.indexOf('nsfw') !== 0),
 
   generateHashCode: (string) => {
     var hash = 0, i, chr, len;
