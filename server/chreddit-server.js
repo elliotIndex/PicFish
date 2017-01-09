@@ -26,7 +26,7 @@ app.get('/:terminal', function (req, res) {
   } else if (utils.isSubreddit(req.params.terminal)) {
     fileServer.serveSubreddit(req, res, req.params.terminal);
   } else if (utils.isLinkId(req.params.terminal)) {
-    fileServer.serveLinkFile(req, res, linkId);
+    fileServer.serveLinkFile(req, res, req.params.terminal);
   } else {
     fileServer.serveDefaultFile(req, res);
   }
