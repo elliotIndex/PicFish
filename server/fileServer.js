@@ -1,6 +1,6 @@
 const path = require('path');
 const globals = require('./globals');
-const findOrCreatefile = require('./findOrCreateFile');
+const findOrCreateFile = require('./findOrCreateFile');
 
 module.exports = {
   serveDefaultFile: (req, res) => {
@@ -15,7 +15,7 @@ module.exports = {
 
   serveLinkFile: (req, res, linkId) => {
     console.log("Serving shared link");
-    findOrCreatefile(linkId) // resolves with filepath, rejects if id not found
+    findOrCreateFile(linkId) // resolves with filepath, rejects if id not found
     .then(filename => res.sendFile(globals.renderedSharedLinksDir + filename))
     .catch(err => res.sendFile(globals.renderedSharedLinksDir + globals.defaultFilename));
   },
