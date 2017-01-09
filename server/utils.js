@@ -59,5 +59,10 @@ module.exports = {
 
   isSubreddit: (terminal) => {
     return ~globals.subreddits.indexOf(terminal);
+  },
+
+  getDate: () => {
+    const now = new Date();
+    return now.getDate() + "-" + (now.getMonth() + 1) + "-" + now.getFullYear();
   }
 }
