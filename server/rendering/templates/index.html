@@ -24,7 +24,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">PicFish</a>
+        <span class="navbar-brand">PicFish</span>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -47,8 +47,9 @@
         data-toggle="modal"
         data-target="#share-link-modal"
         data-link="localhost:3000/{{linkId}}" >
-
+        <div class="img-container">
           <img src="{{href}}" class="link-img" />
+        </div>
         <div class="text-container">
             <h3 class="link-title">
               {{text}}
