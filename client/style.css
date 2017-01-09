@@ -56,6 +56,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .list-container {
@@ -79,7 +80,7 @@ p {
 }
 
 #copy-target {
-  font-size: 4vh;
+  font-size: 3.5vh;
   cursor: pointer;
 }
 
