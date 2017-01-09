@@ -21,11 +21,11 @@ module.exports = {
 
   insertLinks: (links) => {
     console.log("Inserting lins:", links);
-    links.forEach(link => linksCollection.update(
+    Promise.all(links.map(link => linksCollection.update(
       { linkId: link.linkId },
       link,
       { upsert: true }
-    ));
+    ))).then(results => console.log("REsults:", results););
   },
 
   findLink: (linkId) => {
