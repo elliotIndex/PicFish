@@ -1,6 +1,6 @@
 const path = require('path');
 const globals = require('./globals');
-const findOrCreatefile = require('./findOrCreatefile');
+const findOrCreatefile = require('./findOrCreateFile');
 
 module.exports = {
   serveDefaultFile: (req, res) => {
