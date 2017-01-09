@@ -58,7 +58,7 @@ module.exports = {
   },
 
   isSubreddit: (terminal) => {
-    return ~globals.subreddits.indexOf(terminal);
+    return globals.subreddits[terminal];
   },
 
   getDate: () => {

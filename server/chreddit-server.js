@@ -22,7 +22,7 @@ app.get('/:terminal', function (req, res) {
   database.incrementVisitCount();
   if (!req.params.terminal) {
     console.log("Serving default subreddit");
-    res.sendFile(path.resolve(globals.renderedSubredditsDir + globals.subreddits[0] + '.html'));
+    res.sendFile(path.resolve(globals.renderedSubredditsDir + globals.subreddits['pics'] + '.html'));
   } else if (utils.isSubreddit(req.params.terminal)) {
     console.log("Serving subreddit");
     res.sendFile(path.resolve(globals.renderedSubredditsDir + req.params.terminal + '.html'));
