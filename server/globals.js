@@ -18,5 +18,6 @@ module.exports = {
   renderedSubredditsDir: __dirname + '/renderedSubreddits/',
   renderedSharedLinksDir: __dirname + '/renderedSharedLinks/',
   stylesheetDir: __dirname + '/style.css',
+  staticFileDir: __dirname + '/client',
 
 }
