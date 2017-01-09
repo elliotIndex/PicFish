@@ -17,5 +17,6 @@ module.exports = {
   fileCleanupInterval: '1 0 * * * *', // daily at 12:01am
   renderedSubredditsDir: __dirname + '/renderedSubreddits/',
   renderedSharedLinksDir: __dirname + '/renderedSharedLinks/',
+  stylesheetDir: __dirname + '/styles.css',
 
 }

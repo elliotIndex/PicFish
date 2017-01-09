@@ -8,6 +8,10 @@ const environment = require('./environment');
 const fileServer = require('./fileServer');
 const utils = require('./utils');
 
+app.get('/style.css', function (req, res) {
+  fileServer.sendStyleSheet(req, res);
+});
+
 app.get('/', function (req, res) {
   database.incrementVisitCount();
   fileServer.serveDefaultFile(req, res);

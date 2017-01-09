@@ -19,4 +19,8 @@ module.exports = {
     .then(filename => res.sendFile(globals.renderedSharedLinksDir + filename))
     .catch(err => res.sendFile(globals.renderedSharedLinksDir + globals.defaultFilename));
   },
+
+  sendStyleSheet: (req, res) => {
+    res.sendFile(path.resolve(globals.stylesheetDir));
+  }
 }
