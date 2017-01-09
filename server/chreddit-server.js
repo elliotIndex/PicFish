@@ -12,13 +12,12 @@ const utils = require('./utils');
 //   fileServer.sendStyleSheet(req, res);
 // });
 
-
-app.use(express.static(globals.staticFileDir));
-
 app.get('/', function (req, res) {
   database.incrementVisitCount();
   fileServer.serveDefaultFile(req, res);
 });
+
+app.use(express.static(globals.staticFileDir));
 
 app.get('/:terminal', function (req, res) {
   database.incrementVisitCount();
