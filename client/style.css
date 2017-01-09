@@ -1,3 +1,7 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 a:hover {
   text-decoration: none;
 }
@@ -85,8 +89,9 @@ p {
 }
 
 @media only screen and (max-width: 414px)  {
-  .text-container {
-    /*text-align: left;*/
+  .list-entry {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -101,4 +106,19 @@ p {
 
 .navbar-brand {
   border-right: 1px solid #eee;
+}
+
+.header-text {
+  text-align: center;
+}
+
+.header-text.main {
+  font-size: 3.5em;
+  line-height: 1em;
+  margin-bottom: 0.5em;
+}
+
+.header-text.sub {
+  font-size: 1.5em;
+  margin-bottom: 5vh;
 }
