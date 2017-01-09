@@ -54,7 +54,7 @@ module.exports = {
   },
 
   createFilePath: (filename) => {
-    return `./renderedSubreddits/${filename}.html`
+    return `./server/renderedSubreddits/${filename}.html`
   },
 
   isSubreddit: (terminal) => {

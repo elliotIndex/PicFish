@@ -6,7 +6,7 @@ const renderTemplate = require('./rendering/renderTemplate');
 module.exports = (terminal) => {
   const filename = terminal +'.html';
   return new Promise((resolve, reject) => {
-    fs.access('./renderedSharedLinks/' + filename, (err) => {
+    fs.access(globals.renderedSharedLinksDir + filename, (err) => {
       if (err) {
         console.log('Creating file', filename);
         database.findLink(terminal)

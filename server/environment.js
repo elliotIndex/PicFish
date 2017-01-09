@@ -1,6 +1,6 @@
 devEnvironment = {
   mode: "dev",
-  domain: "localhost",
+  domain: "localhost:3000",
   port: 3000,
 }
 
@@ -10,4 +10,6 @@ prodEnvironment = {
   port: 3000,
 }
 
-module.exports = process.env.prod ? prodEnvironment : devEnvironment;
+console.log("Running in mode:", process.env.NODE_ENV);
+
+module.exports = process.env.NODE_ENV === "prod" ? prodEnvironment : devEnvironment;

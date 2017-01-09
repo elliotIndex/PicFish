@@ -4,7 +4,9 @@
   "description": "A cousin of reddit with simpler UI",
   "main": "server/chreddit-server.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "dev": "NODE_ENV=dev nodemon server/chreddit-server.js",
+    "prod": "NODE_ENV=prod node server/chreddit-server.js"
   },
   "repository": {
     "type": "git",
