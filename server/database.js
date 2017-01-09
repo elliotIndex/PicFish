@@ -1,16 +1,14 @@
 var MongoClient = require('mongodb').MongoClient;
 var utils = require('./utils');
+var environment = require('./environment');
 
-// Connection URL
-// change for prod?
-var url = 'mongodb://localhost:27017/linksDb';
 let _db = null;
 let linksCollection = null;
 let statsCollection = null;
 
 module.exports = {
   connect: () => {
-    MongoClient.connect(url, (err, db) => {
+    MongoClient.connect(environment.mongoUrl, (err, db) => {
       if (err) {
         console.error('Failed to connect to DB:', err);
       } else {
