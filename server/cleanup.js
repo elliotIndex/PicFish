@@ -34,7 +34,7 @@ module.exports = {
   scheduleFileCleanup: () => {
     cron.schedule(globals.fileCleanupInterval, () => {
       fs.readdir(globals.renderedSharedLinksDir, (err, files) => {
-        console.log("Files to cleanup");
+        console.log("Cleaning generated files");
         files.forEach(file => {
           if (file !== ".gitkeep" && file !== "defaultLink.html") {
             fs.unlink(globals.renderedSharedLinksDir + file);

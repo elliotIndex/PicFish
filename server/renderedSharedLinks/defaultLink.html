@@ -1,13 +1,17 @@
 <html>
 
 <head>
-  <title>Chreddit</title>
-  <link href="style.css"
-    rel="stylesheet" />
+  <title>PicFish</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     rel="stylesheet"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous" />
+  <link href="style.css"
+    rel="stylesheet" />
+
 </head>
 
 <body>
@@ -20,45 +24,96 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">PicFish</a>
+        <span class="navbar-brand">PicFish</span>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header">Nav header</li>
-              <li><a href="#">Separated link</a></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-          <li><a href="../navbar-static-top/">Static top</a></li>
-          <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+          <li><a class="nav-link" href="http://localhost:3000/pics">All</a></li>
+          <li><a class="nav-link" href="http://localhost:3000/funny">Funny</a></li>
+          <li><a class="nav-link" href="http://localhost:3000/cute">Cute</a></li>
+          <li><a class="nav-link" href="http://localhost:3000/gifs">Gifs</a></li>
+          <li><a class="nav-link" href="http://localhost:3000/gaming">Gaming</a></li>
+          <li><a class="nav-link" href="http://localhost:3000/earth">Earth</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
   </nav>
 
   <div class="list-container">
+    <p>
+      Click any picture to share
+    </p>
     <ul id="image-list">
 
-      <li class="list-entry">
-        <h3 class="link-title">Uh oh! We couldn't find the picture you were looking for. We'll try to fix it on our end :)</h3>
-        <img src="http://imgur.com/PbcZq8t.jpg" class="link-img">
+      <li class="list-entry"
+        data-toggle="modal"
+        data-target="#share-link-modal"
+        data-link="localhost:3000/399667862" >
+        <div class="img-container">
+          <img src="http://imgur.com/PbcZq8t.jpg" class="link-img" />
+        </div>
+        <div class="text-container">
+            <h3 class="link-title">
+              Uh oh! We couldn't find the picture you were looking for. We'll try to fix it on our end :)
+            </h3>
+        </div>
       </li>
 
     </ul>
   </div>
+
+  <!-- modal -->
+  <div class="modal fade" id="share-link-modal">
+    <div class="modal-dialog">
+
+      <!-- modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Thanks for Sharing!</h4>
+        </div>
+        <div class="modal-body">
+          <a id="copy-link">
+            <span id="copy-target">
+              localhost:3000
+            </span>
+          </a>
+          <button onclick="copyToClipboard()" class="btn btn-default" id="copy-button">
+            Copy to Clipboard
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous">
+  </script>
+  <script>
+    $('#share-link-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var shareLink = button.data('link');
+      var modal = $(this);
+      modal.find('#copy-target').text(shareLink);
+      modal.find('#copy-link').attr('href', 'http://' + shareLink);
+    })
+
+    function copyToClipboard() {
+      var copyTarget = document.getElementById("copy-target");
+      var range = document.createRange();
+
+      range.selectNode(copyTarget);
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+    }
+  </script>
+
 </body>
 
 </html>

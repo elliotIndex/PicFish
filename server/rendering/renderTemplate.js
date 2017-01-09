@@ -10,7 +10,9 @@ module.exports = (links, filename, folder) => {
     const wstream = fs.createWriteStream(filepath);
     const muStream = mu.compileAndRender('index.html', { links });
 
-    muStream.on('data', (renderedStream) => wstream.write(renderedStream));
+    muStream.on('data', (renderedStream) => {
+      wstream.write(renderedStream)
+    });
 
     muStream.on('end', () => {
       console.log('Finished rendering', filename);
