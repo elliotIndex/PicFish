@@ -130,6 +130,16 @@
       var copyTarget = document.getElementById("copy-target");
       var range = document.createRange();
 
+      if (window.getSelection) {
+         if (window.getSelection().empty) {  // Chrome
+           window.getSelection().empty();
+         } else if (window.getSelection().removeAllRanges) {  // Firefox
+           window.getSelection().removeAllRanges();
+         }
+      } else if (document.selection) {  // IE?
+        document.selection.empty();
+      }
+
       range.selectNode(copyTarget);
       window.getSelection().addRange(range);
       document.execCommand('copy');
