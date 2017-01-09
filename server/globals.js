@@ -12,7 +12,7 @@ module.exports = {
     href: 'http://imgur.com/PbcZq8t.jpg',
     linkId: 47378
   },
-  defaultFilename: 'defaultLink.html',
+  defaultFilename: __dirname + '/renderedSharedLinks/defaultLink.html',
   linkRefreshInterval: '30 * * * *', // hourly on the **:30
   fileCleanupInterval: '1 0 * * * *', // daily at 12:01am
   renderedSubredditsDir: __dirname + '/renderedSubreddits/',

@@ -5,12 +5,32 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     rel="stylesheet"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous" />
   <link href="style.css"
     rel="stylesheet" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
 
 </head>
 
@@ -28,12 +48,6 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <!-- <li><a class="nav-link" href="http://localhost:3000/pics">All</a></li>
-          <li><a class="nav-link" href="http://localhost:3000/funny">Funny</a></li>
-          <li><a class="nav-link" href="http://localhost:3000/cute">Cute</a></li>
-          <li><a class="nav-link" href="http://localhost:3000/gifs">Gifs</a></li>
-          <li><a class="nav-link" href="http://localhost:3000/gaming">Gaming</a></li>
-          <li><a class="nav-link" href="http://localhost:3000/earth">Earth</a></li> -->
           <li><a class="nav-link" href="http://www.pic.fish/pics">All</a></li>
           <li><a class="nav-link" href="http://www.pic.fish/funny">Funny</a></li>
           <li><a class="nav-link" href="http://www.pic.fish/cute">Cute</a></li>
@@ -46,25 +60,22 @@
   </nav>
 
   <div class="list-container">
-    <p>
-      Click any picture to share
-    </p>
-    <ul id="image-list">
 
-      <li class="list-entry"
-        data-toggle="modal"
-        data-target="#share-link-modal"
-        data-link="localhost:3000/399667862" >
+    <div class="header-text main"> The best pictures from around the web, updated hourly </div>
+
+    <ul id="image-list">
+      {{#links}}
+      <li class="list-entry">
         <div class="img-container">
           <img src="http://imgur.com/PbcZq8t.jpg" class="link-img" />
         </div>
         <div class="text-container">
             <h3 class="link-title">
-              Uh oh! We couldn't find the picture you were looking for. We'll try to fix it on our end :)
+              Uh oh! We couldn\'t find the picture you were looking for. We\'ll try to fix it on our end :)
             </h3>
         </div>
       </li>
-
+      {{/links}}
     </ul>
   </div>
 
@@ -81,7 +92,7 @@
         <div class="modal-body">
           <a id="copy-link">
             <span id="copy-target">
-              localhost:3000
+              <!-- www.pic.fish -->
             </span>
           </a>
           <button onclick="copyToClipboard()" class="btn btn-default" id="copy-button">
@@ -113,6 +124,16 @@
     function copyToClipboard() {
       var copyTarget = document.getElementById("copy-target");
       var range = document.createRange();
+
+      if (window.getSelection) {
+         if (window.getSelection().empty) {  // Chrome
+           window.getSelection().empty();
+         } else if (window.getSelection().removeAllRanges) {  // Firefox
+           window.getSelection().removeAllRanges();
+         }
+      } else if (document.selection) {  // IE?
+        document.selection.empty();
+      }
 
       range.selectNode(copyTarget);
       window.getSelection().addRange(range);
