@@ -33,7 +33,7 @@ app.get('/:terminal', function (req, res) {
 });
 
 app.listen(environment.port, function () {
-  console.log('Express server connected');
+  console.log('Express server connected on port', environment.port);
 });
 
 database.connect();

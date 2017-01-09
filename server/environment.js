@@ -9,7 +9,7 @@ prodEnvironment = {
   mode: "prod",
   domain: "www.pic.fish",
   mongoUrl: 'mongodb://0.0.0.0:27017/linksDb',
-  port: 3000,
+  port: 80,
 }
 
 console.log("Running in mode:", process.env.NODE_ENV);
