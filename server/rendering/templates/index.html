@@ -71,11 +71,14 @@
           <h4 class="modal-title">Thanks for Sharing!</h4>
         </div>
         <div class="modal-body">
-          <p id="copy-target">Some example text to be copied to your clipboard</p>
-        </div>
-        <div class="modal-footer">
-          <button onclick="copyToClipboard()" class="btn btn-default" id="copy-button">Copy</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <a id="copy-target">
+            <span id="copy-target">
+              localhost:3000
+            </span>
+          </a>
+          <button onclick="copyToClipboard()" class="btn btn-default" id="copy-button">
+            Copy to Clipboard
+          </button>
         </div>
       </div>
 
@@ -96,6 +99,7 @@
       var shareLink = button.data('link');
       var modal = $(this);
       modal.find('#copy-target').text(shareLink);
+      modal.find('#copy-link').attr('href', 'http://' + shareLink);
     })
 
     function copyToClipboard() {
