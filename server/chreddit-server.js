@@ -10,7 +10,7 @@ const utils = require('./utils');
 
 app.get('/', function (req, res) {
   database.incrementVisitCount();
-  fileServer.serveDefaultFile(req, res);
+  fileServer.serveDefaultSubreddit(req, res);
 });
 
 app.use(express.static(globals.staticFileDir));
@@ -18,7 +18,7 @@ app.use(express.static(globals.staticFileDir));
 app.get('/:terminal', function (req, res) {
   database.incrementVisitCount();
   if (!req.params.terminal) {
-    fileServer.serveDefaultFile(req, res);
+    fileServer.serveDefaultSubreddit(req, res);
   } else if (utils.isSubreddit(req.params.terminal)) {
     fileServer.serveSubreddit(req, res, req.params.terminal);
   } else if (utils.isLinkId(req.params.terminal)) {

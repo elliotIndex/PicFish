@@ -4,6 +4,11 @@ const findOrCreateFile = require('./findOrCreateFile');
 
 module.exports = {
   serveDefaultFile: (req, res) => {
+    console.log("Serving default file");
+    res.sendFile(path.resolve(globals.defaultFilename));
+  },
+
+  serveDefaultSubreddit: (req, res) => {
     console.log("Serving default subreddit");
     res.sendFile(path.resolve(globals.renderedSubredditsDir + globals.subreddits['pics'] + '.html'));
   },
