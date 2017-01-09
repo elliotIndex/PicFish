@@ -17,7 +17,7 @@ module.exports = {
     console.log("Serving shared link");
     findOrCreateFile(linkId) // resolves with filepath, rejects if id not found
     .then(filename => res.sendFile(globals.renderedSharedLinksDir + filename))
-    .catch(err => res.sendFile(globals.renderedSharedLinksDir + globals.defaultFilename));
+    .catch(err => res.sendFile(globals.defaultFilename));
   },
 
   sendStyleSheet: (req, res) => {
