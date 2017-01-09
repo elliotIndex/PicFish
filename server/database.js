@@ -21,6 +21,7 @@ module.exports = {
 
   insertLinks: (links) => {
     links.forEach(link => linksCollection.update(
+      console.log("Inserting link:", link);
       { linkId: link.linkId },
       link,
       { upsert: true }
