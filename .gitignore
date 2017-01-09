@@ -4,3 +4,4 @@ server/renderedSubreddits/*
 server/renderedSharedLinks/*
 !server/renderedSharedLinks/.gitkeep
 !server/renderedSharedLinks/defaultLink.html
+*.log
