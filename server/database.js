@@ -25,7 +25,7 @@ module.exports = {
       { linkId: link.linkId },
       link,
       { upsert: true }
-    ))).then(results => console.log("REsults:", results););
+    ))).then(results => console.log("REsults:", results));
   },
 
   findLink: (linkId) => {
