@@ -39,20 +39,18 @@
 
   <div class="list-container">
     <p>
-      CLICK ON A PIC TO SHARE
+      Click any picture to share
     </p>
     <ul id="image-list">
       {{#links}}
-      <li class="list-entry">
-          <img src="{{href}}" class="link-img pop-share"
-            data-toggle="modal"
-            data-target="#share-link-modal"
-            data-link="localhost:3000/{{linkId}}" />
+      <li class="list-entry"
+        data-toggle="modal"
+        data-target="#share-link-modal"
+        data-link="localhost:3000/{{linkId}}" >
+
+          <img src="{{href}}" class="link-img" />
         <div class="text-container">
-            <h3 class="link-title pop-share"
-              data-toggle="modal"
-              data-target="#share-link-modal"
-              data-link="localhost:3000/{{linkId}}">
+            <h3 class="link-title">
               {{text}}
             </h3>
         </div>

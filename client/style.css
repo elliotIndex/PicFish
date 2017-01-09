@@ -6,17 +6,17 @@ ul {
   padding: 0;
 }
 
-.pop-share {
-  cursor: pointer;
-}
-
 .list-entry {
   list-style: none;
-  margin-bottom: 4vh;
+  margin-bottom: 6vh;
+  box-shadow: 0 2px 15px 3px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  cursor: pointer;
 }
 
 .link-title {
   display: inline;
+  margin-bottom: 0;
 }
 
 .link-img {
@@ -32,7 +32,6 @@ ul {
 .text-container {
   display: flex;
   justify-content: center;
-  margin-top: 2vh;
   padding: 0 1vh;
 }
 
@@ -68,6 +67,7 @@ ul {
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-top: 65px;
 }
 
 #image-list {
@@ -78,12 +78,19 @@ ul {
 }
 @media only screen and (min-width: 1024px)  {
   #image-list {
-    width: 80%;
+    width: 75%;
   }
+
+
 }
 
 @media only screen and (max-width: 414px)  {
   .text-container {
-    text-align: left;
+    /*text-align: left;*/
   }
+}
+
+.navbar-default {
+  position: fixed;
+  width: 100%;
 }
