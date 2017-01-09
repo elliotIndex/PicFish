@@ -6,8 +6,8 @@
   "scripts": {
     "test": "npm test",
     "dev": "NODE_ENV=dev nodemon server/chreddit-server.js",
-    "prod": "sudo nohup npm run _prod",
-    "_prod": "NODE_ENV=prod node server/chreddit-server.js"
+    "prod": "sudo npm run _prod",
+    "_prod": "NODE_ENV=prod forever start server/chreddit-server.js"
   },
   "repository": {
     "type": "git",
