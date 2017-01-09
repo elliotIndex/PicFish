@@ -13,7 +13,6 @@ function fetchSubreddit(subreddit) {
 }
 
 function scrapeLinks(page) {
-  console.log('Parsing');
   const allLinks = [];
   const $ = page.$;
   const links = $('.title.may-blank');
@@ -31,7 +30,6 @@ function scrapeLinks(page) {
 }
 
 function correctImgurUrls(links) {
-  console.log('Correcting imgur urls');
   return links.reduce(function (correctedLinks, link) {
     if (link.href.indexOf('imgur') > -1 && !(link.href.endsWith('.jpg') ||
     link.href.endsWith('.png') || link.href.endsWith('.gif')) ) {
@@ -52,7 +50,6 @@ function correctImgurUrls(links) {
 
 function validateLinks(subreddit) {
   return links => {
-    console.log("Validating urls");
     const unfilteredLinksPromise = links.map(link => {
       return new Promise((resolve, reject) => {
         request(link.href, function (error, response, body) {
@@ -78,6 +75,7 @@ function fetchSubredditLinks(subreddit) {
   .then(scrapeLinks)
   .then(correctImgurUrls)
   .then(utils.removeRedditReferences)
+  .then(utils.removeNSFWlinks)
   .then(validateLinks(subreddit))
   .then(utils.filterUniqueLinks)
   .catch(error => console.error("Error fetching subreddit", subreddit, error));

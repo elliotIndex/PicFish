@@ -28,10 +28,7 @@ app.get('/:terminal', function (req, res) {
   } else if (utils.isLinkId(req.params.terminal)) {
     console.log("Serving shared link");
     findOrCreatefile(req.params.terminal) // resolves with filepath, rejects if id not found
-    .then(filename => {
-      console.log("Sending back file", globals.renderedSharedLinksDir + filename);
-      res.sendFile(globals.renderedSharedLinksDir + filename);
-    })
+    .then(filename => res.sendFile(globals.renderedSharedLinksDir + filename))
     .catch(err => res.sendFile(globals.renderedSharedLinksDir + globals.defaultFilename));
   } else { // remove this one
     res.sendFile(globals.renderedSharedLinksDir + globals.defaultFilename)

@@ -18,7 +18,6 @@ module.exports = {
   },
 
   filterUniqueLinks: (links) => {
-    console.log('Filtering unique links');
     const uniqIds = new Set();
     return links.reduce((uniqLinks, link) => {
       if (!uniqIds.has(link.linkId)) {
@@ -31,13 +30,14 @@ module.exports = {
 
 
   removeRedditReferences: (links) => {
-    console.log('Removing reddit references');
     return links.filter(link => !(
-      link.text.indexOf('/r/') > -1 ||
+      link.text.indexOf('r/') > -1 ||
       link.text.indexOf('reddit') > -1 ||
       link.text.indexOf('Reddit') > -1)
     );
   },
+
+  removeNSFWlinks: (links) => links.filter(link => !link.text.indexOf('nsfw')),
 
   generateHashCode: (string) => {
     var hash = 0, i, chr, len;
