@@ -48,12 +48,18 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li><a class="nav-link" href="http://localhost:3000/pics">All</a></li>
+          <!-- <li><a class="nav-link" href="http://localhost:3000/pics">All</a></li>
           <li><a class="nav-link" href="http://localhost:3000/funny">Funny</a></li>
           <li><a class="nav-link" href="http://localhost:3000/cute">Cute</a></li>
           <li><a class="nav-link" href="http://localhost:3000/gifs">Gifs</a></li>
           <li><a class="nav-link" href="http://localhost:3000/gaming">Gaming</a></li>
-          <li><a class="nav-link" href="http://localhost:3000/earth">Earth</a></li>
+          <li><a class="nav-link" href="http://localhost:3000/earth">Earth</a></li> -->
+          <li><a class="nav-link" href="http://www.pic.fish/pics">All</a></li>
+          <li><a class="nav-link" href="http://www.pic.fish/funny">Funny</a></li>
+          <li><a class="nav-link" href="http://www.pic.fish/cute">Cute</a></li>
+          <li><a class="nav-link" href="http://www.pic.fish/gifs">Gifs</a></li>
+          <li><a class="nav-link" href="http://www.pic.fish/gaming">Gaming</a></li>
+          <li><a class="nav-link" href="http://www.pic.fish/earth">Earth</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
@@ -69,7 +75,8 @@
       <li class="list-entry"
         data-toggle="modal"
         data-target="#share-link-modal"
-        data-link="localhost:3000/{{linkId}}" >
+        data-link="www.pic.fish/{{linkId}}" >
+        <!-- data-link="localhost:3000/{{linkId}}" > -->
         <div class="img-container">
           <img src="{{href}}" class="link-img" />
         </div>
@@ -96,7 +103,8 @@
         <div class="modal-body">
           <a id="copy-link">
             <span id="copy-target">
-              localhost:3000
+              www.pic.fish
+              <!-- localhost:3000 -->
             </span>
           </a>
           <button onclick="copyToClipboard()" class="btn btn-default" id="copy-button">

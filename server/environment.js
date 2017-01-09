@@ -6,7 +6,7 @@ devEnvironment = {
 
 prodEnvironment = {
   mode: "prod",
-  domain: "www.listoftheday.fish",
+  domain: "www.pic.fish",
   port: 3000,
 }
 
