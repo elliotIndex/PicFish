@@ -94,3 +94,11 @@ p {
   position: fixed;
   width: 100%;
 }
+
+.nav-link {
+  font-size: 3vh;
+}
+
+.navbar-brand {
+  border-right: 1px solid #eee;
+}
