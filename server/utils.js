@@ -1,4 +1,5 @@
 const globals = require('./globals');
+const environment = require('./environment');
 
 module.exports = {
   isImageResponse: (res) => {
@@ -58,7 +59,7 @@ module.exports = {
   },
 
   isSubreddit: (terminal) => {
-    return globals.subreddits[terminal];
+    return globals.subreddits[terminal] || (terminal === "dev" && environment.mode === "dev");
   },
 
   getDate: () => {

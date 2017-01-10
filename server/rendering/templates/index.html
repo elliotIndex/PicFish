@@ -150,6 +150,15 @@
       var copyTarget = document.getElementById("copy-target");
       var range = document.createRange();
 
+      emptySelection();
+      range.selectNode(copyTarget);
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      emptySelection();
+      showCopy();
+    }
+
+    function emptySelection() {
       if (window.getSelection) {
          if (window.getSelection().empty) {  // Chrome
            window.getSelection().empty();
@@ -159,11 +168,21 @@
       } else if (document.selection) {  // IE?
         document.selection.empty();
       }
-
-      range.selectNode(copyTarget);
-      window.getSelection().addRange(range);
-      document.execCommand('copy');
     }
+
+    function showCopy() {
+      var $copyTarget = $("#copy-target");
+      $copyTarget.removeClass("normal-text");
+      $copyTarget.addClass("success-text");
+      setTimeout(function() {
+        $copyTarget.removeClass("success-text");
+        $copyTarget.addClass("normal-text");
+      }, 50);
+      setTimeout(function() {
+        $copyTarget.removeClass("normal-text");
+      }, 750);
+    }
+
     var fitHeight = false;
     $(".toggle-height").click(function toggleFitToHeight() {
       console.log("toggling fitHeight")

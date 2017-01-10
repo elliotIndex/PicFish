@@ -8,7 +8,7 @@ module.exports = {
     'earth': 'earthPorn',
   },
   defaultLink: {
-    text: 'Uh oh! We couldn\'t find the picture you were looking for. We\'ll try to fix it on our end :)',
+    text: "Uh oh! We couldn't find the picture you were looking for. We'll try to fix it on our end :)",
     href: 'http://imgur.com/PbcZq8t.jpg',
     linkId: 47378
   },

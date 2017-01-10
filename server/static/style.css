@@ -62,9 +62,8 @@ button:active, button:focus {
 
 .modal-body {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
 }
 
 .list-container {
@@ -88,7 +87,7 @@ button:active, button:focus {
 }
 
 #copy-target {
-  font-size: 3.5vh;
+  font-size: 1.5em;
   cursor: pointer;
 }
 
@@ -96,10 +95,6 @@ button:active, button:focus {
 .navbar-default {
   position: fixed;
   width: 100%;
-}
-
-.nav-link {
-  font-size: 3vh;
 }
 
 .navbar-brand {
@@ -147,4 +142,18 @@ button:active, button:focus {
   .container-fluid>.toggle-height {
     display: none;
   }
+}
+
+#copy-button {
+  margin-top: 1em;
+}
+
+.success-text {
+  transition: color 0;
+  color: #7CFC00;
+}
+
+.normal-text {
+  transition: color 700ms ease-in;
+  color: #337ab7;
 }
