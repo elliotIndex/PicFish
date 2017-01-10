@@ -63,6 +63,10 @@ module.exports = {
 
   getDate: () => {
     const now = new Date();
-    return now.getDate() + "-" + (now.getMonth() + 1) + "-" + now.getFullYear();
+    return now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
+  },
+
+  toTitleCase: (sentance) => {
+    return sentance.split(' ').map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
   }
 }

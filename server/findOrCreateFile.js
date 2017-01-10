@@ -10,7 +10,12 @@ module.exports = (terminal) => {
       if (err) {
         console.log('Creating file', filename);
         database.findLink(terminal)
-        .then(link => renderTemplate([link], filename, 'renderedSharedLinks'))
+        .then(link => renderTemplate(
+          [link],
+          filename,
+          globals.renderedSharedLinksDir,
+          link.text
+        ))
         .catch(err => {
           console.log('Could not find link:', terminal);
           return globals.defaultFilename;

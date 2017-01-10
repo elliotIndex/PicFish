@@ -6,13 +6,17 @@ var globals = require('../globals');
 
 mu.root = __dirname + '/templates';
 
-module.exports = (links, filename, folder) => {
+module.exports = (links, filename, filepath, title) => {
   return new Promise((resolve, reject) => {
-    let filepath = folder === "renderedSharedLinks" ? globals.renderedSharedLinksDir : globals.renderedSubredditsDir;
-    filepath = filepath + filename;
+    const fullFilepath = filepath + filename;
 
-    const wstream = fs.createWriteStream(filepath);
-    const muStream = mu.compileAndRender('index.html', { links, domain: environment.domain });
+    const wstream = fs.createWriteStream(fullFilepath);
+    const muStream = mu.compileAndRender('index.html', {
+      links,
+      title,
+      domain: environment.domain,
+      thumbnail: links[0].href,
+    });
 
     muStream.on('data', (renderedStream) => {
       wstream.write(renderedStream)

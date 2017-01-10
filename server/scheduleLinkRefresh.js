@@ -2,6 +2,7 @@ const cron = require('node-cron');
 const fetchSubredditLinks = require('./fetchSubredditLinks');
 const globals = require('./globals');
 const database = require('./database');
+const utils = require('./utils');
 const renderTemplate = require('./rendering/renderTemplate');
 
 function fetchAllSubreddits(subreddits) {
@@ -9,7 +10,12 @@ function fetchAllSubreddits(subreddits) {
     const subredditLinks = fetchSubredditLinks(subreddits[picFishSub]);
 
     subredditLinks
-    .then(links => renderTemplate(links, picFishSub + '.html', 'renderedSubreddits'))
+    .then(links => renderTemplate(
+      links,
+      picFishSub + '.html',
+      globals.renderedSubredditsDir,
+      utils.toTitleCase(picFishSub)
+    ))
     .catch(error => console.error("Error rendering subreddit:", subreddit, error));
 
     subredditLinks
