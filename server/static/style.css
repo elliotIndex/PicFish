@@ -20,7 +20,6 @@ p {
   box-shadow: 0 2px 15px 3px rgba(0, 0, 0, 0.5);
   padding: 20px;
   cursor: pointer;
-  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -47,6 +46,7 @@ p {
   display: flex;
   justify-content: center;
   padding: 0 1vh;
+  margin-top: 3vh;
 }
 
 .img-container {
