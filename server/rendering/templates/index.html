@@ -41,14 +41,31 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <button
+          type="button"
+          class="navbar-toggle collapsed"
+          data-toggle="collapse"
+          data-target="#navbar"
+          aria-expanded="false"
+          aria-controls="navbar">
+
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+        <button
+          type="button"
+          class="toggle-height navbar-toggle collapsed btn">
+          Shrink Pictures
+        </button>
         <span class="navbar-brand">PicFish</span>
       </div>
+      <button
+        type="button"
+        class="toggle-height btn">
+        Shrink Pictures
+      </button>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li><a class="nav-link" href="http://{{domain}}/pics">All</a></li>
@@ -147,6 +164,15 @@
       window.getSelection().addRange(range);
       document.execCommand('copy');
     }
+    var fitHeight = false;
+    $(".toggle-height").click(function toggleFitToHeight() {
+      console.log("toggling fitHeight")
+      fitHeight = !fitHeight;
+      $(".link-img").css("max-height", fitHeight ? "100%" : "");
+      $(".img-container").css("height", fitHeight ? "80%" : "");
+      $(".toggle-height").text((fitHeight ? "Expand" : "Shrink") + " Pictures");
+    });
+
   </script>
 
 </body>

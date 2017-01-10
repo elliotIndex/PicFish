@@ -14,6 +14,10 @@ p {
   margin: 0 0 20px;
 }
 
+button:active, button:focus {
+  outline: 0 !important;
+}
+
 .list-entry {
   list-style: none;
   margin-bottom: 6vh;
@@ -32,7 +36,7 @@ p {
 
 .link-img {
   max-width: 100%;
-  max-height: 100%;
+  /*max-height: 100%;*/
   min-height: 100px;
   align-self: center;
 }
@@ -50,7 +54,7 @@ p {
 }
 
 .img-container {
-  height: 80%;
+  /*height: 80%;*/
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -88,12 +92,6 @@ p {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 414px)  {
-  .list-entry {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
 
 .navbar-default {
   position: fixed;
@@ -121,4 +119,32 @@ p {
 .header-text.sub {
   font-size: 1.5em;
   margin-bottom: 5vh;
+}
+
+.toggle-height {
+  position: relative;
+  float: right;
+  padding: 7px 10px;
+  margin-top: 8px;
+  margin-right: 15px;
+  margin-bottom: 8px;
+  background-image: none;
+  background-color: #ccc;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.toggle-height:focus {
+  outline: 0;
+}
+
+@media only screen and (max-width: 767px)  {
+  .list-entry {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .container-fluid>.toggle-height {
+    display: none;
+  }
 }
