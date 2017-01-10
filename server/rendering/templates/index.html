@@ -1,7 +1,11 @@
-<html>
-
+<html prefix="og: http://ogp.me/ns#">
 <head>
-  <title>PicFish</title>
+  <title>PicFish - {{links[0].text}}</title>
+  <meta property="og:title" content="PicFish - {{links[0].text}}" />
+  <meta property="og:type" content="video.movie" />
+  <meta property="og:url" content="http://{{domain}}/{{links[0].id}}" />
+  <meta property="og:image" content="{{links[0].href}}" />
+  <meta name="keywords" content="images, funny, image host, image sharing, reaction gif, viral, cute, gif" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
