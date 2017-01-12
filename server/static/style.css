@@ -170,6 +170,10 @@ button:active, button:focus {
   .container-fluid>.toggle-height {
     display: none;
   }
+
+  a.nav-link {
+    border-bottom: 1px solid #e7e7e7;
+  }
 }
 
 #copy-button {
