@@ -1,7 +1,7 @@
 const globals = require('./globals');
 const environment = require('./environment');
 
-module.exports = {
+const utils = {
   isImageResponse: (res) => {
     return ~res.headers['content-type'].indexOf('image');
   },
@@ -40,6 +40,19 @@ module.exports = {
 
   removeNSFWlinks: (links) => links.filter(link => link.text.indexOf('nsfw') !== 0),
 
+  removeOC: (links) => links.map(link => {
+    link.text = link.text
+    .replace(/ oc /ig, " ")
+    .replace(/ oc$/ig, " ")
+    .replace(/^oc /ig, " ")
+    .replace(/\[oc\]/ig, "")
+    .replace(/\(oc\)/ig, "")
+    .replace("  ", " ")
+    .trim()
+
+    return link
+  }),
+
   generateHashCode: (string) => {
     var hash = 0, i, chr, len;
     if (string.length === 0) return hash;
@@ -75,3 +88,5 @@ module.exports = {
     return size >= globals.maxThumbnailBytes ? globals.defaultThumbnailUrl : linkHref
   },
 }
+
+module.exports = utils;

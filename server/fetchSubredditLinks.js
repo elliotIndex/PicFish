@@ -1,6 +1,7 @@
 const request = require('request');
 const jsdom = require("jsdom");
 const utils = require('./utils');
+const globals = require('./globals');
 
 function fetchSubreddit(subreddit) {
   return new Promise(function(resolve, reject) {
@@ -52,18 +53,22 @@ function validateLinks(subreddit) {
   return links => {
     const unfilteredLinksPromise = links.map(link => {
       return new Promise((resolve, reject) => {
-        request(link.href, function (error, response, body) {
-          if (
-            !error &&
-            response.statusCode === 200 &&
-            utils.isImageResponse(response)
-          ) {
-            link.thumbnail = utils.getThumbnail(link.href, response.headers['content-length'])
-            resolve(link);
-          } else {
-            reject("Invalid link");
+        request(
+          { uri: link.href, timeout: globals.maxValidationRequestTime },
+          (error, response, body) => {
+            if (
+              !error &&
+              response.statusCode === 200 &&
+              utils.isImageResponse(response)
+            ) {
+              link.thumbnail = utils.getThumbnail(link.href, response.headers['content-length'])
+              resolve(link);
+            } else {
+              reject("Invalid link");
+            }
           }
-        });
+        );
+        // setTimeout(() => reject("Link timed out"), globals.maxValidationRequestTime);
       })
     });
 
@@ -77,6 +82,7 @@ function fetchSubredditLinks(subreddit) {
   .then(correctImgurUrls)
   .then(utils.removeRedditReferences)
   .then(utils.removeNSFWlinks)
+  .then(utils.removeOC)
   .then(validateLinks(subreddit))
   .then(utils.filterUniqueLinks)
   .catch(error => console.error("Error fetching subreddit", subreddit, error));
