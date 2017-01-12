@@ -3,6 +3,10 @@
   cursor: default;
 }
 
+a {
+  cursor: pointer;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }
