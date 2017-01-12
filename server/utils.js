@@ -69,5 +69,9 @@ module.exports = {
 
   toTitleCase: (sentance) => {
     return sentance.split(' ').map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
-  }
+  },
+
+  getThumbnail: (linkHref, size) => {
+    return size >= globals.maxThumbnailBytes ? globals.defaultThumbnailUrl : linkHref
+  },
 }

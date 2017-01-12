@@ -19,5 +19,6 @@ module.exports = {
   renderedSharedLinksDir: __dirname + '/renderedSharedLinks/',
   stylesheetDir: __dirname + '/style.css',
   staticFileDir: __dirname + '/static',
-
+  maxThumbnailBytes: 8000000, // < 8 MB
+  defaultThumbnailUrl: "http://www.pic.fish/logo.png"
 }
