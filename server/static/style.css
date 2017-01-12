@@ -1,3 +1,8 @@
+* {
+  transition: all 0.2s;
+  cursor: default;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -29,6 +34,10 @@ button:active, button:focus {
   justify-content: space-around;
 }
 
+.list-entry * {
+  cursor: pointer;
+}
+
 .link-title {
   display: inline;
   margin: 0;
@@ -49,8 +58,8 @@ button:active, button:focus {
 .text-container {
   display: flex;
   justify-content: center;
-  padding: 0 1vh;
-  margin-top: 3vh;
+  padding: 0 1vw;
+  margin: 3vh 0;
 }
 
 .img-container {
@@ -97,8 +106,14 @@ button:active, button:focus {
   width: 100%;
 }
 
+.container-fluid {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
 .navbar-brand {
-  border-right: 1px solid #eee;
+  border-right: 1px solid #e7e7e7;
+  color: #888;
+  height: 52px;
 }
 
 .header-text {
@@ -116,7 +131,7 @@ button:active, button:focus {
   margin-bottom: 5vh;
 }
 
-.toggle-height {
+.toggle-height{
   position: relative;
   float: right;
   padding: 7px 10px;
@@ -124,13 +139,22 @@ button:active, button:focus {
   margin-right: 15px;
   margin-bottom: 8px;
   background-image: none;
-  background-color: #ccc;
-  border: 1px solid transparent;
+  background-color: transparent;
   border-radius: 4px;
+  color: #888;
+}
+
+.navbar-default .toggle-height {
+  border: 1px solid #e7e7e7;
+}
+
+.navbar-default .toggle-height:focus {
+  background-color: transparent;
 }
 
 .toggle-height:focus {
   outline: 0;
+  background-color: transparent;
 }
 
 @media only screen and (max-width: 767px)  {
