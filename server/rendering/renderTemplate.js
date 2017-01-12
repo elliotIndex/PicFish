@@ -15,7 +15,7 @@ module.exports = (links, filename, filepath, title) => {
       links,
       title,
       domain: environment.domain,
-      extension: filepath.slice(0, -5),
+      extension: filename.slice(0, -5),
       thumbnail: links[0].thumbnail,
     });
 
