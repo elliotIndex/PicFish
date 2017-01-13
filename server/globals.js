@@ -22,7 +22,7 @@ const globals = {
   stylesheetDir: __dirname + '/style.css',
   staticFileDir: __dirname + '/static',
   maxFbThumbnailBytes: 8000000, // < 8 MB
-  maxTwThumbnailBytes: 10000000, // < 10 MB
+  maxTwThumbnailBytes: 100000000, // < 100 MB (no limit on twitpics)
   defaultThumbnailUrl: "http://www.pic.fish/logo.png",
   maxValidationRequestTime: 20000, // 10 s
 }
