@@ -61,7 +61,7 @@ function validateLinks(subreddit) {
               response.statusCode === 200 &&
               utils.isImageResponse(response)
             ) {
-              link.thumbnail = utils.getThumbnail(link.href, response.headers['content-length'])
+              link.thumbnail = utils.getThumbnail(link.href, response.headers['content-length'], link)
               resolve(link);
             } else {
               reject("Invalid link");
