@@ -1,6 +1,6 @@
 var fbShareBtnStrs = [
-  '<div class="fb-share-button" data-href="https://www.pic.fish/',
-  '" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.pic.fish%2F',
+  '<div class="fb-share-button" data-href="http://www.pic.fish/',
+  '" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.pic.fish%2F',
   '&amp;src=sdkpreparse">Share</a></div>'
 ];
 
