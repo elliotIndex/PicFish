@@ -6,6 +6,7 @@ const cleanup = require('./cleanup');
 const database = require('./database');
 const environment = require('./environment');
 const fileServer = require('./fileServer');
+const renderDevPage = require('./renderDevPage');
 const utils = require('./utils');
 
 app.get('/', function (req, res) {
@@ -37,4 +38,8 @@ database.connect();
 cleanup.prepForServerShutdown(database.close);
 cleanup.scheduleFileCleanup();
 
-scheduleLinkRefresh(globals.subreddits);
+if (!environment.noFetch) {
+  scheduleLinkRefresh(globals.subreddits);
+}
+
+renderDevPage();

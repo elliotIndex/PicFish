@@ -7,7 +7,7 @@ var fbShareBtnStrs = [
 $('#share-link-modal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget);
   var shareLink = button.data('link');
-  var linkId = button.data('linkId') || '';
+  var linkId = button.data('linkid') || '';
   var modal = $(this);
   modal.find('#copy-target').text(shareLink);
   modal.find('#copy-link').attr('href', 'http://' + shareLink);

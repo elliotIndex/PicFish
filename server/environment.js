@@ -3,6 +3,7 @@ devEnvironment = {
   domain: "localhost:3000",
   mongoUrl: 'mongodb://localhost:27017/linksDb',
   port: 3000,
+  noFetch: process.argv.indexOf('noFetch') > -1,
 }
 
 prodEnvironment = {
@@ -10,6 +11,7 @@ prodEnvironment = {
   domain: "www.pic.fish",
   mongoUrl: 'mongodb://0.0.0.0:27017/linksDb',
   port: 80,
+  noFetch: false,
 }
 
 console.log("Running in mode:", process.env.NODE_ENV);

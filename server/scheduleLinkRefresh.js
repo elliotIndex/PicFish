@@ -27,8 +27,6 @@ function fetchAllSubreddits(subreddits) {
 }
 
 function scheduleLinkRefresh(subreddits) {
-  renderDevPage();
-
   console.log('Fetching all subreddits');
   fetchAllSubreddits(subreddits);
 
@@ -38,16 +36,5 @@ function scheduleLinkRefresh(subreddits) {
     fetchAllSubreddits(subreddits);
   });
 }
-
-function renderDevPage() {
-  renderTemplate(
-    [globals.defaultLink, globals.defaultLink, globals.defaultLink],
-    "dev.html",
-    globals.renderedSubredditsDir,
-    "Dev"
-  )
-  .then(() => console.log("Rendered dev page"))
-}
-
 
 module.exports = scheduleLinkRefresh;
