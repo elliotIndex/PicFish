@@ -37,7 +37,7 @@ function showCopy() {
   setTimeout(function() {
     $copyTarget.removeClass("success-text");
     $copyTarget.addClass("normal-text");
-  }, 50);
+  }, 250);
   setTimeout(function() {
     $copyTarget.removeClass("normal-text");
   }, 750);
