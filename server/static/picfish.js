@@ -4,12 +4,19 @@ $('#share-link-modal').on('show.bs.modal', function (event) {
   var modal = $(this);
   modal.find('#copy-target').text(shareLink);
   modal.find('#copy-link').attr('href', 'http://' + shareLink);
-})
+});
+
+$('#share-link-modal').on('hide.bs.modal', function (event) {
+  setTimeout(function() {
+    $('.modal-title').text("Share Link")
+  }, 500);
+});
 
 function copyToClipboard() {
   var copyTarget = document.getElementById("copy-target");
   var range = document.createRange();
 
+  $('.modal-title').text("Thanks for Sharing!");
   emptySelection();
   range.selectNode(copyTarget);
   window.getSelection().addRange(range);
