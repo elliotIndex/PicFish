@@ -4,21 +4,44 @@ var fbShareBtnStrs = [
   '&amp;src=sdkpreparse">Share</a></div>'
 ];
 
+var twttrParts = [
+  '<iframe src="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=http%3A%2F%2Fwww.pic.fish%2F',
+  // terminal
+  '&text=',
+  // text joined with %20
+  '&hashtags=PicFish%2C',
+  // hashtag
+  '" width="140" height="28" title="',
+  // title
+  '" style="border: 0; overflow: hidden;"> </iframe>'
+]
+
+// TODO: add 'data-via="PicFish"' twitter account
+
 var FB = null;
 
 $('#share-link-modal').on('show.bs.modal', function (event) {
+  var modal = $(this);
   var button = $(event.relatedTarget);
+  var socialBtns = modal.find('#social-buttons')
   var shareLink = button.data('link');
   var linkId = button.data('linkid') || '';
-  var modal = $(this);
+  var linkText = button.data('linktext') || '';
+  var linkURL = 'http://' + shareLink;
+
   modal.find('#copy-target').text(shareLink);
-  modal.find('#copy-link').attr('href', 'http://' + shareLink);
+  modal.find('#copy-link').attr('href', linkURL);
 
   var fbAnchor = $(fbShareBtnStrs.join(linkId));
   if (FB) {
     modal.find('#social-buttons').append(fbAnchor);
+    socialBtns.append(fbAnchor);
     FB.XFBML.parse();
   }
+  var hashTag = window.location.pathname.slice(1);
+  hashTag = isNaN(parseInt(hashTag)) ? hashTag : "picOfTheDay";
+  var twtrAnchor = $( twttrParts[0] + linkId + twttrParts[1] + encodeURI("PicFish - " + linkText) + twttrParts[2] + hashTag + twttrParts[3] + "MYTITLE" + twttrParts[4]);
+  socialBtns.append(twtrAnchor);
 });
 
 $('#share-link-modal').on('hide.bs.modal', function (event) {

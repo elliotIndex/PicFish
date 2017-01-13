@@ -10,6 +10,7 @@ const renderDevPage = require('./renderDevPage');
 const utils = require('./utils');
 
 app.get('/', function (req, res) {
+  console.log("slash?", req.params);
   database.incrementVisitCount();
   fileServer.serveDefaultSubreddit(req, res);
 });
@@ -17,6 +18,7 @@ app.get('/', function (req, res) {
 app.use(express.static(globals.staticFileDir));
 
 app.get('/:terminal', function (req, res) {
+  console.log("req.params.terminal", req.params.terminal);
   database.incrementVisitCount();
   if (!req.params.terminal) {
     fileServer.serveDefaultSubreddit(req, res);
