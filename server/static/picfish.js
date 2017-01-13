@@ -1,9 +1,19 @@
+var fbShareBtnStrs = [
+  '<div class="fb-share-button" data-href="https://www.pic.fish/',
+  '" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.pic.fish%2F',
+  '&amp;src=sdkpreparse">Share</a></div>'
+];
+
 $('#share-link-modal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget);
   var shareLink = button.data('link');
+  var linkId = button.data('linkId') || '';
   var modal = $(this);
   modal.find('#copy-target').text(shareLink);
   modal.find('#copy-link').attr('href', 'http://' + shareLink);
+
+  var fbAnchor = $(fbShareBtnStrs.join(linkId));
+  modal.find('#social-buttons').append(fbAnchor);
 });
 
 $('#share-link-modal').on('hide.bs.modal', function (event) {

@@ -85,9 +85,6 @@ const utils = {
   },
 
   getThumbnail: (linkHref, size, link) => {
-    if (size >= globals.maxThumbnailBytes) {
-      console.log("link greater than 8", link);
-    }
     return size >= globals.maxThumbnailBytes ? globals.defaultThumbnailUrl : linkHref
   },
 }

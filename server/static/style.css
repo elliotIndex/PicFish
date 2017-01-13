@@ -210,3 +210,7 @@ button:active, button:focus {
   transition: color 700ms ease-in;
   color: #337ab7;
 }
+
+#copy-link {
+  margin-bottom: 1vh
+}
