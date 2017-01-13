@@ -1,4 +1,6 @@
-module.exports = {
+const environment = require('./environment');
+
+const globals = {
   subreddits: {
     'funny': 'funny',
     'cute': 'aww',
@@ -23,3 +25,9 @@ module.exports = {
   defaultThumbnailUrl: "http://www.pic.fish/logo.png",
   maxValidationRequestTime: 20000, // 10 s
 }
+
+if (environment.mode === "dev" && process.argv.indexOf('short')) {
+  globals.subreddits = { 'cute': 'aww' };
+}
+
+module.exports = globals;

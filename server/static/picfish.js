@@ -4,6 +4,8 @@ var fbShareBtnStrs = [
   '&amp;src=sdkpreparse">Share</a></div>'
 ];
 
+var FB = null;
+
 $('#share-link-modal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget);
   var shareLink = button.data('link');
@@ -13,12 +15,16 @@ $('#share-link-modal').on('show.bs.modal', function (event) {
   modal.find('#copy-link').attr('href', 'http://' + shareLink);
 
   var fbAnchor = $(fbShareBtnStrs.join(linkId));
-  modal.find('#social-buttons').append(fbAnchor);
+  if (FB) {
+    modal.find('#social-buttons').append(fbAnchor);
+    FB.XFBML.parse();
+  }
 });
 
 $('#share-link-modal').on('hide.bs.modal', function (event) {
   setTimeout(function() {
-    $('.modal-title').text("Share Link")
+    $('.modal-title').text("Share Link");
+    $('#social-buttons').empty();
   }, 500);
 });
 
