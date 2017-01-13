@@ -21,7 +21,8 @@ const globals = {
   renderedSharedLinksDir: __dirname + '/renderedSharedLinks/',
   stylesheetDir: __dirname + '/style.css',
   staticFileDir: __dirname + '/static',
-  maxThumbnailBytes: 8000000, // < 8 MB
+  maxFbThumbnailBytes: 8000000, // < 8 MB
+  maxTwThumbnailBytes: 1000000, // < 1 MB
   defaultThumbnailUrl: "http://www.pic.fish/logo.png",
   maxValidationRequestTime: 20000, // 10 s
 }

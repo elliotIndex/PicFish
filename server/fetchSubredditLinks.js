@@ -61,7 +61,16 @@ function validateLinks(subreddit) {
               response.statusCode === 200 &&
               utils.isImageResponse(response)
             ) {
-              link.thumbnail = utils.getThumbnail(link.href, response.headers['content-length'], link)
+              link.fbThumbnail = utils.getThumbnail(
+                link.href,
+                response.headers['content-length'],
+                globals.maxFbThumbnailBytes
+              );
+              link.twThumbnail = utils.getThumbnail(
+                link.href,
+                response.headers['content-length'],
+                globals.maxTwThumbnailBytes
+              );
               resolve(link);
             } else {
               reject("Invalid link");

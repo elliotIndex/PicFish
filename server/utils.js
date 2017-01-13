@@ -84,8 +84,8 @@ const utils = {
     return sentance.split(' ').map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
   },
 
-  getThumbnail: (linkHref, size, link) => {
-    return size >= globals.maxThumbnailBytes ? globals.defaultThumbnailUrl : linkHref
+  getThumbnail: (linkHref, size, maxSize) => {
+    return size >= maxSize ? globals.defaultThumbnailUrl : linkHref
   },
 }
 

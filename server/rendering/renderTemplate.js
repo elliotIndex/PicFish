@@ -16,7 +16,8 @@ module.exports = (links, filename, filepath, title) => {
       title,
       domain: environment.domain,
       extension: filename.slice(0, -5),
-      thumbnail: links[0].thumbnail,
+      fbThumbnail: links[0].fbThumbnail,
+      twThumbnail: links[0].twThumbnail,
     });
 
     muStream.on('data', (renderedStream) => {
