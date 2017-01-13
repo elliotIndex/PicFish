@@ -11,7 +11,7 @@ var twttrParts = [
   // text joined with %20
   '&hashtags=PicFish%2C',
   // hashtag
-  '" width="140" height="28" title="',
+  '" width="78" height="28" title="',
   // title
   '" style="border: 0; overflow: hidden;"> </iframe>'
 ]
@@ -40,7 +40,13 @@ $('#share-link-modal').on('show.bs.modal', function (event) {
   }
   var hashTag = window.location.pathname.slice(1);
   hashTag = isNaN(parseInt(hashTag)) ? hashTag : "picOfTheDay";
-  var twtrAnchor = $( twttrParts[0] + linkId + twttrParts[1] + encodeURI("PicFish - " + linkText) + twttrParts[2] + hashTag + twttrParts[3] + "MYTITLE" + twttrParts[4]);
+  var twtrAnchor = $(
+    twttrParts[0] + linkId +
+    twttrParts[1] + encodeURI("PicFish - " + linkText) +
+    twttrParts[2] + hashTag +
+    twttrParts[3] + "MYTITLE" +
+    twttrParts[4]
+  );
   socialBtns.append(twtrAnchor);
 });
 
