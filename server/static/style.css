@@ -146,8 +146,9 @@ button:active, button:focus {
 .header-text.main {
   font-size: 3.5em;
   line-height: 1em;
-  margin-bottom: 2vh;
+  margin: 0 0 2vh 0;
   padding: 0 2vw;
+  font-weight: normal;
 }
 
 .header-text.sub {
