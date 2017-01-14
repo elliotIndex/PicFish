@@ -27,7 +27,7 @@ const globals = {
   maxValidationRequestTime: 20000, // 10 s
 }
 
-if (environment.mode === "dev" && process.argv.indexOf('short')) {
+if (environment.mode === "dev" && process.argv.indexOf('short') > -1) {
   globals.subreddits = { 'cute': 'aww' };
 }
 

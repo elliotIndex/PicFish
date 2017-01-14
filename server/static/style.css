@@ -251,11 +251,20 @@ button:active, button:focus {
 }
 
 #share-img {
-  max-width: 60%;
-  max-height: 60%;
+  vertical-align: middle;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#img-alignment-helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }
 
 .share-img-container {
+  height: 50%;
+  width: 100%;
+  white-space: nowrap;
   text-align: center;
-  margin-bottom: 15px;
 }
