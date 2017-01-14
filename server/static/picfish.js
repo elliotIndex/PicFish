@@ -11,12 +11,12 @@ var twttrParts = [
   // text joined with %20
   '&hashtags=PicFish%2C',
   // hashtag
-  '" width="78" height="28" title="',
+  '" width="78" height="28" via="pic_fish" title="',
   // title
   '" style="border: 0; overflow: hidden;"> </iframe>'
 ]
 
-// TODO: add 'data-via="PicFish"' twitter account
+$('#scrollable-content').focus();
 
 var FB = null;
 
