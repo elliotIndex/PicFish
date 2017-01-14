@@ -263,8 +263,9 @@ button:active, button:focus {
 }
 
 .share-img-container {
-  height: 50%;
+  height: 40%;
   width: 100%;
   white-space: nowrap;
   text-align: center;
+  margin-bottom: 15px;
 }
