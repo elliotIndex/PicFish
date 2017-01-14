@@ -4,11 +4,13 @@ var $toggleHeight = $(".toggle-height");
 var $scrollableContent = $('#scrollable-content');
 var $navbarToggle = $(".navbar-toggle");
 var $navbar = $("#navbar");
+var $topNav = $(".navbar.navbar-default");
 
 // Page setup
 $scrollableContent.focus();
 $navbarToggle.on('blur', function() { $navbar.collapse('hide'); });
 $shareLinkModal.on('hide.bs.modal', resetShareModal);
+$("body").scrollTop($("body").scrollTop() + 100);
 
 // Toggle height
 var fitHeight = false;
@@ -125,4 +127,36 @@ function showCopy() {
   setTimeout(function() {
     $copyTarget.removeClass("normal-text");
   }, 750);
+}
+
+// Scrolling navbar
+var didScroll;
+var lastScrollTop = 0;
+var delta = 6;
+var navbarHeight = $topNav.outerHeight();
+
+// on scroll, let the interval function know the user has scrolled
+$scrollableContent.scroll(function(event){
+  didScroll = true;
+});
+// run hasScrolled() and reset didScroll status
+setInterval(function() {
+  if (didScroll) {
+    hasScrolled();
+    didScroll = false;
+  }
+}, 250);
+
+function hasScrolled() {
+  var st = $scrollableContent.scrollTop();
+  if (Math.abs(lastScrollTop - st) < delta) {
+    return false;
+  }
+
+  if (st > lastScrollTop && st > navbarHeight) {
+    $topNav.removeClass('nav-down').addClass('nav-up');
+  } else if (st < lastScrollTop || st < navbarHeight) {
+    $topNav.removeClass('nav-up').addClass('nav-down');
+  }
+  lastScrollTop = st;
 }
