@@ -2,7 +2,7 @@ devEnvironment = {
   mode: "dev",
   domain: "localhost:3000",
   mongoUrl: 'mongodb://localhost:27017/linksDb',
-  port: 3000,
+  port: 80,
   noFetch: process.argv.indexOf('noFetch') > -1,
 }
 

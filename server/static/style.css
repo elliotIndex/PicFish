@@ -3,6 +3,16 @@
   cursor: default;
 }
 
+html, body {
+  height: 100%;
+}
+
+#scrollable-content {
+  height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
 a {
   cursor: pointer;
 }
@@ -115,6 +125,8 @@ button:active, button:focus {
 .navbar-default {
   position: fixed;
   width: 100%;
+  border: none;
+  z-index: 10;
 }
 
 .container-fluid {
@@ -213,4 +225,14 @@ button:active, button:focus {
 
 #copy-link {
   margin-bottom: 1vh
+}
+
+.fb-share-button.fb_iframe_widget {
+  width: 78px;
+  height: 28px;
+}
+
+#social-buttons>* {
+  margin: 0 3vw;
+  text-align: right;
 }
