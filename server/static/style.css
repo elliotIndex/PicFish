@@ -239,3 +239,23 @@ button:active, button:focus {
   margin: 0 3vw;
   text-align: right;
 }
+
+.close {
+  font-size: 40px;
+  margin-right: 5px;
+}
+
+.modal-title{
+  height: 38px;
+  line-height: 38px;
+}
+
+#share-img {
+  max-width: 60%;
+  max-height: 60%;
+}
+
+.share-img-container {
+  text-align: center;
+  margin-bottom: 15px;
+}

@@ -45,16 +45,23 @@ var twttrParts = [
 $shareLinkModal.on('show.bs.modal', function (event) {
   var modal = $(this);
   var button = $(event.relatedTarget);
+
   var socialBtns = modal.find('#social-buttons')
+  var shareImage = modal.find('#share-img')
+  var copyTarget = modal.find('#copy-target')
+  var copyLink = modal.find('#copy-link')
+
   var shareLink = button.data('link');
+  var imgSrc = button.data('imgsrc');
   var linkId = button.data('linkid') || '';
   var linkText = button.data('linktext') || '';
   var linkURL = 'http://' + shareLink;
 
   $navbar.collapse('hide');
-  
-  modal.find('#copy-target').text(shareLink);
-  modal.find('#copy-link').attr('href', linkURL);
+
+  copyTarget.text(shareLink);
+  copyLink.attr('href', linkURL);
+  shareImage.attr('src', imgSrc);
 
   var fbAnchor = $(fbShareBtnStrs.join(linkId));
   if (FB) {

@@ -133,6 +133,7 @@
           data-target="#share-link-modal"
           data-linkid="{{linkId}}"
           data-linktext="{{text}}"
+          data-imgsrc="{{href}}"
           data-link="{{domain}}/{{linkId}}" >
 
           <div class="img-container">
@@ -161,6 +162,9 @@
           <h4 class="modal-title">Share Link</h4>
         </div>
         <div class="modal-body">
+          <div class="share-img-container">
+            <img id="share-img" src="logo.png"/>
+          </div>
           <a id="copy-link">
             <span id="copy-target">
               www.pic.fish
