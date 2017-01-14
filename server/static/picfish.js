@@ -1,3 +1,28 @@
+// Variable declarations
+var $shareLinkModal = $('#share-link-modal');
+var $toggleHeight = $(".toggle-height");
+var $scrollableContent = $('#scrollable-content');
+var $navbarToggle = $(".navbar-toggle");
+var $navbar = $("#navbar");
+
+// Page setup
+$scrollableContent.focus();
+$navbarToggle.on('blur', function() { $navbar.collapse('hide'); });
+$shareLinkModal.on('hide.bs.modal', resetShareModal);
+
+// Toggle height
+var fitHeight = false;
+$toggleHeight.click(function toggleFitToHeight() {
+  fitHeight = !fitHeight;
+  $(".link-img").css("max-height", fitHeight ? "100%" : "");
+  $(".img-container").css("height", fitHeight ? "80%" : "");
+  $(".toggle-height").text((fitHeight ? "Expand" : "Shrink") + " Pictures");
+  $toggleHeight.blur();
+});
+
+// Social
+var FB = null;
+
 var fbShareBtnStrs = [
   '<div class="fb-share-button" data-href="http://www.pic.fish/',
   '" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.pic.fish%2F',
@@ -16,11 +41,8 @@ var twttrParts = [
   '" style="border: 0; overflow: hidden;"> </iframe>'
 ]
 
-$('#scrollable-content').focus();
-
-var FB = null;
-
-$('#share-link-modal').on('show.bs.modal', function (event) {
+// Share modal
+$shareLinkModal.on('show.bs.modal', function (event) {
   var modal = $(this);
   var button = $(event.relatedTarget);
   var socialBtns = modal.find('#social-buttons')
@@ -29,6 +51,8 @@ $('#share-link-modal').on('show.bs.modal', function (event) {
   var linkText = button.data('linktext') || '';
   var linkURL = 'http://' + shareLink;
 
+  $navbar.collapse('hide');
+  
   modal.find('#copy-target').text(shareLink);
   modal.find('#copy-link').attr('href', linkURL);
 
@@ -50,12 +74,13 @@ $('#share-link-modal').on('show.bs.modal', function (event) {
   socialBtns.append(twtrAnchor);
 });
 
-$('#share-link-modal').on('hide.bs.modal', function (event) {
+// Misc
+function resetShareModal(event) {
   setTimeout(function() {
     $('.modal-title').text("Share Link");
     $('#social-buttons').empty();
   }, 500);
-});
+}
 
 function copyToClipboard() {
   var copyTarget = document.getElementById("copy-target");
@@ -94,13 +119,3 @@ function showCopy() {
     $copyTarget.removeClass("normal-text");
   }, 750);
 }
-
-var fitHeight = false;
-var $toggleHeight = $(".toggle-height");
-$toggleHeight.click(function toggleFitToHeight() {
-  fitHeight = !fitHeight;
-  $(".link-img").css("max-height", fitHeight ? "100%" : "");
-  $(".img-container").css("height", fitHeight ? "80%" : "");
-  $(".toggle-height").text((fitHeight ? "Expand" : "Shrink") + " Pictures");
-  $toggleHeight.blur();
-});
