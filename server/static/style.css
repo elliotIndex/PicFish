@@ -3,6 +3,7 @@
   cursor: default;
 }
 
+/*Prevent url bar from changing size*/
 html, body {
   height: 100%;
 }
