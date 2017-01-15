@@ -7,16 +7,20 @@ let linksCollection = null;
 let statsCollection = null;
 
 module.exports = {
-  connect: () => {
-    MongoClient.connect(environment.mongoUrl, (err, db) => {
-      if (err) {
-        console.error('Failed to connect to DB:', err);
-      } else {
-        _db = db;
-        linksCollection = db.collection('linksCollection');
-        statsCollection = db.collection('statsCollection');
-      }
-    });
+  init: () => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(environment.mongoUrl, (err, db) => {
+        if (err) {
+          console.error('Failed to connect to DB:', err);
+          reject(err);
+        } else {
+          _db = db;
+          linksCollection = db.collection('linksCollection');
+          statsCollection = db.collection('statsCollection');
+          resolve();
+        }
+      });
+    })
   },
 
   insertLinks: (links) => {
@@ -51,5 +55,25 @@ module.exports = {
        { $inc: { visits: 1 } },
        { upsert: true }
     )
+  },
+
+  getFreshestLink: (category) => {
+    if (category) {
+      return linksCollection.find({ category }).sort({ categoryIndex: -1 }).limit(1);
+    }
+    return linksCollection.find().sort({ totalIndex: -1 }).limit(1);
+  },
+
+  getBatch: (index, category) => {
+    if (category) {
+      return linksCollection.find({
+        $and: [
+          { category },
+          { categoryIndex: { $lte: index } }
+        ]
+      }).limit(6);
+    } else {
+      return linksCollection.find({ totalIndex: { $lte: index } }).limit(6);
+    }
   }
 }

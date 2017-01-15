@@ -6,20 +6,31 @@ const utils = require('../misc/utils');
 const database = require('../database/database');
 const cleanup = require('./cleanup');
 const renderDevPage = require('../rendering/renderDevPage');
+const renderCategory = require('../rendering/renderCategory');
 const scheduleLinkRefresh = require('../fetching/scheduleLinkRefresh');
 
 module.exports = () => {
-  // render all the categories from DB
-  //
+  // Init db
+  database.init()
+  .then(renderFromDb);
 
-  database.connect();
-
-  cleanup.prepForServerShutdown(database.close);
-  cleanup.scheduleFileCleanup();
+  // Render initial pages
 
   if (!environment.noFetch) {
     scheduleLinkRefresh(globals.categories);
   }
 
   renderDevPage();
+
+  cleanup.prepForServerShutdown(database.close);
+  cleanup.scheduleFileCleanup();
+}
+
+function renderFromDb() {
+  for (let category in globals.categories) {
+    database.getFreshestLink(category)
+    .then(categoryIndex => database.getBatch(categoryIndex, category))
+    .then(links => renderCategory(links, category))
+    .catch(() => console.log("Error rendering initial category", category));
+  }
 }
