@@ -1,7 +1,4 @@
 node_modules
-server/renderedSubreddits/*
-!server/renderedSubreddits/.gitkeep
-server/renderedSharedLinks/*
-!server/renderedSharedLinks/.gitkeep
-!server/renderedSharedLinks/defaultLink.html
+server/fileCache/**/*.html
+!server/fileCache/renderedSharedLinks/defaultLink.html
 *.log

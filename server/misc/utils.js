@@ -1,5 +1,5 @@
-const globals = require('./globals');
-const environment = require('./environment');
+const globals = require('../globals');
+const environment = require('../config/environment');
 
 const utils = {
   isImageResponse: (res) => {

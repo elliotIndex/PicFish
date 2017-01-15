@@ -1,13 +1,13 @@
 const request = require('request');
-const jsdom = require("jsdom");
-const utils = require('./utils');
-const globals = require('./globals');
+const jsdom = require('jsdom');
+const utils = require('../misc/utils');
+const globals = require('../globals');
 
 function fetchSubreddit(subreddit) {
   return new Promise(function(resolve, reject) {
     jsdom.env({
-      url: "https://www.reddit.com/r/" + subreddit,
-      scripts: ["http://code.jquery.com/jquery.js"],
+      url: 'https://www.reddit.com/r/' + subreddit,
+      scripts: ['http://code.jquery.com/jquery.js'],
       done: (err, page) => err ? reject(err) : resolve(page)
     });
   });
@@ -73,11 +73,11 @@ function validateLinks(subreddit) {
               );
               resolve(link);
             } else {
-              reject("Invalid link");
+              reject('Invalid link');
             }
           }
         );
-        // setTimeout(() => reject("Link timed out"), globals.maxValidationRequestTime);
+        // setTimeout(() => reject('Link timed out'), globals.maxValidationRequestTime);
       })
     });
 
@@ -94,7 +94,7 @@ function fetchSubredditLinks(subreddit) {
   .then(utils.removeOC)
   .then(validateLinks(subreddit))
   .then(utils.filterUniqueLinks)
-  .catch(error => console.error("Error fetching subreddit", subreddit, error));
+  .catch(error => console.error('Error fetching subreddit', subreddit, error));
 }
 
 

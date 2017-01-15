@@ -1,7 +1,7 @@
 const fs = require('fs');
-const database = require('./database');
-const globals = require('./globals');
-const renderTemplate = require('./rendering/renderTemplate');
+const database = require('../database/database');
+const globals = require('../globals');
+const renderTemplate = require('../rendering/renderTemplate');
 
 module.exports = (terminal) => {
   const filename = terminal +'.html';

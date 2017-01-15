@@ -1,7 +1,7 @@
 var mu = require('mu2'); // notice the '2' which matches the npm repo, sorry..
 var fs = require('fs');
-var utils = require('../utils');
-var environment = require('../environment');
+var utils = require('../misc/utils');
+var environment = require('../config/environment');
 var globals = require('../globals');
 
 mu.root = __dirname + '/templates';

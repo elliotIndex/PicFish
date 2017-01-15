@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
-var utils = require('./utils');
-var environment = require('./environment');
+var utils = require('../misc/utils');
+var environment = require('../config/environment');
 
 let _db = null;
 let linksCollection = null;

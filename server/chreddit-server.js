@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-const scheduleLinkRefresh = require('./scheduleLinkRefresh');
+const scheduleLinkRefresh = require('./fetching/scheduleLinkRefresh');
 const globals = require('./globals');
-const cleanup = require('./cleanup');
-const database = require('./database');
-const environment = require('./environment');
-const fileServer = require('./fileServer');
-const renderDevPage = require('./renderDevPage');
-const utils = require('./utils');
+const cleanup = require('./maintenance/cleanup');
+const database = require('./database/database');
+const environment = require('./config/environment');
+const fileServer = require('./serve/fileServer');
+const renderDevPage = require('./rendering/renderDevPage');
+const utils = require('./misc/utils');
 
 app.get('/', function (req, res) {
   database.incrementVisitCount();

@@ -1,10 +1,10 @@
 const cron = require('node-cron');
 const fetchSubredditLinks = require('./fetchSubredditLinks');
-const globals = require('./globals');
-const database = require('./database');
-const clearFacebookCache = require('./clearFacebookCache');
-const utils = require('./utils');
-const renderTemplate = require('./rendering/renderTemplate');
+const globals = require('../globals');
+const database = require('../database/database');
+const clearFacebookCache = require('../maintenance/clearFacebookCache');
+const utils = require('../misc/utils');
+const renderTemplate = require('../rendering/renderTemplate');
 
 function fetchAllSubreddits(subreddits) {
   for (let picFishSub in subreddits) {
@@ -17,12 +17,12 @@ function fetchAllSubreddits(subreddits) {
       globals.renderedSubredditsDir,
       utils.toTitleCase(picFishSub)
     ))
-    .catch(error => console.error("Error rendering subreddit:", subreddit, error))
+    .catch(error => console.error('Error rendering subreddit:', subreddit, error))
     .then(() => clearFacebookCache(picFishSub));
 
     subredditLinks
     .then(links => database.insertLinks(links))
-    .catch(error => console.error("Error storing subreddit:", subreddit, error));
+    .catch(error => console.error('Error storing subreddit:', subreddit, error));
   }
 }
 
