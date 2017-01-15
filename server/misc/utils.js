@@ -68,11 +68,11 @@ const utils = {
   },
 
   createFilePath: (filename) => {
-    return `./server/renderedSubreddits/${filename}.html`
+    return `./server/renderedCategories/${filename}.html`
   },
 
-  isSubreddit: (terminal) => {
-    return globals.subreddits[terminal] || (terminal === "dev" && environment.mode === "dev");
+  isCategory: (terminal) => {
+    return globals.categories[terminal] || (terminal === "dev" && environment.mode === "dev");
   },
 
   getDate: () => {

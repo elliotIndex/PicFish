@@ -5,7 +5,7 @@ module.exports = function renderDevPage() {
   renderTemplate(
     [globals.defaultLink, globals.defaultLink, globals.defaultLink],
     'dev.html',
-    globals.renderedSubredditsDir,
+    globals.renderedCategoriesDir,
     'Dev'
   )
   .then(() => console.log('Rendered dev page'))

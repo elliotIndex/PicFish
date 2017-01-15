@@ -1,13 +1,13 @@
 {
-  "name": "chreddit",
+  "name": "PicFish",
   "version": "1.0.0",
-  "description": "A cousin of reddit with simpler UI",
-  "main": "server/chreddit-server.js",
+  "description": "The best images from around the web, updated hourly",
+  "main": "server/picfish-server.js",
   "scripts": {
     "test": "npm test",
-    "dev": "NODE_ENV=dev nodemon server/chreddit-server.js",
+    "dev": "NODE_ENV=dev nodemon server/picfish-server.js",
     "prod": "sudo npm run _prod",
-    "_prod": "NODE_ENV=prod forever start server/chreddit-server.js",
+    "_prod": "NODE_ENV=prod forever start server/picfish-server.js",
     "update-prod": "sudo forever stopall && npm run prod"
   },
   "repository": {

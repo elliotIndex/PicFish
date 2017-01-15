@@ -8,18 +8,18 @@ module.exports = {
     res.sendFile(path.resolve(globals.defaultFilename));
   },
 
-  serveDefaultSubreddit: (req, res) => {
-    console.log('Serving default subreddit');
-    res.sendFile(path.resolve(globals.renderedSubredditsDir + globals.subreddits['pics'] + '.html'));
+  serveDefaultCategory: (req, res) => {
+    console.log('Serving default category');
+    res.sendFile(path.resolve(globals.renderedCategoriesDir + globals.categories['pics'] + '.html'));
   },
 
-  serveSubreddit: (req, res, subreddit) => {
-    console.log('Serving subreddit');
-    res.sendFile(path.resolve(globals.renderedSubredditsDir + subreddit + '.html'));
+  serveCategory: (req, res, category) => {
+    console.log('Serving /', category);
+    res.sendFile(path.resolve(globals.renderedCategoriesDir + category + '.html'));
   },
 
   serveLinkFile: (req, res, linkId) => {
-    console.log('Serving shared link');
+    console.log('Serving shared link /', linkId);
     findOrCreateFile(linkId) // resolves with filepath, rejects if id not found
     .then(filename => res.sendFile(globals.renderedSharedLinksDir + filename))
     .catch(err => res.sendFile(globals.defaultFilename));

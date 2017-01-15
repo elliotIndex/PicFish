@@ -1,39 +1,39 @@
 const cron = require('node-cron');
-const fetchSubredditLinks = require('./fetchSubredditLinks');
+const fetchCategoryLinks = require('./fetchCategoryLinks');
 const globals = require('../globals');
 const database = require('../database/database');
 const clearFacebookCache = require('../maintenance/clearFacebookCache');
 const utils = require('../misc/utils');
 const renderTemplate = require('../rendering/renderTemplate');
 
-function fetchAllSubreddits(subreddits) {
-  for (let picFishSub in subreddits) {
-    const subredditLinks = fetchSubredditLinks(subreddits[picFishSub]);
+function fetchAllCategories(categories) {
+  for (let picFishSub in categories) {
+    const categoryLinks = fetchCategoryLinks(categories[picFishSub]);
 
-    subredditLinks
+    categoryLinks
     .then(links => renderTemplate(
       links,
       picFishSub + '.html',
-      globals.renderedSubredditsDir,
+      globals.renderedCategoriesDir,
       utils.toTitleCase(picFishSub)
     ))
-    .catch(error => console.error('Error rendering subreddit:', subreddit, error))
+    .catch(error => console.error('Error rendering category:', category, error))
     .then(() => clearFacebookCache(picFishSub));
 
-    subredditLinks
+    categoryLinks
     .then(links => database.insertLinks(links))
-    .catch(error => console.error('Error storing subreddit:', subreddit, error));
+    .catch(error => console.error('Error storing category:', category, error));
   }
 }
 
-function scheduleLinkRefresh(subreddits) {
-  console.log('Fetching all subreddits');
-  fetchAllSubreddits(subreddits);
+function scheduleLinkRefresh(categories) {
+  console.log('Fetching all categories');
+  fetchAllCategories(categories);
 
   console.log('Scheduling Link Refresh');
   cron.schedule(globals.linkRefreshInterval, () => {
     console.log('Refreshing links');
-    fetchAllSubreddits(subreddits);
+    fetchAllCategories(categories);
   });
 }
 

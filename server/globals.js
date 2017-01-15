@@ -1,7 +1,7 @@
 const environment = require('./config/environment');
 
 const globals = {
-  subreddits: {
+  categories: {
     'funny': 'funny',
     'cute': 'aww',
     'pics': 'pics',
@@ -17,7 +17,7 @@ const globals = {
   defaultFilename: __dirname + '/renderedSharedLinks/defaultLink.html',
   linkRefreshInterval: '30 * * * *', // hourly on the **:30
   fileCleanupInterval: '1 0 * * * *', // daily at 12:01am
-  renderedSubredditsDir: __dirname + '/fileCache/renderedSubreddits/',
+  renderedCategoriesDir: __dirname + '/fileCache/renderedCategories/',
   renderedSharedLinksDir: __dirname + '/fileCache/renderedSharedLinks/',
   stylesheetDir: __dirname + '/style.css',
   staticFileDir: __dirname + '/static',
@@ -28,7 +28,7 @@ const globals = {
 }
 
 if (environment.mode === 'dev' && process.argv.indexOf('short') > -1) {
-  globals.subreddits = { 'cute': 'aww' };
+  globals.categories = { 'cute': 'aww' };
 }
 
 module.exports = globals;

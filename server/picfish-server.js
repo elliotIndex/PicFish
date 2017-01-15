@@ -11,7 +11,7 @@ const utils = require('./misc/utils');
 
 app.get('/', function (req, res) {
   database.incrementVisitCount();
-  fileServer.serveDefaultSubreddit(req, res);
+  fileServer.serveDefaultCategory(req, res);
 });
 
 app.use(express.static(globals.staticFileDir));
@@ -19,9 +19,9 @@ app.use(express.static(globals.staticFileDir));
 app.get('/:terminal', function (req, res) {
   database.incrementVisitCount();
   if (!req.params.terminal) {
-    fileServer.serveDefaultSubreddit(req, res);
-  } else if (utils.isSubreddit(req.params.terminal)) {
-    fileServer.serveSubreddit(req, res, req.params.terminal);
+    fileServer.serveDefaultCategory(req, res);
+  } else if (utils.isCategory(req.params.terminal)) {
+    fileServer.serveCategory(req, res, req.params.terminal);
   } else if (utils.isLinkId(req.params.terminal)) {
     fileServer.serveLinkFile(req, res, req.params.terminal);
   } else {
@@ -39,7 +39,7 @@ cleanup.prepForServerShutdown(database.close);
 cleanup.scheduleFileCleanup();
 
 if (!environment.noFetch) {
-  scheduleLinkRefresh(globals.subreddits);
+  scheduleLinkRefresh(globals.categories);
 }
 
 renderDevPage();
