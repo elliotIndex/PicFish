@@ -1,13 +1,11 @@
 const express = require('express');
 const app = express();
-const scheduleLinkRefresh = require('./fetching/scheduleLinkRefresh');
 const globals = require('./globals');
-const cleanup = require('./maintenance/cleanup');
 const database = require('./database/database');
 const environment = require('./config/environment');
 const fileServer = require('./serve/fileServer');
-const renderDevPage = require('./rendering/renderDevPage');
 const utils = require('./misc/utils');
+const init = require('./maintenance/init');
 
 app.get('/', function (req, res) {
   database.incrementVisitCount();
@@ -33,13 +31,4 @@ app.listen(environment.port, function () {
   console.log('Express server connected on port', environment.port);
 });
 
-database.connect();
-
-cleanup.prepForServerShutdown(database.close);
-cleanup.scheduleFileCleanup();
-
-if (!environment.noFetch) {
-  scheduleLinkRefresh(globals.categories);
-}
-
-renderDevPage();
+init();
