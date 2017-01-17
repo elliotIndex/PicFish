@@ -12,6 +12,7 @@ const scheduleLinkRefresh = require('../fetching/scheduleLinkRefresh');
 module.exports = () => {
   // Init db
   database.init()
+  .then(() => database.initMaxIndecies())
   .then(renderFromDb);
 
   // Render initial pages
@@ -26,7 +27,7 @@ module.exports = () => {
   cleanup.scheduleFileCleanup();
 }
 
-function renderFromDb() {
+function renderFromDb(all) {
   for (let category in globals.categories) {
     renderCategory(category)
     .catch(() => console.log("Error rendering initial category", category));

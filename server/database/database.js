@@ -24,21 +24,29 @@ var database = {
           linksCollection.createIndex({ totalIndex: 1 });
           statsCollection.createIndex({ date: 1 });
 
-          database.initMaxIndecies();
-          setTimeout(() => console.log("max total index:", maxTotalIndex), 1000)
-          setTimeout(() => console.log("max cat indexes:", JSON.stringify(maxCategoryIndecies)), 1500)
           resolve();
         }
       });
     })
   },
 
-  insertLinks: (links) => {
-    links.map(link => linksCollection.update(
-      { linkId: link.linkId },
-      link,
-      { upsert: true }
-    ));
+  insertLinks: (links, category) => {
+    console.log("Insergin links");
+    links.map(link => {
+
+
+      linksCollection.findOne({ linkId: link.linkId })
+      .then(foundLink => {
+        if (!foundLink) {
+          link.category = category;
+          link.categoryIndex = maxCategoryIndecies[category]++;
+          link.totalIndex = maxTotalIndex++;
+          return linksCollection.insert(link);
+        }
+        return foundLink;
+      })
+      .catch(err => console.log("Error updating link:", link))
+    });
   },
 
   findLink: (linkId) => {
@@ -87,6 +95,7 @@ var database = {
   },
 
   getFirstBatch: (category) => {
+    console.log("geting first batch for category", category);
     if (category) {
       return database.getBatch(maxCategoryIndecies[category], category);
     } else {
@@ -95,14 +104,37 @@ var database = {
   },
 
   initMaxIndecies: () => {
+    const maxIndecies = [];
     for (let category in globals.categories) {
       if (!maxCategoryIndecies[category]) {
-        linksCollection.find({ category }).sort({ categoryIndex: -1 }).limit(1)
-        .each(link => maxCategoryIndecies[category] = link ? link.categoryIndex : 0);
+        maxIndecies.push(
+          new Promise((resolve, reject) => {
+            linksCollection
+            .find({ category })
+            .sort({ categoryIndex: -1 })
+            .limit(1)
+            .each(link => {
+              maxCategoryIndecies[category] = link ? link.categoryIndex : 0;
+              resolve(category);
+            })
+          })
+        )
       }
     }
-    linksCollection.find().sort({ categoryIndex: -1 }).limit(1)
-    .each(link => maxTotalIndex = link ? link.totalIndex : 0);
+    maxIndecies.push(
+      new Promise((resolve, reject) => {
+        linksCollection
+        .find()
+        .sort({ categoryIndex: -1 })
+        .limit(1)
+        .each(link => {
+          maxTotalIndex = link ? link.totalIndex : 0;
+          resolve('total');
+        })
+      })
+
+    );
+    return Promise.all(maxIndecies);
   }
 }
 
