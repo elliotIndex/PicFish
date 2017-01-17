@@ -5,24 +5,15 @@ const database = require('../database/database');
 const clearFacebookCache = require('../maintenance/clearFacebookCache');
 const utils = require('../misc/utils');
 const renderTemplate = require('../rendering/renderTemplate');
+const renderCategory = require('../rendering/renderCategory');
 
 function fetchAllCategories(categories) {
-  for (let picFishSub in categories) {
-    const categoryLinks = fetchCategoryLinks(categories[picFishSub]);
-
-    categoryLinks
-    .then(links => renderTemplate(
-      links,
-      picFishSub + '.html',
-      globals.renderedCategoriesDir,
-      utils.toTitleCase(picFishSub)
-    ))
-    .catch(error => console.error('Error rendering category:', category, error))
-    .then(() => clearFacebookCache(picFishSub));
-
-    categoryLinks
-    .then(links => database.insertLinks(links))
-    .catch(error => console.error('Error storing category:', category, error));
+  for (let category in categories) {
+    fetchCategoryLinks(categories[category])
+    .then(links => database.insertLinks(links, category))
+    .catch(error => console.error('Error storing category:', category, error))
+    .then(() => renderCategory(category))
+    .catch(error => console.error('Error rendering category', category, error));
   }
 }
 

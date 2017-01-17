@@ -1,12 +1,15 @@
 var MongoClient = require('mongodb').MongoClient;
 var utils = require('../misc/utils');
 var environment = require('../config/environment');
+var globals = require('../globals');
 
 let _db = null;
 let linksCollection = null;
 let statsCollection = null;
+let maxTotalIndex = 0;
+let maxCategoryIndecies = {};
 
-module.exports = {
+var database = {
   init: () => {
     return new Promise((resolve, reject) => {
       MongoClient.connect(environment.mongoUrl, (err, db) => {
@@ -17,6 +20,13 @@ module.exports = {
           _db = db;
           linksCollection = db.collection('linksCollection');
           statsCollection = db.collection('statsCollection');
+          linksCollection.createIndex({ categoryIndex: 1 });
+          linksCollection.createIndex({ totalIndex: 1 });
+          statsCollection.createIndex({ date: 1 });
+
+          database.initMaxIndecies();
+          setTimeout(() => console.log("max total index:", maxTotalIndex), 1000)
+          setTimeout(() => console.log("max cat indexes:", JSON.stringify(maxCategoryIndecies)), 1500)
           resolve();
         }
       });
@@ -57,13 +67,6 @@ module.exports = {
     )
   },
 
-  getFreshestLink: (category) => {
-    if (category) {
-      return linksCollection.find({ category }).sort({ categoryIndex: -1 }).limit(1);
-    }
-    return linksCollection.find().sort({ totalIndex: -1 }).limit(1);
-  },
-
   getBatch: (index, category) => {
     if (category) {
       return linksCollection.find({
@@ -71,9 +74,32 @@ module.exports = {
           { category },
           { categoryIndex: { $lte: index } }
         ]
-      }).limit(6);
+      })
+      .limit(6)
+      .toArray();
     } else {
-      return linksCollection.find({ totalIndex: { $lte: index } }).limit(6);
+      return linksCollection.find({ totalIndex: { $lte: index } }).limit(6).toArray();
     }
+  },
+
+  getFirstBatch: (category) => {
+    if (category) {
+      return getBatch(maxCategoryIndecies[category], category);
+    } else {
+      return getBatch(maxTotalIndex);
+    }
+  },
+
+  initMaxIndecies: () => {
+    for (let category in globals.categories) {
+      if (!maxCategoryIndecies[category]) {
+        linksCollection.find({ category }).sort({ categoryIndex: -1 }).limit(1)
+        .each(link => maxCategoryIndecies[category] = link ? link.categoryIndex : 0);
+      }
+    }
+    linksCollection.find().sort({ categoryIndex: -1 }).limit(1)
+    .each(link => maxTotalIndex = link ? link.totalIndex : 0);
   }
 }
+
+module.exports = database;
