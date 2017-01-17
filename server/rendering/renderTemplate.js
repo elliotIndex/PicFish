@@ -7,6 +7,7 @@ var globals = require('../globals');
 mu.root = __dirname + '/templates';
 
 module.exports = (links, filename, filepath, title) => {
+  console.log("links", links);
   return new Promise((resolve, reject) => {
     const fullFilepath = filepath + filename;
 

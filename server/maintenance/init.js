@@ -28,7 +28,7 @@ module.exports = () => {
 
 function renderFromDb() {
   for (let category in globals.categories) {
-    renderCategory(database.getFirstBatch(category), category)
+    renderCategory(category)
     .catch(() => console.log("Error rendering initial category", category));
   }
 }

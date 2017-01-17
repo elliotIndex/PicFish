@@ -78,15 +78,19 @@ var database = {
       .limit(6)
       .toArray();
     } else {
-      return linksCollection.find({ totalIndex: { $lte: index } }).limit(6).toArray();
+      return linksCollection.find({
+        totalIndex: { $lte: index }
+      })
+      .limit(6)
+      .toArray();
     }
   },
 
   getFirstBatch: (category) => {
     if (category) {
-      return getBatch(maxCategoryIndecies[category], category);
+      return database.getBatch(maxCategoryIndecies[category], category);
     } else {
-      return getBatch(maxTotalIndex);
+      return database.getBatch(maxTotalIndex);
     }
   },
 
