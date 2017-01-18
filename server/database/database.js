@@ -98,7 +98,6 @@ var database = {
   },
 
   getFirstBatch: (category) => {
-    console.log("geting first batch for category", category);
     if (category) {
       return database.getBatch(maxCategoryIndecies[category], category);
     } else {
