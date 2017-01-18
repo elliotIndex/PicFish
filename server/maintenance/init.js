@@ -13,7 +13,10 @@ module.exports = () => {
   // Init db
   database.init()
   .then(() => database.initMaxIndecies())
-  .then(renderFromDb);
+  .then(maxIndecies => {
+    console.log("maxIndecies", maxIndecies);
+    renderFromDb();
+  });
 
   // Render initial pages
 
@@ -30,6 +33,6 @@ module.exports = () => {
 function renderFromDb(all) {
   for (let category in globals.categories) {
     renderCategory(category)
-    .catch(() => console.log("Error rendering initial category", category));
+    .catch(err => console.log("Error rendering initial category", category, err));
   }
 }

@@ -28,7 +28,7 @@ const globals = {
 }
 
 if (environment.mode === 'dev' && process.argv.indexOf('short') > -1) {
-  globals.categories = { 'cute': 'aww' };
+  globals.categories = { 'pics': 'pics' };
 }
 
 module.exports = globals;

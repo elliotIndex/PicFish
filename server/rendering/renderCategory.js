@@ -4,6 +4,9 @@ var utils = require('../misc/utils');
 var database = require('../database/database');
 
 module.exports = (category) => database.getFirstBatch(category)
+  .then(firstBatchLinks => {
+    return firstBatchLinks;
+  })
   .then(links => renderTemplate(
     links,
     category + '.html',

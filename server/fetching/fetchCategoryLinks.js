@@ -93,7 +93,7 @@ function fetchCategoryLinks(category) {
   .then(utils.removeOC)
   .then(validateLinks)
   .then(utils.filterUniqueLinks)
-  .catch(error => console.error('Error fetching category', category, error));
+  .catch(error => console.error(error));
 }
 
 

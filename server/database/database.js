@@ -31,22 +31,25 @@ var database = {
   },
 
   insertLinks: (links, category) => {
-    console.log("Insergin links");
-    links.map(link => {
-
-
-      linksCollection.findOne({ linkId: link.linkId })
-      .then(foundLink => {
-        if (!foundLink) {
-          link.category = category;
-          link.categoryIndex = maxCategoryIndecies[category]++;
-          link.totalIndex = maxTotalIndex++;
-          return linksCollection.insert(link);
-        }
-        return foundLink;
-      })
-      .catch(err => console.log("Error updating link:", link))
-    });
+    // recursively return number of links inserted
+    if (!links || !links.length) {
+      return new Promise(resolve => resolve(0));
+    }
+    const currentLink = links.pop();
+    return linksCollection.findOne({ linkId: currentLink.linkId })
+    .then(foundLink => {
+      if (!foundLink) {
+        currentLink.category = category;
+        currentLink.categoryIndex = ++maxCategoryIndecies[category];
+        currentLink.totalIndex = ++maxTotalIndex;
+        return linksCollection.insert(currentLink)
+        .catch(err => console.error(err))
+        .then(() => database.insertLinks(links, category))
+        .then(insertions => insertions + 1);
+      }
+      return database.insertLinks(links, category);
+    })
+    .catch(err => console.error(err))
   },
 
   findLink: (linkId) => {
@@ -69,9 +72,9 @@ var database = {
     const today = utils.getDate();
 
     statsCollection.update(
-       { date: today },
-       { $inc: { visits: 1 } },
-       { upsert: true }
+      { date: today },
+      { $inc: { visits: 1 } },
+      { upsert: true }
     )
   },
 
@@ -105,6 +108,7 @@ var database = {
 
   initMaxIndecies: () => {
     const maxIndecies = [];
+    const _maxCategoryIndecies = maxCategoryIndecies;
     for (let category in globals.categories) {
       if (!maxCategoryIndecies[category]) {
         maxIndecies.push(
@@ -113,9 +117,14 @@ var database = {
             .find({ category })
             .sort({ categoryIndex: -1 })
             .limit(1)
-            .each(link => {
-              maxCategoryIndecies[category] = link ? link.categoryIndex : 0;
-              resolve(category);
+            .each((error, link) => {
+              if (error) {
+                reject(error);
+              }
+              if (link) {
+                _maxCategoryIndecies[category] = link.categoryIndex;
+                resolve(maxCategoryIndecies);
+              }
             })
           })
         )
@@ -125,17 +134,22 @@ var database = {
       new Promise((resolve, reject) => {
         linksCollection
         .find()
-        .sort({ categoryIndex: -1 })
+        .sort({ totalIndex: -1 })
         .limit(1)
-        .each(link => {
-          maxTotalIndex = link ? link.totalIndex : 0;
-          resolve('total');
+        .each((error, link) => {
+          if (error) {
+            reject(error);
+          }
+          if (link) {
+            maxTotalIndex = link.totalIndex;
+            resolve(maxTotalIndex);
+          }
         })
       })
 
     );
     return Promise.all(maxIndecies);
-  }
+  },
 }
 
 module.exports = database;
