@@ -42,6 +42,9 @@ var database = {
     .then(foundLink => {
       if (!foundLink) {
         currentLink.category = category;
+        if (!maxCategoryIndecies[category]) {
+          maxCategoryIndecies[category] = 0;
+        }
         currentLink.categoryIndex = ++maxCategoryIndecies[category];
         currentLink.totalIndex = ++maxTotalIndex;
         return linksCollection.insert(currentLink)
