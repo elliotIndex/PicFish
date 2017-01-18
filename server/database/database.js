@@ -110,7 +110,6 @@ var database = {
 
   initMaxIndecies: () => {
     const maxIndecies = [];
-    const _maxCategoryIndecies = maxCategoryIndecies;
     for (let category in globals.categories) {
       if (!maxCategoryIndecies[category]) {
         maxIndecies.push(
@@ -124,7 +123,9 @@ var database = {
                 reject(error);
               }
               if (link) {
-                _maxCategoryIndecies[category] = link.categoryIndex;
+                maxCategoryIndecies[category] = Math.max(
+                  maxCategoryIndecies[category], link.categoryIndex || 0
+                );
                 resolve(maxCategoryIndecies);
               }
             })
@@ -143,7 +144,7 @@ var database = {
             reject(error);
           }
           if (link) {
-            maxTotalIndex = link.totalIndex;
+            maxTotalIndex = Math.max(0, link.totalIndex || 0;
             resolve(maxTotalIndex);
           }
         })
