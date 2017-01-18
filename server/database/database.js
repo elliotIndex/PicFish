@@ -31,6 +31,8 @@ var database = {
   },
 
   insertLinks: (links, category) => {
+    console.log("inserting links", links);
+    console.log("into category", category);
     // recursively return number of links inserted
     if (!links || !links.length) {
       return new Promise(resolve => resolve(0));
