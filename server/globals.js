@@ -2,12 +2,12 @@ const environment = require('./config/environment');
 
 const globals = {
   categories: {
-    'funny': 'funny',
-    'cute': 'aww',
-    'pics': 'pics',
-    'gifs': 'gifs',
-    'gaming': 'gaming',
-    'earth': 'earthPorn',
+    'funny': [ 'funny', 'BlackPeopleTwitter', 'memes' ],
+    'cute': [ 'aww', 'wholesomegifs' ],
+    'pics': [ 'pics' ],
+    'gifs': [ 'gifs' ],
+    'gaming': [ 'gaming' ],
+    'earth': [ 'earthPorn' ]
   },
   defaultLink: {
     text: 'Uh oh! We couldn\'t find the picture you were looking for. We\'ll try to fix it on our end :)',

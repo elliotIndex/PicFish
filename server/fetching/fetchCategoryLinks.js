@@ -3,27 +3,35 @@ const jsdom = require('jsdom');
 const utils = require('../misc/utils');
 const globals = require('../globals');
 
-function fetchCategory(category) {
-  return new Promise(function(resolve, reject) {
-    jsdom.env({
-      url: 'https://www.reddit.com/r/' + category,
-      scripts: ['http://code.jquery.com/jquery.js'],
-      done: (err, page) => err ? reject(err) : resolve(page, category)
-    });
-  });
+function fetchPages(category) {
+  const pages = globals.categories[category].map(source => new Promise(
+    (resolve, reject) => {
+      jsdom.env({
+        url: 'https://www.reddit.com/r/' + category,
+        scripts: ['http://code.jquery.com/jquery.js'],
+        done: (err, page) => err ? reject(err) : resolve({ page, category })
+      });
+    }
+  ));
+
+  return Promise.all(pages);
 }
 
-function scrapeLinks(page, category) {
-  const allLinks = [];
-  const $ = page.$;
-  const links = $('.thing.link');
-  links.each((__, link) => {
-    const $link = $(link);
-    const href = $link.data('url');
-    const text = $link.find('a.title').text();
-    const linkId = utils.generateHashCode(href);
+function scrapeLinks(pages) {
 
-    allLinks.push({ text, href, category, linkId });
+  const allLinks = [];
+
+  pages.forEach(({ page, category }) => {
+    const $ = page.$;
+    const links = $('.thing.link');
+    links.each((__, link) => {
+      const $link = $(link);
+      const href = $link.data('url');
+      const text = $link.find('a.title').text();
+      const linkId = utils.generateHashCode(href);
+
+      allLinks.push({ text, href, category, linkId });
+    });
   });
 
   return allLinks;
@@ -82,7 +90,7 @@ function validateLinks(links) {
 }
 
 function fetchCategoryLinks(category) {
-  return fetchCategory(category)
+  return fetchPages(category)
   .then(scrapeLinks)
   .then(correctImgurUrls)
   .then(utils.removeRedditReferences)
