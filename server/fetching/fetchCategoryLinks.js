@@ -2,7 +2,9 @@ const request = require('request');
 const jsdom = require('jsdom');
 const utils = require('../misc/utils');
 const globals = require('../globals');
+const shuffle = require('knuth-shuffle').knuthShuffle
 
+console.log("b", b);
 function fetchPages(category) {
   const pages = globals.categories[category].map(source => new Promise(
     (resolve, reject) => {
@@ -34,7 +36,7 @@ function scrapeLinks(pages) {
     });
   });
 
-  return allLinks;
+  return shuffle(allLinks);
 }
 
 function correctImgurUrls(links) {
