@@ -11,13 +11,14 @@ $scrollableContent.focus();
 $navbarToggle.on('blur', function() { $navbar.collapse('hide'); });
 $shareLinkModal.on('hide.bs.modal', resetShareModal);
 $("body").scrollTop($("body").scrollTop() + 100);
+scrollingNav()
 
 // Toggle height
 var fitHeight = false;
 $toggleHeight.click(function toggleFitToHeight() {
   fitHeight = !fitHeight;
   $(".link-img").css("max-height", fitHeight ? "100%" : "");
-  $(".img-container").css("height", fitHeight ? "80%" : "");
+  $(".img-container").css("height", fitHeight ? "70%" : "");
   $(".toggle-height").text((fitHeight ? "Expand" : "Shrink") + " Pictures");
   $toggleHeight.blur();
 });
@@ -130,33 +131,35 @@ function showCopy() {
 }
 
 // Scrolling navbar
-var didScroll;
-var lastScrollTop = 0;
-var delta = 6;
-var navbarHeight = $topNav.outerHeight();
+function scrollingNav() {
+  var didScroll;
+  var lastScrollTop = 0;
+  var delta = 10;
+  var navbarHeight = $topNav.outerHeight();
 
-// on scroll, let the interval function know the user has scrolled
-$scrollableContent.scroll(function(event){
-  didScroll = true;
-});
-// run hasScrolled() and reset didScroll status
-setInterval(function() {
-  if (didScroll) {
-    hasScrolled();
-    didScroll = false;
-  }
-}, 250);
+  // on scroll, let the interval function know the user has scrolled
+  $scrollableContent.scroll(function(event){
+    didScroll = true;
+  });
+  // run hasScrolled() and reset didScroll status
+  setInterval(function() {
+    if (didScroll) {
+      hasScrolled();
+      didScroll = false;
+    }
+  }, 100);
 
-function hasScrolled() {
-  var st = $scrollableContent.scrollTop();
-  if (Math.abs(lastScrollTop - st) < delta) {
-    return false;
-  }
+  function hasScrolled() {
+    var st = $scrollableContent.scrollTop();
+    if (Math.abs(lastScrollTop - st) < delta) {
+      return false;
+    }
 
-  if (st > lastScrollTop && st > navbarHeight) {
-    $topNav.removeClass('nav-down').addClass('nav-up');
-  } else if (st < lastScrollTop || st < navbarHeight) {
-    $topNav.removeClass('nav-up').addClass('nav-down');
+    if (st > lastScrollTop && st > navbarHeight) {
+      $topNav.removeClass('nav-down').addClass('nav-up');
+    } else if (st < lastScrollTop || st < navbarHeight) {
+      $topNav.removeClass('nav-up').addClass('nav-down');
+    }
+    lastScrollTop = st;
   }
-  lastScrollTop = st;
 }

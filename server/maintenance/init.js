@@ -13,7 +13,8 @@ module.exports = () => {
   // Init db
   database.init()
   .then(() => database.initMaxIndecies())
-  .then(renderFromDb);
+  .then(renderFromDb)
+  .catch(err => console.error(err));
 
   // Render initial pages
 

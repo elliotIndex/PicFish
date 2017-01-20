@@ -67,7 +67,6 @@ var database = {
   },
 
   close: () => {
-    console.log('Closing Database');
     _db && _db.close();
   },
 
@@ -146,7 +145,7 @@ var database = {
             reject(error);
           }
           if (link) {
-            maxTotalIndex = Math.max(0, link.totalIndex || 0);
+            maxTotalIndex = Math.max(maxTotalIndex || 0, link.totalIndex || 0);
             resolve(maxTotalIndex);
           }
         })

@@ -4,7 +4,7 @@ const globals = {
   categories: {
     'funny': [ 'funny', 'BlackPeopleTwitter', 'memes' ],
     'cute': [ 'aww', 'wholesomegifs' ],
-    'pics': [ 'pics' ],
+    'general': [ 'pics' ],
     'gifs': [ 'gifs' ],
     'gaming': [ 'gaming' ],
     'earth': [ 'earthPorn' ]
@@ -14,7 +14,7 @@ const globals = {
     href: 'http://imgur.com/PbcZq8t.jpg',
     linkId: 47378
   },
-  defaultFilename: __dirname + '/renderedSharedLinks/defaultLink.html',
+  defaultFilename: __dirname + '/fileCache/renderedSharedLinks/defaultLink.html',
   linkRefreshInterval: '30 * * * *', // hourly on the **:30
   fileCleanupInterval: '1 0 * * * *', // daily at 12:01am
   renderedCategoriesDir: __dirname + '/fileCache/renderedCategories/',
@@ -28,7 +28,7 @@ const globals = {
 }
 
 if (environment.mode === 'dev' && process.argv.indexOf('short') > -1) {
-  globals.categories = { 'pics': 'pics' };
+  globals.categories = { 'general': [ 'pics' ] };
 }
 
 module.exports = globals;
