@@ -89,12 +89,14 @@ var database = {
           { categoryIndex: { $lte: index } }
         ]
       })
+      .sort({ categoryIndex: -1 })
       .limit(6)
       .toArray();
     } else {
       return linksCollection.find({
         totalIndex: { $lte: index }
       })
+      .sort({ categoryIndex: -1 })
       .limit(6)
       .toArray();
     }
@@ -124,7 +126,7 @@ var database = {
               }
               if (link) {
                 maxCategoryIndecies[category] = Math.max(
-                  maxCategoryIndecies[category], link.categoryIndex || 0
+                  maxCategoryIndecies[category] || 0, link.categoryIndex || 0
                 );
                 resolve(maxCategoryIndecies);
               }
