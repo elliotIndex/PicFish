@@ -14,14 +14,23 @@ $("body").scrollTop($("body").scrollTop() + 100);
 scrollingNav()
 
 // Toggle height
-var fitHeight = false;
-$toggleHeight.click(function toggleFitToHeight() {
-  fitHeight = !fitHeight;
+var fitHeight = true;
+if (localStorage && localStorage.getItem("fitHeight") === "false") {
+  fitHeight = false;
+}
+function updateViewFitHeight() {
   $(".link-img").css("max-height", fitHeight ? "100%" : "");
   $(".img-container").css("height", fitHeight ? "70%" : "");
   $(".toggle-height").text((fitHeight ? "Expand" : "Shrink") + " Pictures");
+}
+function toggleFitToHeight() {
+  fitHeight = !fitHeight;
+  updateViewFitHeight();
   $toggleHeight.blur();
-});
+  localStorage.setItem("fitHeight", fitHeight);
+}
+updateViewFitHeight();
+$toggleHeight.click(toggleFitToHeight);
 
 // Social
 var FB = null;

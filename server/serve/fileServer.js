@@ -10,7 +10,7 @@ module.exports = {
 
   serveDefaultCategory: (req, res) => {
     console.log('Serving default category');
-    res.sendFile(path.resolve(globals.renderedCategoriesDir + globals.categories['general'] + '.html'));
+    res.sendFile(path.resolve(globals.renderedCategoriesDir + 'general.html'));
   },
 
   serveCategory: (req, res, category) => {

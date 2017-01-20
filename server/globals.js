@@ -14,6 +14,7 @@ const globals = {
     href: 'http://imgur.com/PbcZq8t.jpg',
     linkId: 47378
   },
+  defaultCategory: 'general',
   defaultFilename: __dirname + '/fileCache/renderedSharedLinks/defaultLink.html',
   linkRefreshInterval: '30 * * * *', // hourly on the **:30
   fileCleanupInterval: '1 0 * * * *', // daily at 12:01am
@@ -28,7 +29,9 @@ const globals = {
 }
 
 if (environment.mode === 'dev' && process.argv.indexOf('short') > -1) {
-  globals.categories = { 'general': [ 'pics' ] };
+  temp = {};
+  temp[globals.defaultCategory] = globals.categories[globals.defaultCategory];
+  globals.categories = temp;
 }
 
 module.exports = globals;
