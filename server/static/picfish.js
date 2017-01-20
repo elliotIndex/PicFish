@@ -25,13 +25,11 @@ $toggleHeight.click(function toggleFitToHeight() {
 
 // Social
 var FB = null;
-
 var fbShareBtnStrs = [
   '<div class="fb-share-button" data-href="http://www.pic.fish/',
   '" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.pic.fish%2F',
   '&amp;src=sdkpreparse">Share</a></div>'
 ];
-
 var twttrParts = [
   '<iframe src="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=http%3A%2F%2Fwww.pic.fish%2F',
   // terminal
@@ -91,7 +89,6 @@ function resetShareModal(event) {
     $('#social-buttons').empty();
   }, 500);
 }
-
 function copyToClipboard() {
   var copyTarget = document.getElementById("copy-target");
   var range = document.createRange();
@@ -104,7 +101,6 @@ function copyToClipboard() {
   emptySelection();
   showCopy();
 }
-
 function emptySelection() {
   if (window.getSelection) {
      if (window.getSelection().empty) {  // Chrome
@@ -116,7 +112,6 @@ function emptySelection() {
     document.selection.empty();
   }
 }
-
 function showCopy() {
   var $copyTarget = $("#copy-target");
   $copyTarget.removeClass("normal-text");
