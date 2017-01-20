@@ -16,17 +16,14 @@ function fetchCategory(category) {
 function scrapeLinks(page, category) {
   const allLinks = [];
   const $ = page.$;
-  const links = $('.title.may-blank');
-  links.each(function () {
-    const element = $(this);
-    const href = element.attr('href');
-    const text = element.text();
-    allLinks.push({
-      text,
-      href,
-      category,
-      linkId: utils.generateHashCode(href),
-    })
+  const links = $('.thing.link');
+  links.each((__, link) => {
+    const $link = $(link);
+    const href = $link.data('url');
+    const text = $link.find('a.title').text();
+    const linkId = utils.generateHashCode(href);
+
+    allLinks.push({ text, href, category, linkId });
   });
 
   return allLinks;
