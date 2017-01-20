@@ -4,7 +4,6 @@ const utils = require('../misc/utils');
 const globals = require('../globals');
 const shuffle = require('knuth-shuffle').knuthShuffle
 
-console.log("b", b);
 function fetchPages(category) {
   const pages = globals.categories[category].map(source => new Promise(
     (resolve, reject) => {
