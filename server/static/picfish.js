@@ -2,6 +2,7 @@
 var $shareLinkModal = $('#share-link-modal');
 var $toggleHeight = $(".toggle-height");
 var $scrollableContent = $('#scrollable-content');
+var $imageList = $('#image-list');
 var $navbarToggle = $(".navbar-toggle");
 var $navbar = $("#navbar");
 var $topNav = $(".navbar.navbar-default");
@@ -12,6 +13,7 @@ $navbarToggle.on('blur', function() { $navbar.collapse('hide'); });
 $shareLinkModal.on('hide.bs.modal', resetShareModal);
 $("body").scrollTop($("body").scrollTop() + 100);
 scrollingNav()
+scrollRequests()
 
 // Toggle height
 var fitHeight = true;
@@ -112,11 +114,11 @@ function copyToClipboard() {
 }
 function emptySelection() {
   if (window.getSelection) {
-     if (window.getSelection().empty) {  // Chrome
-       window.getSelection().empty();
-     } else if (window.getSelection().removeAllRanges) {  // Firefox
-       window.getSelection().removeAllRanges();
-     }
+    if (window.getSelection().empty) {  // Chrome
+      window.getSelection().empty();
+    } else if (window.getSelection().removeAllRanges) {  // Firefox
+      window.getSelection().removeAllRanges();
+    }
   } else if (document.selection) {  // IE?
     document.selection.empty();
   }
@@ -166,4 +168,67 @@ function scrollingNav() {
     }
     lastScrollTop = st;
   }
+}
+
+// Scroll requests
+function scrollRequests() {
+  if ($imageList.children().length > 1) {
+    var requestSent = false;
+    $scrollableContent.scroll(function(event) {
+      if (!requestSent && nearPageEnd()) {
+        $lastLink = $('.list-entry').last();
+        var index = $lastLink.data('categoryindex');
+        // if (total) {
+        //   index = $lastLink.data('totalindex')
+        // }
+        requestSent = true;
+        startSpinner();
+        $.get(window.location.pathname + "?index=" + index, function(response) {
+          console.log("got response", response);
+          addLinks(response);
+          requestSent = false;
+          stopSpinner();
+        });
+      }
+    });
+  }
+}
+
+function nearPageEnd() {
+  return $scrollableContent.scrollTop() > $($('.list-entry:nth-last-child(3)')).offset().top;
+}
+
+// Add links
+function addLinks(links) {
+  // use jquery to tack links onto list
+  links.forEach(function(link) {
+    var newLink = $(
+      '<li class="list-entry" data-toggle="modal" data-target="#share-link-modal" data-linkid="' +
+      link.linkId +
+      '" data-linktext="' +
+      link.text +
+      '" data-imgsrc="' +
+      link.href +
+      '" data-link="' +
+      window.host +
+      '/' +
+      link.linkId +
+      '" > <div class="img-container"> <img src="' +
+      link.href +
+      '" class="link-img" alt="' +
+      link.text +
+      '" /> </div> <div class="text-container"> <h3 class="link-title"> ' +
+      link.text +
+      ' </h3> </div> </li>'
+    )
+    $imageList.append(newLink)
+  })
+}
+
+function startSpinner() {
+  console.log("starting spiner");
+}
+
+function stopSpinner() {
+  console.log("starting spiner");
 }
