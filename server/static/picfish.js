@@ -6,6 +6,7 @@ var $imageList = $('#image-list');
 var $navbarToggle = $(".navbar-toggle");
 var $navbar = $("#navbar");
 var $topNav = $(".navbar.navbar-default");
+var $loadingSpinner = $(".loading-spinner");
 
 // Page setup
 $scrollableContent.focus();
@@ -171,25 +172,37 @@ function scrollingNav() {
 }
 
 // Scroll requests
+var requestSent = false;
 function scrollRequests() {
   if ($imageList.children().length > 1) {
-    var requestSent = false;
-    $scrollableContent.scroll(function(event) {
-      if (!requestSent && nearPageEnd()) {
-        $lastLink = $('.list-entry').last();
-        var index = $lastLink.data('categoryindex');
-        // if (total) {
-        //   index = $lastLink.data('totalindex')
-        // }
-        requestSent = true;
-        startSpinner();
-        $.get(window.location.pathname + "?index=" + index, function(response) {
-          console.log("got response", response);
-          addLinks(response);
-          requestSent = false;
-          stopSpinner();
-        });
+    $scrollableContent.scroll(makeScrollRequest);
+  }
+}
+
+function makeScrollRequest() {
+  if (!requestSent && nearPageEnd()) {
+    $lastLink = $('.list-entry').last();
+    var index = $lastLink.data('categoryindex');
+    // if (total) {
+    //   index = $lastLink.data('totalindex')
+    // }
+    requestSent = true;
+    startSpinner();
+
+    $.get( window.location.pathname + '?index=' + index)
+    .done(function(response) {
+      if (response.length) {
+        addLinks(response);
+      } else {
+        $scrollableContent.unbind('scroll', makeScrollRequest);
       }
+    })
+    .fail(function(err) {
+      console.log('Error loading links:', err);
+    })
+    .always(function() {
+      requestSent = false;
+      stopSpinner();
     });
   }
 }
@@ -200,17 +213,25 @@ function nearPageEnd() {
 
 // Add links
 function addLinks(links) {
+  if (links.length > 1) {
+    // append "thats it! Check back soon for more images"
+    // append or check out other categories
+  }
   // use jquery to tack links onto list
   links.forEach(function(link) {
     var newLink = $(
       '<li class="list-entry" data-toggle="modal" data-target="#share-link-modal" data-linkid="' +
       link.linkId +
+      '" data-categoryIndex="' +
+      link.categoryIndex +
+      '" data-totalIndex="' +
+      link.totalIndex +
       '" data-linktext="' +
       link.text +
       '" data-imgsrc="' +
       link.href +
       '" data-link="' +
-      window.host +
+      window.location.host +
       '/' +
       link.linkId +
       '" > <div class="img-container"> <img src="' +
@@ -226,9 +247,9 @@ function addLinks(links) {
 }
 
 function startSpinner() {
-  console.log("starting spiner");
+  $loadingSpinner.show()
 }
 
 function stopSpinner() {
-  console.log("starting spiner");
+  $loadingSpinner.hide()
 }

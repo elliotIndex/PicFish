@@ -283,3 +283,23 @@ button:active, button:focus {
   text-align: center;
   margin-bottom: 15px;
 }
+
+.loading-spinner-container {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.loading-spinner {
+  background-image: url(logo.png);
+  display: inline-block;
+  height: 7vh;
+  width: 7vh;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
