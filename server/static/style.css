@@ -136,6 +136,8 @@ button:active, button:focus {
 
 .navbar-brand {
   border-right: 1px solid #e7e7e7;
+}
+.brand-link {
   color: #888;
 }
 
