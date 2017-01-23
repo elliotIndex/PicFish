@@ -13,8 +13,9 @@ module.exports = () => {
   // Init db
   database.init()
   .then(() => database.initMaxIndecies())
+  .catch(utils.standardError)
   .then(renderFromDb)
-  .catch(err => console.error(err));
+  .catch(utils.standardError)
 
   // Render initial pages
 
@@ -28,9 +29,11 @@ module.exports = () => {
   cleanup.scheduleFileCleanup();
 }
 
-function renderFromDb(all) {
+function renderFromDb() {
   for (let category in globals.categories) {
     renderCategory(category)
-    .catch(err => console.log("Error rendering initial category", category, err));
+    .catch(utils.standardError);
   }
+  renderCategory()
+  .catch(utils.standardError);
 }

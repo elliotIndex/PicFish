@@ -18,7 +18,7 @@ module.exports = (terminal) => {
         ))
         .catch(err => {
           console.log('Could not find link:', terminal);
-          return globals.defaultFilename;
+          return globals.errorFilename;
         })
         .then(filename => resolve(filename));
       } else {

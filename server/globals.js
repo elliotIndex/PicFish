@@ -14,8 +14,8 @@ const globals = {
     href: 'http://imgur.com/PbcZq8t.jpg',
     linkId: 47378
   },
-  defaultCategory: 'general',
-  defaultFilename: __dirname + '/fileCache/renderedSharedLinks/defaultLink.html',
+  defaultCategory: 'cute',
+  errorFilename: __dirname + '/fileCache/renderedSharedLinks/defaultLink.html',
   linkRefreshInterval: '30 * * * *', // hourly on the **:30
   fileCleanupInterval: '1 0 * * * *', // daily at 12:01am
   renderedCategoriesDir: __dirname + '/fileCache/renderedCategories/',

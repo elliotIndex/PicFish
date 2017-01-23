@@ -87,6 +87,15 @@ const utils = {
   getThumbnail: (linkHref, size, maxSize) => {
     return size >= maxSize ? globals.defaultThumbnailUrl : linkHref
   },
+
+  standardError: (error) => console.error(error),
+
+  valueError: (returnVal) => {
+    return (error) => {
+      console.error(error)
+      return returnVal;
+    };
+  },
 }
 
 module.exports = utils;

@@ -4,10 +4,18 @@ var utils = require('../misc/utils');
 var database = require('../database/database');
 
 module.exports = (category) => database.getFirstBatch(category)
+  .catch(error => {
+    console.error(error);
+    return [];
+  })
   .then(links => renderTemplate(
     links,
-    category + '.html',
+    (category || 'all') + '.html',
     globals.renderedCategoriesDir,
-    utils.toTitleCase(category)
+    utils.toTitleCase(category || 'all')
   )
+  .catch(error => {
+    console.error(error);
+    return [];
+  })
 );

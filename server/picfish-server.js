@@ -31,7 +31,7 @@ app.get('/:terminal', function (req, res) {
     } else if (utils.isLinkId(req.params.terminal)) {
       fileServer.serveLinkFile(res, req.params.terminal);
     } else {
-      fileServer.serveDefaultFile(res);
+      fileServer.serveErrorFile(res);
     }
   }
 

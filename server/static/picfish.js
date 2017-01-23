@@ -210,13 +210,10 @@ function nearPageEnd() {
 // Add links
 function addLinks(links) {
   if (links.length === 0) {
-    // append "thats it! Check back soon for more images"
     $scrollableContent.unbind('scroll', makeScrollRequest);
     $imageList.append($(
       '<div>That\'s it! You\'ve seen all the images. Why don\'t you try out a new category?</div>'
-    ))
-
-    // append or check out other categories
+    ));
   }
   // use jquery to tack links onto list
   links.forEach(function(link) {
@@ -242,15 +239,15 @@ function addLinks(links) {
       '" /> </div> <div class="text-container"> <h3 class="link-title"> ' +
       link.text +
       ' </h3> </div> </li>'
-    )
+    );
     $imageList.append(newLink)
-  })
+  });
 }
 
 function startSpinner() {
-  $loadingSpinner.show()
+  $loadingSpinner.show();
 }
 
 function stopSpinner() {
-  $loadingSpinner.hide()
+  $loadingSpinner.hide();
 }
