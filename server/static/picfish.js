@@ -209,7 +209,7 @@ function nearPageEnd() {
 
 // Add links
 function addLinks(links) {
-  if (links.length > 1) {
+  if (links.length === 0) {
     // append "thats it! Check back soon for more images"
     $scrollableContent.unbind('scroll', makeScrollRequest);
     $imageList.append($(
