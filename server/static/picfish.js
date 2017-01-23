@@ -191,11 +191,7 @@ function makeScrollRequest() {
 
     $.get( window.location.pathname + '?index=' + index)
     .done(function(response) {
-      if (response.length) {
-        addLinks(response);
-      } else {
-        $scrollableContent.unbind('scroll', makeScrollRequest);
-      }
+      addLinks(response);
     })
     .fail(function(err) {
       console.log('Error loading links:', err);
@@ -215,6 +211,11 @@ function nearPageEnd() {
 function addLinks(links) {
   if (links.length > 1) {
     // append "thats it! Check back soon for more images"
+    $scrollableContent.unbind('scroll', makeScrollRequest);
+    $imageList.append($(
+      '<div>That\'s it! You\'ve seen all the images. Why don\'t you try out a new category?</div>'
+    ))
+
     // append or check out other categories
   }
   // use jquery to tack links onto list
