@@ -15,6 +15,7 @@ $shareLinkModal.on('hide.bs.modal', resetShareModal);
 $("body").scrollTop($("body").scrollTop() + 100);
 scrollingNav()
 scrollRequests()
+insertAd();
 
 // Toggle height
 var fitHeight = true;
@@ -178,7 +179,6 @@ function scrollRequests() {
     $scrollableContent.scroll(makeScrollRequest);
   }
 }
-
 function makeScrollRequest() {
   if (!requestSent && nearPageEnd()) {
     $lastLink = $('.list-entry').last();
@@ -202,9 +202,10 @@ function makeScrollRequest() {
     });
   }
 }
-
 function nearPageEnd() {
-  return $scrollableContent.scrollTop() > $($('.list-entry:nth-last-child(3)')).offset().top;
+  var $le = $('.list-entry');
+  var threeFromEnd = $le.length - 3;
+  return $scrollableContent.scrollTop() > $($le[threeFromEnd]).offset().top;
 }
 
 // Add links
@@ -215,8 +216,10 @@ function addLinks(links) {
       '<div>That\'s it! You\'ve seen all the images. Why don\'t you try out a new category?</div>'
     ));
   }
+
+  var adAdded = false;
   // use jquery to tack links onto list
-  links.forEach(function(link) {
+  links.forEach(function(link, index) {
     var newLink = $(
       '<li class="list-entry" data-toggle="modal" data-target="#share-link-modal" data-linkid="' +
       link.linkId +
@@ -240,14 +243,21 @@ function addLinks(links) {
       link.text +
       ' </h3> </div> </li>'
     );
-    $imageList.append(newLink)
+    $imageList.append(newLink);
+    if (!adAdded && index > 2 && Math.floor(Math.random() * (6 - index)) === 0) {
+      adAdded = true;
+      insertAd();
+    }
   });
 }
-
 function startSpinner() {
   $loadingSpinner.show();
 }
-
 function stopSpinner() {
   $loadingSpinner.hide();
+}
+
+// Insert Ads
+function insertAd() {
+  $imageList.append($('<div>AD GOES HERE</div>'));
 }
