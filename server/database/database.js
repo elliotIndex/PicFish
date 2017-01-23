@@ -95,7 +95,7 @@ var database = {
       return linksCollection.find({
         totalIndex: { $lte: index }
       })
-      .sort({ categoryIndex: -1 })
+      .sort({ totalIndex: -1 })
       .limit(6)
       .toArray();
     }

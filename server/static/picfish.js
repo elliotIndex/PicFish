@@ -183,9 +183,9 @@ function makeScrollRequest() {
   if (!requestSent && nearPageEnd()) {
     $lastLink = $('.list-entry').last();
     var index = $lastLink.data('categoryindex');
-    // if (total) {
-    //   index = $lastLink.data('totalindex')
-    // }
+    if (window.location.pathname === '/') {
+      index = $lastLink.data('totalindex')
+    }
     requestSent = true;
     startSpinner();
 
