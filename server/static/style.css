@@ -5,13 +5,7 @@
 
 /*Prevent url bar from changing size*/
 html, body {
-  height: 100%;
-}
-
-#scrollable-content {
-  height: 100%;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  text-align: center;
 }
 
 a {
@@ -20,6 +14,8 @@ a {
 
 body {
   font-family: 'Roboto', sans-serif;
+  text-align: center;
+  margin-top: 75px;
 }
 
 a:hover {
@@ -119,7 +115,9 @@ button:active, button:focus {
   cursor: pointer;
 }
 
-
+.nav.navbar-nav {
+  text-align: left;
+}
 .navbar-default {
   position: fixed;
   width: 100%;
@@ -298,4 +296,17 @@ button:active, button:focus {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+iframe {
+  display: block;
+  width: 336px;
+  height: center;
+  opacity: 1;
+  margin: auto;
+  margin-bottom: 6vh;
+}
+
+#bdv_mob_top1 {
+  display: none !important;
 }

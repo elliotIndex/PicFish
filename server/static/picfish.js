@@ -1,8 +1,10 @@
 // Variable declarations
 var $shareLinkModal = $('#share-link-modal');
 var $toggleHeight = $(".toggle-height");
-var $scrollableContent = $('#scrollable-content');
+// var $scrollableContent = $('#scrollable-content');
+var $scrollableContent = $(window);
 var $imageList = $('#image-list');
+var $imageList = $('body');
 var $navbarToggle = $(".navbar-toggle");
 var $navbar = $("#navbar");
 var $topNav = $(".navbar.navbar-default");
@@ -12,7 +14,7 @@ var $loadingSpinner = $(".loading-spinner");
 $scrollableContent.focus();
 $navbarToggle.on('blur', function() { $navbar.collapse('hide'); });
 $shareLinkModal.on('hide.bs.modal', resetShareModal);
-$("body").scrollTop($("body").scrollTop() + 100);
+// $("body").scrollTop($("body").scrollTop() + 100);
 scrollingNav()
 scrollRequests()
 insertAd();
@@ -244,7 +246,7 @@ function addLinks(links) {
       ' </h3> </div> </li>'
     );
     $imageList.append(newLink);
-    if (!adAdded && index > 2 && Math.floor(Math.random() * (6 - index)) === 0) {
+    if (!adAdded && index > 0 && Math.floor(Math.random() * (6 - index)) === 0) {
       adAdded = true;
       insertAd();
     }
@@ -259,6 +261,5 @@ function stopSpinner() {
 
 // Insert Ads
 function insertAd() {
-  // $imageList.append($('<script src="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=758861&amp;bid=1865729" TYPE="text/javascript"></script>'));
-  $('body').append($('<script src="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=758861&amp;bid=1865729" TYPE="text/javascript"></script>'));
+  $imageList.append($('<script src="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=758861&bid=1865729" type="text/javascript"></script>='));
 }

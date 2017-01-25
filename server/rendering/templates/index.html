@@ -55,9 +55,6 @@
 </head>
 
 <body>
-  <!-- Begin BidVertiser code -->
-    <!-- <script src="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=758861&amp;bid=1865729" TYPE="text/javascript"></script> -->
-  <!-- End BidVertiser code -->
   <!-- Load Facebook SDK for JavaScript -->
   <div id="fb-root"></div>
   <script>(function(d, s, id) {
@@ -72,7 +69,7 @@
   <div id="twitter-wjs"></div>
   <script>window.twttr = (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0],
-      t = window.twttr || {};
+    t = window.twttr || {};
     if (d.getElementById(id)) return t;
     js = d.createElement(s);
     js.id = id;
@@ -128,42 +125,6 @@
     </div><!--/.container-fluid -->
   </nav>
 
-  <div id="scrollable-content">
-    <div class="list-container">
-
-      <h1 class="header-text main"> The best pictures from around the web, updated hourly </h1>
-      <div class="header-text sub"> Click any picture to share </div>
-
-      <ul id="image-list">
-        {{#links}}
-        <li class="list-entry"
-          data-toggle="modal"
-          data-target="#share-link-modal"
-          data-linkid="{{linkId}}"
-          data-categoryIndex="{{categoryIndex}}"
-          data-totalIndex="{{totalIndex}}"
-          data-linktext="{{text}}"
-          data-imgsrc="{{href}}"
-          data-link="{{domain}}/{{linkId}}" >
-
-          <div class="img-container">
-            <img src="{{href}}" class="link-img" alt="{{text}}" />
-          </div>
-          <div class="text-container">
-            <h3 class="link-title">
-              {{text}}
-            </h3>
-          </div>
-        </li>
-        {{/links}}
-      </ul>
-    </div>
-
-    <div class="loading-spinner-container">
-      <span class="loading-spinner"></span>
-    </div>
-  </div>
-
   <!-- modal -->
   <div class="modal fade" id="share-link-modal">
     <div class="modal-dialog">
@@ -195,6 +156,31 @@
 
     </div>
   </div>
+
+  <h1 class="header-text main"> The best pictures from around the web, updated hourly </h1>
+  <div class="header-text sub"> Click any picture to share </div>
+
+  {{#links}}
+  <li class="list-entry"
+    data-toggle="modal"
+    data-target="#share-link-modal"
+    data-linkid="{{linkId}}"
+    data-categoryIndex="{{categoryIndex}}"
+    data-totalIndex="{{totalIndex}}"
+    data-linktext="{{text}}"
+    data-imgsrc="{{href}}"
+    data-link="{{domain}}/{{linkId}}" >
+
+    <div class="img-container">
+      <img src="{{href}}" class="link-img" alt="{{text}}" />
+    </div>
+    <div class="text-container">
+      <h3 class="link-title">
+        {{text}}
+      </h3>
+    </div>
+  </li>
+  {{/links}}
 
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
