@@ -7,7 +7,6 @@ const globals = {
     'general': [ 'pics' ],
     'gifs': [ 'gifs' ],
     'gaming': [ 'gaming' ],
-    'earth': [ 'earthPorn' ]
   },
   defaultLink: {
     text: 'Uh oh! We couldn\'t find the picture you were looking for. We\'ll try to fix it on our end :)',

@@ -259,5 +259,5 @@ function stopSpinner() {
 
 // Insert Ads
 function insertAd() {
-  $imageList.append($('<div>AD GOES HERE</div>'));
+  $imageList.append($('<script src="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=758861&amp;bid=1865729" TYPE="text/javascript"></script>'));
 }
