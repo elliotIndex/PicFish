@@ -2,7 +2,6 @@
 var $shareLinkModal = $('#share-link-modal');
 var $toggleHeight = $(".toggle-height");
 var $scrollableContent = $(window);
-var $imageList = $('#image-list');
 var $imageList = $('body');
 var $navbarToggle = $(".navbar-toggle");
 var $navbar = $("#navbar");
@@ -174,6 +173,7 @@ function scrollingNav() {
 
 // Scroll requests
 var requestSent = false;
+var errorCount = 0;
 function scrollRequests() {
   if ($imageList.children().length > 1) {
     $scrollableContent.scroll(makeScrollRequest);
@@ -194,7 +194,11 @@ function makeScrollRequest() {
       addLinks(response);
     })
     .fail(function(err) {
-      console.log('Error loading links:', err);
+      console.log('Error Loading Links:', err);
+      errorCount++;
+      if (errorCount > 10) {
+        endRequests();
+      }
     })
     .always(function() {
       requestSent = false;
@@ -211,10 +215,7 @@ function nearPageEnd() {
 // Add links
 function addLinks(links) {
   if (links.length === 0) {
-    $scrollableContent.unbind('scroll', makeScrollRequest);
-    $imageList.append($(
-      '<div>That\'s it! You\'ve seen all the images. Why don\'t you try out a new category?</div>'
-    ));
+    endRequests()
   }
 
   var adAdded = false;
@@ -255,6 +256,13 @@ function startSpinner() {
 }
 function stopSpinner() {
   $loadingSpinner.hide();
+}
+function endRequests() {
+  console.log("ending!");
+  $scrollableContent.unbind('scroll', makeScrollRequest);
+  $imageList.append($(
+    '<div class="header-text main">That\'s it! You\'ve seen all the images. Why don\'t you try out a new category?</div>'
+  ));
 }
 
 // Insert Ads
