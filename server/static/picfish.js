@@ -277,5 +277,5 @@ enforceMaxAdWidth();
 function enforceMaxAdWidth() {
   $body.find('#page-width').remove();
   var maxWidth = Math.min($window.width(), 336);
-  $body.append($('<style type="text/css" id="page-width"> iframe { max-width: ' + maxWidth + 'px; } </style>'));
+  $body.append($('<style type="text/css" id="page-width"> body>iframe { max-width: ' + maxWidth + 'px; } </style>'));
 }
