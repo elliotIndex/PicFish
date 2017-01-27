@@ -13,7 +13,8 @@ function fetchAllCategories(categories) {
     .then(links => database.insertLinks(links, category))
     .catch(error => console.error('Error storing category:', category, error))
     .then(() => renderCategory(category))
-    .catch(error => console.error('Error rendering category', category, error));
+    .catch(error => console.error('Error rendering category', category, error))
+    .then(() => renderCategory());
   }
 }
 
