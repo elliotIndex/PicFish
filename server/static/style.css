@@ -304,7 +304,7 @@ button:active, button:focus {
   100% { transform: rotate(360deg); }
 }
 
-iframe {
+body>iframe {
   display: block;
   width: 336px;
   max-width: 336px;
@@ -312,16 +312,6 @@ iframe {
   opacity: 1;
   margin: auto;
   margin-bottom: 35px;
-}
-
-iframe.pf-twitter {
-  display: inherit;
-  width: 76px;
-  max-width: none;
-  height: 28px;
-  opacity: 1;
-  margin: auto;
-  margin-bottom: 0;
 }
 
 #bdv_mob_top1 {
