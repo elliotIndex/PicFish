@@ -302,7 +302,7 @@ button:active, button:focus {
 iframe {
   display: block;
   width: 336px;
-  height: center;
+  height: 280px;
   opacity: 1;
   margin: auto;
   margin-bottom: 35px;
