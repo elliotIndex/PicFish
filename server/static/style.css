@@ -243,6 +243,10 @@ button:active, button:focus {
   height: 28px;
 }
 
+#social-buttons {
+  height: 28px
+}
+
 #social-buttons>* {
   margin: 0 3vw;
   text-align: right;
