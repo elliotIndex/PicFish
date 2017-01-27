@@ -43,7 +43,7 @@ var fbShareBtnStrs = [
   '&amp;src=sdkpreparse">Share</a></div>'
 ];
 var twttrParts = [
-  '<iframe src="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=http%3A%2F%2Fwww.pic.fish%2F',
+  '<iframe class="pf-twitter" src="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=http%3A%2F%2Fwww.pic.fish%2F',
   // terminal
   '&text=',
   // text joined with %20

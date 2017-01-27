@@ -246,6 +246,7 @@ button:active, button:focus {
 #social-buttons>* {
   margin: 0 3vw;
   text-align: right;
+  display: inline;
 }
 
 .close {
@@ -307,6 +308,16 @@ iframe {
   opacity: 1;
   margin: auto;
   margin-bottom: 35px;
+}
+
+iframe.pf-twitter {
+  display: inherit;
+  width: 76px;
+  max-width: none;
+  height: 28px;
+  opacity: 1;
+  margin: auto;
+  margin-bottom: 0;
 }
 
 #bdv_mob_top1 {
