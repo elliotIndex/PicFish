@@ -1,7 +1,6 @@
 // Variable declarations
 var $shareLinkModal = $('#share-link-modal');
 var $toggleHeight = $(".toggle-height");
-// var $scrollableContent = $('#scrollable-content');
 var $scrollableContent = $(window);
 var $imageList = $('#image-list');
 var $imageList = $('body');
@@ -14,7 +13,6 @@ var $loadingSpinner = $(".loading-spinner");
 $scrollableContent.focus();
 $navbarToggle.on('blur', function() { $navbar.collapse('hide'); });
 $shareLinkModal.on('hide.bs.modal', resetShareModal);
-// $("body").scrollTop($("body").scrollTop() + 100);
 scrollingNav()
 scrollRequests()
 insertAd();

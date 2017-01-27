@@ -37,7 +37,7 @@ button:active, button:focus {
 
 .list-entry {
   list-style: none;
-  margin-bottom: 6vh;
+  margin-bottom: 35px;
   box-shadow: 0 2px 15px 3px rgba(0, 0, 0, 0.5);
   padding: 20px;
   cursor: pointer;
@@ -70,7 +70,7 @@ button:active, button:focus {
   display: flex;
   justify-content: center;
   padding: 0 1vw;
-  margin: 3vh 0;
+  margin: 18px 0;
 }
 
 .img-container {
@@ -151,14 +151,14 @@ button:active, button:focus {
 .header-text.main {
   font-size: 3.5em;
   line-height: 1em;
-  margin: 0 0 2vh 0;
+  margin: 0 0 12px 0;
   padding: 0 2vw;
   font-weight: normal;
 }
 
 .header-text.sub {
   font-size: 1.5em;
-  margin-bottom: 5vh;
+  margin-bottom: 30px;
 }
 
 .toggle-height{
@@ -235,7 +235,7 @@ button:active, button:focus {
 }
 
 #copy-link {
-  margin-bottom: 1vh
+  margin-bottom: 5px
 }
 
 .fb-share-button.fb_iframe_widget {
@@ -286,8 +286,8 @@ button:active, button:focus {
 .loading-spinner {
   background-image: url(logo.png);
   display: inline-block;
-  height: 7vh;
-  width: 7vh;
+  height: 5px;
+  width: 5px;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   animation: spin 1s linear infinite;
@@ -305,7 +305,7 @@ iframe {
   height: center;
   opacity: 1;
   margin: auto;
-  margin-bottom: 6vh;
+  margin-bottom: 35px;
 }
 
 #bdv_mob_top1 {
