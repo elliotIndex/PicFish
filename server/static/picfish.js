@@ -1,8 +1,8 @@
 // Variable declarations
 var $shareLinkModal = $('#share-link-modal');
 var $toggleHeight = $(".toggle-height");
-var $scrollableContent = $(window);
-var $imageList = $('body');
+var $scrollableContent = $window = $(window);
+var $imageList = $body = $('body');
 var $navbarToggle = $(".navbar-toggle");
 var $navbar = $("#navbar");
 var $topNav = $(".navbar.navbar-default");
@@ -268,4 +268,13 @@ function endRequests() {
 // Insert Ads
 function insertAd() {
   $imageList.append($('<script src="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=758861&bid=1865729" type="text/javascript"></script>='));
+}
+
+// Prevent oversize ads
+$window.resize(enforceMaxAdWidth)
+enforceMaxAdWidth();
+function enforceMaxAdWidth() {
+  $body.find('#page-width').remove();
+  var maxWidth = Math.min($window.width(), 336);
+  $body.append($('<style type="text/css" id="page-width"> iframe { max-width: ' + maxWidth + 'px; } </style>'));
 }
