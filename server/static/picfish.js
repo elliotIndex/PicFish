@@ -30,7 +30,9 @@ function updateViewFitHeight() {
 }
 function toggleFitToHeight() {
   fitHeight = !fitHeight;
+  var previousPosition = getCurrentPosition();
   updateViewFitHeight();
+  goToPosition(previousPosition);
   $toggleHeight.blur();
   localStorage.setItem("fitHeight", fitHeight);
 }
@@ -225,7 +227,9 @@ function addLinks(links) {
   // use jquery to tack links onto list
   links.forEach(function(link, index) {
     var newLink = $(
-      '<li class="list-entry" data-toggle="modal" data-target="#share-link-modal" data-linkid="' +
+      ' <a name="'+
+      link.linkId +
+      '" class="link-anchor"> <li class="list-entry" data-toggle="modal" data-target="#share-link-modal" data-linkid="' +
       link.linkId +
       '" data-categoryIndex="' +
       link.categoryIndex +
@@ -245,7 +249,7 @@ function addLinks(links) {
       link.text +
       '" /> </div> <div class="text-container"> <h3 class="link-title"> ' +
       link.text +
-      ' </h3> </div> </li>'
+      ' </h3> </div> </li> </a>'
     );
     $imageList.append(newLink);
     if (!adAdded && index > 0 && Math.floor(Math.random() * (6 - index)) === 0) {
@@ -280,4 +284,27 @@ function enforceMaxAdWidth() {
   $body.find('#page-width').remove();
   var maxWidth = Math.min($window.width(), 336);
   $body.append($('<style type="text/css" id="page-width"> body>iframe { max-width: ' + maxWidth + 'px; } </style>'));
+}
+
+// Don't change position on resize
+function getCurrentPosition() {
+  var anchors = Array.from($('.link-anchor'));
+  var minOffset = anchors.reduce((minOffset, anchor) => Math.min(minOffset, $(anchor).offset().top), Infinity);
+  return anchors.reduce((bestFit, lAnchor, index, anchors) => {
+    if (bestFit) {
+      return bestFit;
+    }
+    if ($(lAnchor).offset().top > $body.scrollTop() + minOffset) {
+      if (index > 0) {
+        return anchors[index - 1];
+      }
+      return lAnchor;
+    }
+    return null;
+  }, null);
+}
+function goToPosition(element) {
+  $('html, body').animate({
+    scrollTop: $(element).offset().top
+  }, 1);
 }

@@ -160,25 +160,27 @@
   <div class="header-text sub"> Click any picture to share </div>
 
   {{#links}}
-  <li class="list-entry"
-    data-toggle="modal"
-    data-target="#share-link-modal"
-    data-linkid="{{linkId}}"
-    data-categoryIndex="{{categoryIndex}}"
-    data-totalIndex="{{totalIndex}}"
-    data-linktext="{{text}}"
-    data-imgsrc="{{href}}"
-    data-link="{{domain}}/{{linkId}}" >
+  <a name="{{linkId}}" class="link-anchor">
+    <li class="list-entry"
+      data-toggle="modal"
+      data-target="#share-link-modal"
+      data-linkid="{{linkId}}"
+      data-categoryIndex="{{categoryIndex}}"
+      data-totalIndex="{{totalIndex}}"
+      data-linktext="{{text}}"
+      data-imgsrc="{{href}}"
+      data-link="{{domain}}/{{linkId}}" >
 
-    <div class="img-container">
-      <img src="{{href}}" class="link-img" alt="{{text}}" />
-    </div>
-    <div class="text-container">
-      <h3 class="link-title">
-        {{text}}
-      </h3>
-    </div>
-  </li>
+      <div class="img-container">
+        <img src="{{href}}" class="link-img" alt="{{text}}" />
+      </div>
+      <div class="text-container">
+        <h3 class="link-title">
+          {{text}}
+        </h3>
+      </div>
+    </li>
+  </a>
   {{/links}}
 
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
