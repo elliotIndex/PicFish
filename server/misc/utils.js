@@ -96,6 +96,13 @@ const utils = {
       return returnVal;
     };
   },
+
+  makeUrlOutOf: (source) => {
+    if (source.split('/').length === 1) {
+      return 'https://www.reddit.com/r/' + source;
+    }
+    return 'https://www.reddit.com/' + source
+  },
 }
 
 module.exports = utils;

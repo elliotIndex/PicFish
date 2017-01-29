@@ -7,8 +7,9 @@ const shuffle = require('knuth-shuffle').knuthShuffle
 function fetchPages(category) {
   const pages = globals.categories[category].map(source => new Promise(
     (resolve, reject) => {
+      const url = utils.makeUrlOutOf(source);
       jsdom.env({
-        url: 'https://www.reddit.com/r/' + source,
+        url,
         scripts: ['http://code.jquery.com/jquery.js'],
         done: (err, page) => err ? reject(err) : resolve({ page, category })
       });
