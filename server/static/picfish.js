@@ -305,6 +305,6 @@ function getCurrentPosition() {
 }
 function goToPosition(element) {
   $('html, body').animate({
-    scrollTop: $(element).offset().top
+    scrollTop: $(element).offset().top - 60
   }, 1);
 }
