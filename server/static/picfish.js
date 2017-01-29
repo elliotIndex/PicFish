@@ -25,7 +25,7 @@ function updateViewFitHeight() {
   $(".toggle-height").text((fitHeight ? "Expand" : "Shrink") + " Pictures");
   $body.find('#toggle-height').remove();
   if (fitHeight) {
-    $body.append($('<style type="text/css" id="toggle-height"> .link-img { max-height: "100%"; } .img-container { height: 70%; } </style>'));
+    $body.append($('<style type="text/css" id="toggle-height"> .link-img { max-height: 100%; } .img-container { height: 70%; } </style>'));
   }
 }
 function toggleFitToHeight() {
