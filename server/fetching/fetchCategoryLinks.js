@@ -8,7 +8,7 @@ function fetchPages(category) {
   const pages = globals.categories[category].map(source => new Promise(
     (resolve, reject) => {
       jsdom.env({
-        url: 'https://www.reddit.com/r/' + category,
+        url: 'https://www.reddit.com/r/' + source,
         scripts: ['http://code.jquery.com/jquery.js'],
         done: (err, page) => err ? reject(err) : resolve({ page, category })
       });
