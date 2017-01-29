@@ -71,7 +71,6 @@ var database = {
   },
 
   incrementVisitCount: (thing) => {
-    console.log("got visit", thing);
     const today = utils.getDate();
 
     statsCollection.update(
