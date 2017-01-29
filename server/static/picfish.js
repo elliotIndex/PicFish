@@ -22,9 +22,11 @@ if (localStorage && localStorage.getItem("fitHeight") === "false") {
   fitHeight = false;
 }
 function updateViewFitHeight() {
-  $(".link-img").css("max-height", fitHeight ? "100%" : "");
-  $(".img-container").css("height", fitHeight ? "70%" : "");
   $(".toggle-height").text((fitHeight ? "Expand" : "Shrink") + " Pictures");
+  $body.find('#toggle-height').remove();
+  if (fitHeight) {
+    $body.append($('<style type="text/css" id="toggle-height"> .link-img { max-height: "100%"; } .img-container { height: 70%; } </style>'));
+  }
 }
 function toggleFitToHeight() {
   fitHeight = !fitHeight;
