@@ -16,7 +16,6 @@ module.exports = () => {
   .catch(utils.standardError)
   .then(renderFromDb)
   .catch(utils.standardError)
-
   // Render initial pages
 
   if (!environment.noFetch) {
@@ -27,6 +26,7 @@ module.exports = () => {
 
   cleanup.prepForServerShutdown(database.close);
   cleanup.scheduleFileCleanup();
+  cleanup.scheduleLinkCleanup();
 }
 
 function renderFromDb() {

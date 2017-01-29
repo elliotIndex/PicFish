@@ -2,6 +2,8 @@ const cron = require('node-cron');
 const fs = require('fs');
 const globals = require('../globals');
 const utils = require('../misc/utils');
+const removeDeadLink = require('../scanners/removeDeadLink');
+const database = require('../database/database');
 
 function noOp() {};
 module.exports = {
@@ -42,5 +44,11 @@ module.exports = {
         });
       })
     });
-  }
+  },
+
+  scheduleLinkCleanup: () => {
+    cron.schedule(globals.linkCleanupInterval, () => {
+      database.runScanner(removeDeadLink)
+    });
+  },
 }

@@ -154,6 +154,29 @@ var database = {
     );
     return Promise.all(maxIndecies);
   },
+
+  runScanner: (scanner, cursor = null) => {
+    if (!cursor) {
+      cursor = linksCollection.find();
+    }
+    cursor.next()
+    .then(nextValue => {
+      if (nextValue) {
+        return scanner(nextValue);
+      }
+      return null;
+    })
+    .then(shouldKeepScanning => {
+      if (shouldKeepScanning) {
+        database.runScanner(scanner, cursor);
+      }
+    })
+    .catch(utils.standardError);
+  },
+
+  removeLink: (link) => {
+    return linksCollection.remove({ linkId: link.linkId }, { justOne: true });
+  }
 }
 
 module.exports = database;
