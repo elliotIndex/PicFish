@@ -21,6 +21,7 @@ const globals = {
   renderedSharedLinksDir: __dirname + '/fileCache/renderedSharedLinks/',
   stylesheetDir: __dirname + '/style.css',
   staticFileDir: __dirname + '/static',
+  faviconDir: __dirname + '/static/favicon/favicon.ico',
   maxFbThumbnailBytes: 8000000, // < 8 MB
   maxTwThumbnailBytes: 100000000, // < 100 MB (no limit on twitpics)
   defaultThumbnailUrl: 'http://www.pic.fish/logo.png',

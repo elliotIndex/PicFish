@@ -9,7 +9,7 @@ const utils = require('./misc/utils');
 const init = require('./maintenance/init');
 
 app.get('/', function (req, res) {
-  database.incrementVisitCount();
+  database.incrementVisitCount('/');
   if (req.query && req.query.index) {
     dataserver.serveRequest(res, req.query.index);
   } else {
@@ -22,8 +22,10 @@ app.use(express.static(globals.staticFileDir));
 app.get('/:terminal', function (req, res) {
   if (req.query && req.query.index) {
     dataserver.serveRequest(res, req.query.index, req.params.terminal);
+  } else if (req.params.terminal === "favicon.ico") {
+    fileServer.serveFavicon(res);
   } else {
-    database.incrementVisitCount();
+    database.incrementVisitCount(req.params.terminal);
     if (!req.params.terminal) {
       fileServer.serveDefaultCategory(res);
     } else if (utils.isCategory(req.params.terminal)) {

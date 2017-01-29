@@ -27,5 +27,9 @@ module.exports = {
 
   sendStyleSheet: (res) => {
     res.sendFile(path.resolve(globals.stylesheetDir));
+  },
+
+  serveFavicon: (res) => {
+    res.sendFile(path.resolve(globals.faviconDir));
   }
 }

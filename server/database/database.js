@@ -70,7 +70,8 @@ var database = {
     _db && _db.close();
   },
 
-  incrementVisitCount: () => {
+  incrementVisitCount: (thing) => {
+    console.log("got visit", thing);
     const today = utils.getDate();
 
     statsCollection.update(
