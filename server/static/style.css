@@ -53,6 +53,7 @@ button:active, button:focus {
 .link-title {
   display: inline;
   margin: 0;
+  color: #666;
 }
 
 .link-img {
