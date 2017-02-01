@@ -17,7 +17,7 @@ const globals = {
   errorFilename: __dirname + '/fileCache/renderedSharedLinks/defaultLink.html',
   linkRefreshInterval: '30 * * * *', // hourly on the **:30
   fileCleanupInterval: '1 0 * * * *', // daily at 12:01am
-  linkCleanupInterval: '5 3 */4 * *', // every 4 days at 3:05 AM
+  linkCleanupInterval: '5 3 * * * *', // daily at 3:05 AM
   renderedCategoriesDir: __dirname + '/fileCache/renderedCategories/',
   renderedSharedLinksDir: __dirname + '/fileCache/renderedSharedLinks/',
   stylesheetDir: __dirname + '/style.css',
