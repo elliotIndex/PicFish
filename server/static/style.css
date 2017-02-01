@@ -17,11 +17,8 @@ body {
   text-align: center;
   margin: 75px 0 40px 0;
   overflow-x: hidden;
-}
-
-body.cute {
-  background-color: #7F2982;
-  color: #F7B2B7;
+  background-color: #e1e1e1;
+  color: #232323;
 }
 
 a:focus, a:hover {
@@ -50,7 +47,7 @@ button:active, button:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  background-color: #FCFAF9;
+  background-color: #191929;
 }
 
 .list-entry * {
@@ -60,11 +57,7 @@ button:active, button:focus {
 .link-title {
   display: inline;
   margin: 0;
-  color: #666;
-}
-
-.cute .link-title {
-  color: #16001E;
+  color: #e4e4e4;
 }
 
 .link-img {
@@ -241,7 +234,11 @@ button:active, button:focus {
   margin-top: 1em;
 }
 
-.success-text, a:focus, a:hover {
+a:focus, a:hover {
+  color: #333;
+}
+
+.success-text {
   transition: color 0;
   color: #7CFC00;
 }
