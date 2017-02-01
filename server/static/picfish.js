@@ -180,7 +180,7 @@ function scrollingNav() {
 var requestSent = false;
 var errorCount = 0;
 function scrollRequests() {
-  if ($imageList.children().length > 1) {
+  if ($imageList.find('.list-entry').length > 1) {
     $scrollableContent.scroll(makeScrollRequest);
   }
 }
