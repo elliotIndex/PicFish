@@ -19,8 +19,9 @@ body {
   overflow-x: hidden;
 }
 
-a:hover {
-  text-decoration: none;
+a:focus, a:hover {
+  outline: 0;
+  text-decoration: none;  text-decoration: none;
 }
 
 ul {
