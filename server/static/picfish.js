@@ -12,8 +12,8 @@ var $loadingSpinner = $(".loading-spinner");
 $scrollableContent.focus();
 $navbarToggle.on('blur', function() { $navbar.collapse('hide'); });
 $shareLinkModal.on('hide.bs.modal', resetShareModal);
-scrollingNav()
-scrollRequests()
+scrollingNav();
+scrollRequests();
 insertAd();
 
 // Toggle height
