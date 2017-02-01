@@ -41,13 +41,13 @@ button:active, button:focus {
 .list-entry {
   list-style: none;
   margin-bottom: 35px;
-  box-shadow: 0 2px 15px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 20px 5px rgba(0, 0, 0, 0.5);
   padding: 20px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  background-color: #191929;
+  background-color: #111;
 }
 
 .list-entry * {
