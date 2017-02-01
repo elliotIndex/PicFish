@@ -12,6 +12,7 @@ module.exports = (terminal) => {
         database.findLink(terminal)
         .then(link => renderTemplate(
           [link],
+          link.category,
           filename,
           globals.renderedSharedLinksDir,
           link.text

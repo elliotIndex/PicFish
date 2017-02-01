@@ -10,6 +10,7 @@ module.exports = (category) => database.getFirstBatch(category)
   })
   .then(links => renderTemplate(
     links,
+    category,
     (category || 'all') + '.html',
     globals.renderedCategoriesDir,
     utils.toTitleCase(category || 'all')

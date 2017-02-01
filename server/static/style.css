@@ -19,6 +19,11 @@ body {
   overflow-x: hidden;
 }
 
+body.cute {
+  background-color: #7F2982;
+  color: #F7B2B7;
+}
+
 a:focus, a:hover {
   outline: 0;
   text-decoration: none;
@@ -45,6 +50,7 @@ button:active, button:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  background-color: #FCFAF9;
 }
 
 .list-entry * {
@@ -55,6 +61,10 @@ button:active, button:focus {
   display: inline;
   margin: 0;
   color: #666;
+}
+
+.cute .link-title {
+  color: #16001E;
 }
 
 .link-img {
@@ -105,7 +115,7 @@ button:active, button:focus {
   a.nav-link {
     min-width: 80px;
     text-align: center;
-    border-right: 1px solid #e7e7e7;
+    border-right: 1px solid #ddd;
   }
 
   .navbar-header>.toggle-height {
@@ -133,6 +143,11 @@ button:active, button:focus {
 
 .container-fluid {
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.navbar {
+  border-radius: 0;
+  background-color: #FCFAF9;
 }
 
 .navbar-brand {

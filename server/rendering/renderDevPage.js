@@ -7,6 +7,7 @@ module.exports = function renderDevPage() {
       globals.defaultLink, globals.defaultLink, globals.defaultLink,
       globals.defaultLink, globals.defaultLink, globals.defaultLink
     ],
+    'all',
     'dev.html',
     globals.renderedCategoriesDir,
     'Dev'
