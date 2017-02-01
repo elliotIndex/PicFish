@@ -21,7 +21,7 @@ body {
 
 a:focus, a:hover {
   outline: 0;
-  text-decoration: none;  text-decoration: none;
+  text-decoration: none;
 }
 
 ul {
@@ -226,7 +226,7 @@ button:active, button:focus {
   margin-top: 1em;
 }
 
-.success-text {
+.success-text, a:focus, a:hover {
   transition: color 0;
   color: #7CFC00;
 }

@@ -30,7 +30,7 @@ module.exports = (links, filename, filepath, title) => {
       setTimeout(() => {
         wstream.end();
         resolve(filename);
-      }, 0);
+      }, 10);
     });
 
     muStream.on('error', () => reject(error));
