@@ -11,7 +11,7 @@ devEnvironment = {
 prodEnvironment = {
   mode: 'prod',
   domain: 'www.pic.fish',
-  mongoUrl: 'mongodb://0.0.0.0:27017/linksDb',
+  mongoUrl: process.env.MONGODB_URI,
   port: 3000,
   noFetch: false,
 }
