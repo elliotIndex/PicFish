@@ -5,6 +5,7 @@ const globals = require('../globals');
 const shuffle = require('knuth-shuffle').knuthShuffle
 
 function fetchPages(category) {
+  console.log("Fetching category", category)
   const pages = globals.categories[category].map(source => new Promise(
     (resolve, reject) => {
       const url = utils.makeUrlOutOf(source);
@@ -20,6 +21,7 @@ function fetchPages(category) {
 }
 
 function scrapeLinks(pages) {
+  console.log("scrapeLinks")
 
   const allLinks = [];
 
@@ -61,6 +63,7 @@ function correctImgurUrls(links) {
 function validateLinks(links) {
   const unfilteredLinksPromise = links.map(link => {
     return new Promise((resolve, reject) => {
+      resolve(link) // remove
       request(
         { uri: link.href, timeout: globals.maxValidationRequestTime },
         (error, response, body) => {
