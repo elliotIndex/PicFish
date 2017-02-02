@@ -156,6 +156,7 @@ var database = {
   },
 
   runScanner: (scanner, cursor = null) => {
+    console.log("Running Scanner");
     if (!cursor) {
       cursor = linksCollection.find();
     }
@@ -175,6 +176,7 @@ var database = {
   },
 
   removeLink: (link) => {
+    console.log("removing link:", link);
     return linksCollection.remove({ linkId: link.linkId }, { justOne: true });
   }
 }
