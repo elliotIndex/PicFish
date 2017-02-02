@@ -2,6 +2,7 @@ const renderTemplate = require('./renderTemplate');
 const globals = require('../globals');
 
 module.exports = function renderDevPage() {
+  console.log("rendering dev page");
   renderTemplate(
     [
       globals.defaultLink, globals.defaultLink, globals.defaultLink,

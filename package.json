@@ -4,6 +4,7 @@
   "description": "The best images from around the web, updated hourly",
   "main": "server/picfish-server.js",
   "scripts": {
+    "start": "",
     "test": "npm test",
     "dev": "NODE_ENV=dev nodemon server/picfish-server.js",
     "prod": "sudo npm run _prod",
@@ -29,5 +30,8 @@
     "node-cron": "^1.1.2",
     "parse5": "^3.0.1",
     "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "pm2": "^2.3.0",
   }
 }
