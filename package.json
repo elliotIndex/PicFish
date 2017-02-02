@@ -7,6 +7,7 @@
     "start": "NODE_ENV=prod node server/picfish-server.js",
     "test": "npm test",
     "dev": "NODE_ENV=dev nodemon server/picfish-server.js",
+    "stage": "NODE_ENV=dev forever start server/picfish-server.js",
     "prod": "sudo npm run _prod",
     "_prod": "NODE_ENV=prod forever start server/picfish-server.js",
     "update-prod": "sudo forever stopall && npm run prod"
