@@ -1,4 +1,4 @@
-
+console.log("ENV:", process.env.NODE_ENV);
 
 devEnvironment = {
   mode: 'dev',
@@ -11,8 +11,8 @@ devEnvironment = {
 prodEnvironment = {
   mode: 'prod',
   domain: 'www.pic.fish',
-  mongoUrl: process.env.MONGODB_URI,
-  port: 3000,
+  mongoUrl: 'mongodb://0.0.0.0:27017/linksDb',
+  port: 80,
   noFetch: false,
 }
 
