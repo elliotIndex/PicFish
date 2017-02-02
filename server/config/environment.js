@@ -13,7 +13,7 @@ prodEnvironment = {
   domain: 'www.pic.fish',
   mongoUrl: 'mongodb://0.0.0.0:27017/linksDb',
   port: 8080,
-  noFetch: false,
+  noFetch: process.argv.indexOf('noFetch') > -1,,
 }
 
 if (process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'dev') {
