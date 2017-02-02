@@ -156,23 +156,22 @@ var database = {
   },
 
   runScanner: (scanner, cursor = null) => {
-    console.log("lol, good try. We can't do scanners yet");
-    // if (!cursor) {
-    //   cursor = linksCollection.find();
-    // }
-    // cursor.next()
-    // .then(nextValue => {
-    //   if (nextValue) {
-    //     return scanner(nextValue);
-    //   }
-    //   return null;
-    // })
-    // .then(shouldKeepScanning => {
-    //   if (shouldKeepScanning) {
-    //     database.runScanner(scanner, cursor);
-    //   }
-    // })
-    // .catch(utils.standardError);
+    if (!cursor) {
+      cursor = linksCollection.find();
+    }
+    cursor.next()
+    .then(nextValue => {
+      if (nextValue) {
+        return scanner(nextValue);
+      }
+      return null;
+    })
+    .then(shouldKeepScanning => {
+      if (shouldKeepScanning) {
+        database.runScanner(scanner, cursor);
+      }
+    })
+    .catch(utils.standardError);
   },
 
   removeLink: (link) => {
