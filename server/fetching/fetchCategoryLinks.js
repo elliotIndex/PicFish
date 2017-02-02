@@ -2,6 +2,7 @@ const request = require('request');
 const jsdom = require('jsdom');
 const utils = require('../misc/utils');
 const globals = require('../globals');
+const database = require('../database/database');
 const shuffle = require('knuth-shuffle').knuthShuffle
 
 function fetchPages(category) {
@@ -23,7 +24,7 @@ function fetchPages(category) {
 function scrapeLinks(pages) {
   console.log("scrapeLinks")
 
-  const allLinks = [];
+  const allLinks = []; // Promises
 
   pages.forEach(({ page, category }) => {
     const $ = page.$;
@@ -33,12 +34,16 @@ function scrapeLinks(pages) {
       const href = $link.data('url');
       const text = $link.find('a.title').text();
       const linkId = utils.generateHashCode(href);
-
-      allLinks.push({ text, href, category, linkId });
+      database.findLink(linkId)
+      .then(link => {
+        if (!link) {
+          allLinks.push({ text, href, category, linkId });
+        }
+      });
     });
   });
 
-  return shuffle(allLinks);
+  return Promise.all(shuffle(allLinks));
 }
 
 function correctImgurUrls(links) {
@@ -61,6 +66,7 @@ function correctImgurUrls(links) {
 
 
 function validateLinks(links) {
+  console.log("Validating", links.length, "links");
   const unfilteredLinksPromise = links.map(link => {
     return new Promise((resolve, reject) => {
       request(

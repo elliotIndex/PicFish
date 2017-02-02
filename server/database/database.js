@@ -59,7 +59,7 @@ var database = {
     return linksCollection.findOne({ linkId })
     .then(link => {
       if (!link) {
-        throw new Error('Could not find link with id: ', linkId)
+        return null;
       } else {
         return link;
       }
