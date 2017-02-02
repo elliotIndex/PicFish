@@ -3,10 +3,10 @@ const environment = require('./config/environment');
 const globals = {
   categories: {
     'funny': [ 'funny', 'BlackPeopleTwitter', 'memes', 'Unexpected' ],
-    // 'cute': [ 'aww', 'wholesomegifs', 'user/316nuts/m/superaww', 'BearCubGIFs', 'Otters', 'puppies' ],
-    // 'general': [ 'pics', 'mildlyinteresting', 'woahdude' ],
-    // 'gifs': [ 'gifs', 'reactiongifs' ],
-    // 'gaming': [ 'gaming' ],
+    'cute': [ 'aww', 'wholesomegifs', 'user/316nuts/m/superaww', 'BearCubGIFs', 'Otters', 'puppies' ],
+    'general': [ 'pics', 'mildlyinteresting', 'woahdude' ],
+    'gifs': [ 'gifs', 'reactiongifs' ],
+    'gaming': [ 'gaming' ],
   },
   defaultLink: {
     text: 'Uh oh! We couldn\'t find the picture you were looking for. We\'ll try to fix it on our end :)',
