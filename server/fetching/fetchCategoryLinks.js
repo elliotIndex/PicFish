@@ -63,7 +63,6 @@ function correctImgurUrls(links) {
 function validateLinks(links) {
   const unfilteredLinksPromise = links.map(link => {
     return new Promise((resolve, reject) => {
-      resolve(link) // remove
       request(
         { uri: link.href, timeout: globals.maxValidationRequestTime },
         (error, response, body) => {
