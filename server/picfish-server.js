@@ -43,4 +43,5 @@ app.listen(environment.port, function () {
   console.log('Express server connected on port', environment.port);
 });
 
+console.log("Initiating server");
 init();
