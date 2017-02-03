@@ -34,16 +34,24 @@ function scrapeLinks(pages) {
       const href = $link.data('url');
       const text = $link.find('a.title').text();
       const linkId = utils.generateHashCode(href);
-      database.findLink(linkId)
-      .then(link => {
-        if (!link) {
-          allLinks.push({ text, href, category, linkId });
-        }
-      });
+      allLinks.push({ text, href, category, linkId });
     });
   });
 
   return Promise.all(shuffle(allLinks));
+}
+
+function removeDuplicateLinks(links) {
+  return Promise.all(links.map(linkToAdd => {
+    return database.findLink(linkToAdd.linkId)
+    .then(foundLink => {
+      if (!foundLink) {
+        return linkToAdd;
+      }
+      return null;
+    })
+  }))
+  .then(linksToFilter => linksToFilter.filter(i => i))
 }
 
 function correctImgurUrls(links) {
@@ -102,6 +110,7 @@ function validateLinks(links) {
 function fetchCategoryLinks(category) {
   return fetchPages(category)
   .then(scrapeLinks)
+  .then(removeDuplicateLinks)
   .then(correctImgurUrls)
   .then(utils.removeRedditReferences)
   .then(utils.removeNSFWlinks)
