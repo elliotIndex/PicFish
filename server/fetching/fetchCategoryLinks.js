@@ -41,6 +41,14 @@ function scrapeLinks(pages) {
   return Promise.all(shuffle(allLinks));
 }
 
+function removeInvalidLinks(links) {
+  return Promise.all(links.map(linkToAdd => {
+    return database.isInvalidLinkId(linkToAdd.linkId)
+    .then(isInvalid => isInvalid ? null : linkToAdd);
+  }))
+  .then(linksToFilter => linksToFilter.filter(i => i));
+}
+
 function removeDuplicateLinks(links) {
   return Promise.all(links.map(linkToAdd => {
     return database.findLink(linkToAdd.linkId)
@@ -51,7 +59,7 @@ function removeDuplicateLinks(links) {
       return null;
     })
   }))
-  .then(linksToFilter => linksToFilter.filter(i => i))
+  .then(linksToFilter => linksToFilter.filter(i => i));
 }
 
 function correctImgurUrls(links) {
@@ -97,7 +105,8 @@ function validateLinks(links) {
             );
             resolve(link);
           } else {
-            reject('Invalid link');
+            database.insertInvalidLinkId(link.linkId)
+            .then(reject)
           }
         }
       );
@@ -110,6 +119,7 @@ function validateLinks(links) {
 function fetchCategoryLinks(category) {
   return fetchPages(category)
   .then(scrapeLinks)
+  .then(removeInvalidLinks)
   .then(removeDuplicateLinks)
   .then(correctImgurUrls)
   .then(utils.removeRedditReferences)

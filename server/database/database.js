@@ -5,6 +5,7 @@ var globals = require('../globals');
 
 let _db = null;
 let linksCollection = null;
+let invalidLinksCollection = null;
 let statsCollection = null;
 let maxTotalIndex = 0;
 let maxCategoryIndecies = {};
@@ -18,8 +19,9 @@ var database = {
           reject(err);
         } else {
           _db = db;
-          linksCollection = db.collection('linksCollection');
-          statsCollection = db.collection('statsCollection');
+          linksCollection = db.collection('Link');
+          statsCollection = db.collection('Stat');
+          invalidLinksCollection = db.collection('InvalidLink');
           linksCollection.createIndex({ categoryIndex: 1 });
           linksCollection.createIndex({ totalIndex: 1 });
           statsCollection.createIndex({ date: 1 });
@@ -53,6 +55,14 @@ var database = {
       return database.insertLinks(links, category);
     })
     .catch(err => console.error(err))
+  },
+
+  insertInvalidLinkId: (linkId) => {
+    return invalidLinksCollection.insert({ linkId });
+  },
+
+  isInvalidLinkId: (linkId) => {
+    return invalidLinksCollection.findOne({ linkId }).then(found => !!found);
   },
 
   findLink: (linkId) => {
