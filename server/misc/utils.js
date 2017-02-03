@@ -103,6 +103,21 @@ const utils = {
     }
     return 'https://www.reddit.com/' + source
   },
+
+  // Async loop method, iterates to nex item in array only after it has finished
+  // previous item
+  forEachAsync: (items, callback, index = 0) => {
+    if (index >= items.length) {
+      console.log("Finsihed Iterating!");
+      return;
+    }
+    return callback(items[index], index, items)
+    .then(() => utils.forEachAsync(items, callback, index + 1))
+    .catch(error => {
+      console.error("Error iterating on", items[index], error);
+      return utils.forEachAsync(items, callback, index + 1);
+    });
+  },
 }
 
 module.exports = utils;

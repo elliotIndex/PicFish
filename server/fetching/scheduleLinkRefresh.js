@@ -8,14 +8,15 @@ const renderTemplate = require('../rendering/renderTemplate');
 const renderCategory = require('../rendering/renderCategory');
 
 function fetchAllCategories(categories) {
-  for (let category in categories) {
-    fetchCategoryLinks(category)
-    .then(links => database.insertLinks(links, category))
-    .catch(error => console.error('Error storing category:', category, error))
-    .then(() => renderCategory(category))
-    .catch(error => console.error('Error rendering category', category, error))
-    .then(() => renderCategory());
-  }
+  utils.forEachAsync(
+    Object.keys(categories),
+    (category) => fetchCategoryLinks(category)
+      .then(links => database.insertLinks(links, category))
+      .catch(error => console.error('Error storing category:', category, error))
+      .then(() => renderCategory(category))
+      .catch(error => console.error('Error rendering category', category, error))
+      .then(() => renderCategory())
+  );
 }
 
 function scheduleLinkRefresh(categories) {
