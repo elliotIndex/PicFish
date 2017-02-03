@@ -3,8 +3,8 @@ const globals = require('../globals');
 const findOrCreateFile = require('./findOrCreateFile');
 
 module.exports = {
-  serveErrorFile: (res) => {
-    console.log('Serving Error file');
+  serveErrorFile: (res, terminal) => {
+    console.log('Serving Error file to', terminal);
     res.sendFile(path.resolve(globals.errorFilename));
   },
 
