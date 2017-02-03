@@ -51,4 +51,10 @@ module.exports = {
       database.runScanner(removeDeadLink)
     });
   },
+
+  scheduleInvalidLinkCleanup: () => {
+    cron.schedule(globals.invalidLinkCleanupInterval, () => {
+      database.clearInvalidLinks();
+    });
+  }
 }
