@@ -262,9 +262,15 @@ a:focus, a:hover {
 }
 
 #social-buttons>div, #social-buttons>iframe {
-  margin: 0 3vw;
-  text-align: right;
   display: inline;
+}
+
+#social-buttons>div{
+  margin-right: 10px;
+}
+
+#social-buttons>iframe {
+  margin-left: 10px;
 }
 
 .close {
