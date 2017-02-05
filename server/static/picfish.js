@@ -58,6 +58,11 @@ var twttrParts = [
   // title
   '" style="border: 0; overflow: hidden;"> </iframe>'
 ]
+var twttrParts = [
+  '<a href="https://twitter.com/share" class="twitter-share-button" data-text="I just found this amazing picture on PicFish!" data-url="http://www.pic.fish/',
+  // terminal
+  '" data-via="pic_fish" data-hashtags="PicFish" data-dnt="true" data-size="large" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>'
+]
 
 // Share modal
 $shareLinkModal.on('show.bs.modal', function (event) {
@@ -91,10 +96,10 @@ $shareLinkModal.on('show.bs.modal', function (event) {
   hashTag = isNaN(parseInt(hashTag)) ? hashTag : "picOfTheDay";
   var twtrAnchor = $(
     twttrParts[0] + linkId +
-    twttrParts[1] + encodeURI("PicFish - " + linkText) +
-    twttrParts[2] + hashTag +
-    twttrParts[3] + "MYTITLE" +
-    twttrParts[4]
+    twttrParts[1] // + encodeURI("PicFish - " + linkText) +
+    // twttrParts[2] + hashTag +
+    // twttrParts[3] + "MYTITLE" +
+    // twttrParts[4]
   );
   socialBtns.append(twtrAnchor);
 });

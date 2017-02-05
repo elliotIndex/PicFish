@@ -261,7 +261,7 @@ a:focus, a:hover {
   height: 28px
 }
 
-#social-buttons>* {
+#social-buttons>div, #social-buttons>iframe {
   margin: 0 3vw;
   text-align: right;
   display: inline;
