@@ -320,7 +320,6 @@ function scanFor404s() {
   var imgs = Array.from($('.link-img'));
   return imgs.filter(function(img) {
     var $img = $(img);
-    console.log($img.attr('src'), $img.height(), $img.width());
     return ($img.height() === 100 && Math.abs($img.width() - 216.66) < 1);
   })
   .map(function(img) { return $(img).attr('src'); })
@@ -328,7 +327,7 @@ function scanFor404s() {
 }
 function requestLinkDeletion(badUri) {
   $.ajax({
-    url: '/delete?href=' + encodeURIComponent(badUri),
+    url: encodeURIComponent(badUri),
     type: 'DELETE',
     success: function() {}
   });

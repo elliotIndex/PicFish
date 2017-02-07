@@ -8,7 +8,7 @@ const dataserver = require('./serve/dataserver');
 const utils = require('./misc/utils');
 const init = require('./maintenance/init');
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   database.incrementVisitCount('/');
   if (req.query && req.query.index) {
     dataserver.serveRequest(res, req.query.index);
@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 
 app.use(express.static(globals.staticFileDir));
 
-app.get('/:terminal', function (req, res) {
+app.get('/:terminal', (req, res) => {
   if (req.query && req.query.index) {
     dataserver.serveRequest(res, req.query.index, req.params.terminal);
   } else if (req.params.terminal === "favicon.ico") {
@@ -36,10 +36,14 @@ app.get('/:terminal', function (req, res) {
       fileServer.serveErrorFile(res, req.params.terminal);
     }
   }
-
 });
 
-app.listen(environment.port, function () {
+app.delete('/:encodedUri', (req, res) => {
+  res.send();
+  console.log("encodedUri", req.params.encodedUri);
+})
+
+app.listen(environment.port, () => {
   console.log('Express server connected on port', environment.port);
 });
 
