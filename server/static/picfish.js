@@ -322,7 +322,11 @@ function scanFor404s() {
     var $img = $(img);
     return ($img.height() === 100 && Math.abs($img.width() - 216.66) < 1);
   })
-  .map(function(img) { return $(img).attr('src'); })
+  .map(function(img) {
+    $img = $(img);
+    $img.parent().parent().remove();
+    return $img.attr('src');
+  })
   .forEach(requestLinkDeletion);
 }
 function requestLinkDeletion(badUri) {
