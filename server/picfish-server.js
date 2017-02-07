@@ -6,6 +6,7 @@ const environment = require('./config/environment');
 const cleanup = require('./maintenance/cleanup');
 const fileServer = require('./serve/fileServer');
 const dataserver = require('./serve/dataserver');
+const validate = require('./validation/validate');
 const utils = require('./misc/utils');
 const init = require('./maintenance/init');
 
@@ -39,10 +40,11 @@ app.get('/:terminal', (req, res) => {
   }
 });
 
-app.delete('/:encodedUri', (req, res) => {
+app.delete('/:uri', (req, res) => {
   res.send();
-  console.log("encodedUri", req.params.encodedUri);
-  cleanup.validate
+  console.log("uri", req.params.uri);
+  validate(req.params.uri)
+  .catch(linkId => database.removeLink({ linkId }))
 })
 
 app.listen(environment.port, () => {

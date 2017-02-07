@@ -58,7 +58,7 @@ var database = {
   },
 
   insertInvalidLinkId: (linkId) => {
-    return invalidLinksCollection.insert({ linkId });
+    return invalidLinksCollection.insert({ linkId }).then(() => linkId);
   },
 
   isInvalidLinkId: (linkId) => {

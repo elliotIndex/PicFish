@@ -62,7 +62,8 @@ button:active, button:focus {
 
 .link-img {
   max-width: 100%;
-  min-height: 100px;
+  min-height: 1px;
+  min-width: 1px;
   align-self: center;
 }
 

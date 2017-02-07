@@ -318,10 +318,7 @@ function goToPosition(element) {
 // Catch 404s from imgur
 function scanFor404s() {
   var imgs = Array.from($('.link-img'));
-  return imgs.filter(function(img) {
-    var $img = $(img);
-    return ($img.height() === 100 && Math.abs($img.width() - 216.66) < 1);
-  })
+  return imgs.filter(isBadImage)
   .map(function(img) {
     $img = $(img);
     $img.parent().parent().remove();
@@ -335,4 +332,12 @@ function requestLinkDeletion(badUri) {
     type: 'DELETE',
     success: function() {}
   });
+}
+function isBadImage(img) {
+  // if (!img.naturalHeight && !img.naturalWidth) {
+  //   return true;
+  // }
+  return false;
+  var $img = $(img);
+  return (Math.abs($img.width() - 216.66) < 1);
 }
