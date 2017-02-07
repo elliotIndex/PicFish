@@ -16,7 +16,7 @@ const globals = {
   defaultCategory: 'cute',
   errorFilename: __dirname + '/fileCache/renderedSharedLinks/defaultLink.html',
   linkRefreshInterval: '30 * * * *', // hourly on the **:30
-  fileCleanupInterval: '1 0 * * *', // daily at 12:01am
+  fileCleanupInterval: '10 5 * * *', // daily at 5:10 AM
   linkCleanupInterval: '17 3 * * *', // daily at 3:17 AM
   invalidLinkCleanupInterval: '20 4 * * *', // daily at 4:20 AM
   renderedCategoriesDir: __dirname + '/fileCache/renderedCategories/',
