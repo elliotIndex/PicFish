@@ -215,7 +215,6 @@ function makeScrollRequest() {
       stopSpinner();
     });
   }
-  scanFor404s();
 }
 function nearPageEnd() {
   var $le = $('.list-entry');
@@ -251,7 +250,9 @@ function addLinks(links) {
       link.linkId +
       '" > <div class="img-container"> <img src="' +
       link.href +
-      '" class="link-img" alt="' +
+      '" onerror="requestLinkDeletion(\'' +
+      link.href +
+      '\')" class="link-img" alt="' +
       link.text +
       '" /> </div> <div class="text-container"> <h3 class="link-title"> ' +
       link.text +
@@ -315,29 +316,13 @@ function goToPosition(element) {
   }, 1);
 }
 
-// Catch 404s from imgur
-function scanFor404s() {
-  var imgs = Array.from($('.link-img'));
-  return imgs.filter(isBadImage)
-  .map(function(img) {
-    $img = $(img);
-    $img.parent().parent().remove();
-    return $img.attr('src');
-  })
-  .forEach(requestLinkDeletion);
-}
+// Catch 404s
 function requestLinkDeletion(badUri) {
+  console.log("Requesting deletion of", badUri);
+  $("img[src$='" + badUri + "']").parent().parent().remove();
   $.ajax({
     url: encodeURIComponent(badUri),
     type: 'DELETE',
     success: function() {}
   });
-}
-function isBadImage(img) {
-  // if (!img.naturalHeight && !img.naturalWidth) {
-  //   return true;
-  // }
-  return false;
-  var $img = $(img);
-  return (Math.abs($img.width() - 216.66) < 1);
 }
