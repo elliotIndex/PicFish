@@ -219,7 +219,7 @@ function makeScrollRequest() {
 function nearPageEnd() {
   var $le = $('.list-entry');
   var threeFromEnd = $le.length - 3;
-  return $scrollableContent.scrollTop() > $($le[threeFromEnd]).offset().top;
+  return threeFromEnd < 0 || $scrollableContent.scrollTop() > $($le[threeFromEnd]).offset().top;
 }
 
 // Add links
