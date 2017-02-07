@@ -327,7 +327,6 @@ function scanFor404s() {
   .forEach(requestLinkDeletion);
 }
 function requestLinkDeletion(badUri) {
-  console.log("Makeing delete requst for", badUri);
   $.ajax({
     url: '/delete?href=' + encodeURIComponent(badUri),
     type: 'DELETE',
