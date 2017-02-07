@@ -3,6 +3,7 @@ const jsdom = require('jsdom');
 const utils = require('../misc/utils');
 const globals = require('../globals');
 const database = require('../database/database');
+const validate = require('../validation/validate');
 const shuffle = require('knuth-shuffle').knuthShuffle
 
 function fetchPages(category) {
@@ -22,8 +23,6 @@ function fetchPages(category) {
 }
 
 function scrapeLinks(pages) {
-  console.log("scrapeLinks")
-
   const allLinks = []; // Promises
 
   pages.forEach(({ page, category }) => {
@@ -64,71 +63,62 @@ function removeDuplicateLinks(links) {
 
 function correctImgurUrls(links) {
   return links.reduce(function (correctedLinks, link) {
-    if (link.href.indexOf('imgur') > -1 && !(link.href.endsWith('.jpg') ||
-    link.href.endsWith('.png') || link.href.endsWith('.gif')) ) {
-      const jpg = Object.assign({}, link);
-      jpg.href = jpg.href + '.jpg';
-      correctedLinks.push(jpg);
+    if (link.href.indexOf('imgur') > -1) {
+      if (link.href.endsWith('.gifv')) {
+        link.href = link.href.replace('gifv', 'gif');
+      } else if (
+        !(
+          link.href.endsWith('.jpg') ||
+          link.href.endsWith('.png') ||
+          link.href.endsWith('.gif')
+        )
+      ) {
+          const jpg = Object.assign({}, link);
+          jpg.href = jpg.href + '.jpg';
+          correctedLinks.push(jpg);
 
-      const gif = Object.assign({}, link);
-      gif.href = gif.href + '.gif';
-      correctedLinks.push(gif);
-    } else {
-      correctedLinks.push(link);
-    }
-    return correctedLinks;
-  }, []);
-}
-
-
-function validateLinks(links) {
-  console.log("Validating", links.length, "links");
-  const unfilteredLinksPromise = links.map(link => {
-    return new Promise((resolve, reject) => {
-      request(
-        { uri: link.href, timeout: globals.maxValidationRequestTime },
-        (error, response, body) => {
-          if (
-            !error &&
-            response.statusCode === 200 &&
-            utils.isImageResponse(response)
-          ) {
-            link.fbThumbnail = utils.getThumbnail(
-              link.href,
-              response.headers['content-length'],
-              globals.maxFbThumbnailBytes
-            );
-            link.twThumbnail = utils.getThumbnail(
-              link.href,
-              response.headers['content-length'],
-              globals.maxTwThumbnailBytes
-            );
-            resolve(link);
-          } else {
-            database.insertInvalidLinkId(link.linkId)
-            .then(reject)
-          }
+          const gif = Object.assign({}, link);
+          gif.href = gif.href + '.gif';
+          correctedLinks.push(gif);
         }
-      );
-    })
-  });
-
-  return utils.getResolvedPromises(unfilteredLinksPromise);
-}
-
-function fetchCategoryLinks(category) {
-  return fetchPages(category)
-  .then(scrapeLinks)
-  .then(removeInvalidLinks)
-  .then(removeDuplicateLinks)
-  .then(correctImgurUrls)
-  .then(utils.removeRedditReferences)
-  .then(utils.removeNSFWlinks)
-  .then(utils.removeOC)
-  .then(validateLinks)
-  .then(utils.filterUniqueLinks)
-  .catch(error => console.error(error));
-}
+      }
+      correctedLinks.push(link);
+      return correctedLinks;
+    }, []);
+  }
 
 
-module.exports = fetchCategoryLinks;
+  function validateLinks(links) {
+    const unfilteredLinksPromise = links.map(validate)
+
+    return utils.getResolvedPromises(unfilteredLinksPromise)
+    .then(links => {
+      return links.map(link => {
+        link.fbThumbnail = utils.getThumbnail(
+          link.href, link.size, globals.maxFbThumbnailBytes
+        );
+        link.twThumbnail = utils.getThumbnail(
+          link.href, link.size, globals.maxTwThumbnailBytes
+        );
+        delete link.size;
+        return link;
+      })
+    });
+  }
+
+  function fetchCategoryLinks(category) {
+    return fetchPages(category)
+    .then(scrapeLinks)
+    .then(removeInvalidLinks)
+    .then(removeDuplicateLinks)
+    .then(correctImgurUrls)
+    .then(utils.removeRedditReferences)
+    .then(utils.removeNSFWlinks)
+    .then(utils.removeOC)
+    .then(validateLinks)
+    .then(utils.filterUniqueLinks)
+    .catch(error => console.error(error));
+  }
+
+
+  module.exports = fetchCategoryLinks;

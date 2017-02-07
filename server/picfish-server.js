@@ -3,6 +3,7 @@ const app = express();
 const globals = require('./globals');
 const database = require('./database/database');
 const environment = require('./config/environment');
+const cleanup = require('./maintenance/cleanup');
 const fileServer = require('./serve/fileServer');
 const dataserver = require('./serve/dataserver');
 const utils = require('./misc/utils');
@@ -41,6 +42,7 @@ app.get('/:terminal', (req, res) => {
 app.delete('/:encodedUri', (req, res) => {
   res.send();
   console.log("encodedUri", req.params.encodedUri);
+  cleanup.validate
 })
 
 app.listen(environment.port, () => {

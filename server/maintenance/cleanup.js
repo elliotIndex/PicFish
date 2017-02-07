@@ -56,5 +56,9 @@ module.exports = {
     cron.schedule(globals.invalidLinkCleanupInterval, () => {
       database.clearInvalidLinks();
     });
+  },
+
+  validateOrDelete: () => {
+
   }
 }

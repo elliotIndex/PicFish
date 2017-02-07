@@ -11,11 +11,8 @@ const utils = {
   getResolvedPromises: (promises) => {
     const FAIL_TOKEN = {};
 
-    return Promise.all(
-      promises.map(p => p.catch(e => FAIL_TOKEN))
-    ).then(
-      values => values.filter(v => v !== FAIL_TOKEN)
-    );
+    return Promise.all( promises.map(p => p.catch(e => FAIL_TOKEN)) )
+    .then( values => values.filter(v => v !== FAIL_TOKEN) );
   },
 
   filterUniqueLinks: (links) => {
