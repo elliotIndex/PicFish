@@ -204,7 +204,7 @@ function makeScrollRequest() {
       addLinks(response);
     })
     .fail(function(err) {
-      console.log('Error Loading Links:', err);
+      console.error('Error Loading Links:', err);
       errorCount++;
       if (errorCount > 10) {
         endRequests();
@@ -215,6 +215,7 @@ function makeScrollRequest() {
       stopSpinner();
     });
   }
+  scanFor404s();
 }
 function nearPageEnd() {
   var $le = $('.list-entry');
@@ -312,4 +313,24 @@ function goToPosition(element) {
   $('html, body').animate({
     scrollTop: $(element).offset().top - 60
   }, 1);
+}
+
+// Catch 404s from imgur
+function scanFor404s() {
+  var imgs = Array.from($('.link-img'));
+  return imgs.filter(function(img) {
+    var $img = $(img);
+    console.log($img.attr('src'), $img.height(), $img.width());
+    return ($img.height() === 100 && Math.abs($img.width() - 216.66) < 1);
+  })
+  .map(function(img) { return $(img).attr('src'); })
+  .forEach(requestLinkDeletion);
+}
+function requestLinkDeletion(badUri) {
+  console.log("Makeing delete requst for", badUri);
+  $.ajax({
+    url: '/delete?href=' + encodeURIComponent(badUri),
+    type: 'DELETE',
+    success: function() {}
+  });
 }
