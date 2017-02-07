@@ -89,6 +89,7 @@ function correctImgurUrls(links) {
 
 
   function validateLinks(links) {
+    console.log("Validating", links.length, "links");
     const unfilteredLinksPromise = links.map(validate)
 
     return utils.getResolvedPromises(unfilteredLinksPromise)
