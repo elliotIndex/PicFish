@@ -20,13 +20,14 @@ const validate = linkOrUri => {
         if (
           !error &&
           response.statusCode === 200 &&
-          utils.isImageResponse(response)
+          utils.isImageResponse(response) &&
+          response.headers['content-length'] < globals.maxLinkSize
         ) {
           link.size = response.headers['content-length'];
           resolve(link);
         } else {
           database.insertInvalidLinkId(link.linkId)
-          .then(reject)
+          .then(linkId => reject("Invalid link " + linkId))
         }
       }
     );
