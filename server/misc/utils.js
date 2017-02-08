@@ -1,5 +1,6 @@
 const globals = require('../globals');
 const environment = require('../config/environment');
+const EventEmitter = require('events');
 
 const utils = {
   isImageResponse: (res) => {
@@ -103,16 +104,22 @@ const utils = {
 
   // Async loop method, iterates to nex item in array only after it has finished
   // previous item
-  asyncForEach: (items, callback, index = 0) => {
-    if (index >= items.length) {
-      console.log("Finsihed Iterating!");
-      return new Promise(r => r(null));
-    }
-    return callback(items[index], index, items)
-    .then(() => utils.asyncForEach(items, callback, index + 1))
-    .catch(error => {
-      console.error("Error iterating on", items[index], error);
-      return utils.asyncForEach(items, callback, index + 1);
+  asyncForEach: (items, callback) => {
+    const emitter = new EventEmitter();
+    let index = 0;
+
+    return new Promise((resolve, reject) => {
+      emitter.on('next', () => {
+        if (index >= items.length) {
+          resolve();
+        }
+        callback(items[index], index, items)
+        .catch(e => e)
+        .then(() => {
+          index++;
+          emitter.emit('next');
+        });
+      })
     });
   },
 
@@ -127,12 +134,8 @@ const utils = {
         })
         .catch(invalidLink => console.error("Invalid link", invalidLink));
       })
-      .then(nextVal => {
-        if (!nextVal) {
-          resolve(output);
-        }
-      })
-    })
+      .then(() => resolve(output))
+    });
   }
 }
 
