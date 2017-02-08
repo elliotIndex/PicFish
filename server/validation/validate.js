@@ -6,7 +6,6 @@ const database = require('../database/database');
 const shuffle = require('knuth-shuffle').knuthShuffle
 
 const validate = linkOrUri => {
-  console.log("linkOrUri", linkOrUri);
   let link = {};
   if (typeof linkOrUri === "string") {
     link.href = linkOrUri;
