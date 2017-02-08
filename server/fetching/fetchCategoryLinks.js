@@ -110,6 +110,10 @@ function correctImgurUrls(links) {
     });
   }
 
+  function shortenToPreventServerCrash(links) {
+    return links.slice(0, globals.maxNewImages);
+  }
+
   function fetchCategoryLinks(category) {
     return fetchPages(category)
     .then(scrapeLinks)
@@ -119,6 +123,7 @@ function correctImgurUrls(links) {
     .then(utils.removeRedditReferences)
     .then(utils.removeNSFWlinks)
     .then(utils.removeOC)
+    .then(shortenToPreventServerCrash)
     .then(validateLinks)
     .then(utils.filterUniqueLinks)
     .catch(error => console.error(error));
