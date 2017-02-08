@@ -113,13 +113,14 @@ const utils = {
         if (index >= items.length) {
           console.log("Finished Iterating");
           resolve();
+        } else {
+          callback(items[index], index, items)
+          .catch(e => e)
+          .then(() => {
+            index++;
+            emitter.emit('next');
+          });
         }
-        callback(items[index], index, items)
-        .catch(e => e)
-        .then(() => {
-          index++;
-          emitter.emit('next');
-        });
       });
 
       emitter.emit('next');
