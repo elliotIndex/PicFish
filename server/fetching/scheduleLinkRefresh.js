@@ -8,7 +8,7 @@ const renderTemplate = require('../rendering/renderTemplate');
 const renderCategory = require('../rendering/renderCategory');
 
 function fetchAllCategories(categories) {
-  utils.forEachAsync(
+  utils.asyncForEach(
     Object.keys(categories),
     (category) => fetchCategoryLinks(category)
       .then(links => database.insertLinks(links, category))

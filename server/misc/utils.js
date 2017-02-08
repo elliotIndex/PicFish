@@ -106,7 +106,7 @@ const utils = {
   asyncForEach: (items, callback, index = 0) => {
     if (index >= items.length) {
       console.log("Finsihed Iterating!");
-      return null;
+      return new Promise(r => r(null));
     }
     return callback(items[index], index, items)
     .then(() => utils.asyncForEach(items, callback, index + 1))

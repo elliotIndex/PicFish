@@ -13,6 +13,7 @@ const validate = linkOrUri => {
   } else {
     link = linkOrUri;
   }
+  console.log("Validating link", link.linkId);
   return new Promise((resolve, reject) => {
     request(
       { uri: link.href, timeout: globals.maxValidationRequestTime },
