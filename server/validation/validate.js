@@ -27,7 +27,7 @@ const validate = linkOrUri => {
           resolve(link);
         } else {
           database.insertInvalidLinkId(link.linkId)
-          .then(linkId => reject("Invalid link " + linkId))
+          .then(reject))
         }
       }
     );

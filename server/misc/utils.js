@@ -125,7 +125,7 @@ const utils = {
           output.push(transformedVal);
           return transformedVal;
         })
-        .catch(utils.standardError);
+        .catch(invalidLink => console.error("Invalid link", invalidLink);
       })
       .then(nextVal => {
         if (!nextVal) {
