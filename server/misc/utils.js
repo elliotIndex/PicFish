@@ -105,10 +105,10 @@ const utils = {
   // Async loop method, iterates to nex item in array only after it has finished
   // previous item
   asyncForEach: (items, callback) => {
-    const emitter = new EventEmitter();
-    let index = 0;
-
     return new Promise((resolve, reject) => {
+      const emitter = new EventEmitter();
+      let index = 0;
+
       emitter.on('next', () => {
         if (index >= items.length) {
           console.log("Finsihed Iterating");
@@ -120,7 +120,8 @@ const utils = {
           index++;
           emitter.emit('next');
         });
-      })
+      });
+      
       emitter.emit('next');
     });
   },
