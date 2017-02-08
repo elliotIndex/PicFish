@@ -75,10 +75,12 @@ function correctImgurUrls(links) {
       ) {
           const jpg = Object.assign({}, link);
           jpg.href = jpg.href + '.jpg';
+          jpg.linkId = utils.generateHashCode(jpg.href);
           correctedLinks.push(jpg);
 
           const gif = Object.assign({}, link);
           gif.href = gif.href + '.gif';
+          gif.linkId = utils.generateHashCode(gif.href);
           correctedLinks.push(gif);
         }
       }
@@ -91,7 +93,6 @@ function correctImgurUrls(links) {
   function validateLinks(links) {
     console.log("Validating", links.length, "links");
     return utils.asyncMap(links, validate)
-    .then(utils.getResolvedPromises)
     .then(links => {
       console.log("Found", links.length, "valid links");
       return links.map(link => {
@@ -110,12 +111,13 @@ function correctImgurUrls(links) {
   function fetchCategoryLinks(category) {
     return fetchPages(category)
     .then(scrapeLinks)
-    .then(removeInvalidLinks)
     .then(removeDuplicateLinks)
     .then(correctImgurUrls)
+    .then(removeInvalidLinks)
     .then(utils.removeRedditReferences)
     .then(utils.removeNSFWlinks)
     .then(utils.removeOC)
+    .then(links => links.slice(0, 4))
     .then(validateLinks)
     .then(utils.filterUniqueLinks)
     .catch(error => console.error(error));

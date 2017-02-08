@@ -125,6 +125,7 @@ const utils = {
           output.push(transformedVal);
           return transformedVal;
         })
+        .catch(utils.standardError)
       })
       .then(nextVal => {
         if (!nextVal) {
