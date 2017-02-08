@@ -49,10 +49,12 @@ function removeInvalidLinks(links) {
 }
 
 function removeDuplicateLinks(links) {
+  const currentLinksText = new Set();
   return Promise.all(links.map(linkToAdd => {
     return database.findLink({ text: linkToAdd.text })
     .then(foundLink => {
-      if (!foundLink) {
+      if (!foundLink && !currentLinksText.has(linkToAdd.text)) {
+        currentLinksText.add(linkToAdd.text)
         return linkToAdd;
       }
       return null;
