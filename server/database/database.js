@@ -65,8 +65,8 @@ var database = {
     return invalidLinksCollection.findOne({ linkId }).then(found => !!found);
   },
 
-  findLink: (linkId) => {
-    return linksCollection.findOne({ linkId })
+  findLink: (query) => {
+    return linksCollection.findOne(query)
     .then(link => {
       if (!link) {
         return null;

@@ -9,7 +9,7 @@ module.exports = (terminal) => {
     fs.access(globals.renderedSharedLinksDir + filename, (err) => {
       if (err) {
         console.log('Creating file', filename);
-        database.findLink(terminal)
+        database.findLink({ linkId: terminal})
         .then(link => renderTemplate(
           [link],
           link.category,

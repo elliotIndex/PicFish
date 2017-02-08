@@ -50,7 +50,7 @@ function removeInvalidLinks(links) {
 
 function removeDuplicateLinks(links) {
   return Promise.all(links.map(linkToAdd => {
-    return database.findLink(linkToAdd.linkId)
+    return database.findLink({ text: linkToAdd.text })
     .then(foundLink => {
       if (!foundLink) {
         return linkToAdd;
