@@ -94,6 +94,7 @@ function correctImgurUrls(links) {
 
     return utils.getResolvedPromises(unfilteredLinksPromise)
     .then(links => {
+      console.log("Found", links.length, "valid links");
       return links.map(link => {
         link.fbThumbnail = utils.getThumbnail(
           link.href, link.size, globals.maxFbThumbnailBytes

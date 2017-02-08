@@ -11,7 +11,7 @@ const validate = linkOrUri => {
     link.href = linkOrUri;
     link.linkId = utils.generateHashCode(linkOrUri);
   } else {
-    const link = linkOrUri;
+    link = linkOrUri;
   }
   return new Promise((resolve, reject) => {
     request(
