@@ -111,7 +111,7 @@ const utils = {
 
       emitter.on('next', () => {
         if (index >= items.length) {
-          console.log("Finsihed Iterating");
+          console.log("Finished Iterating");
           resolve();
         }
         callback(items[index], index, items)
@@ -121,7 +121,7 @@ const utils = {
           emitter.emit('next');
         });
       });
-      
+
       emitter.emit('next');
     });
   },
