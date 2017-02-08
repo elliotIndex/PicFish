@@ -117,7 +117,6 @@ function correctImgurUrls(links) {
     .then(utils.removeRedditReferences)
     .then(utils.removeNSFWlinks)
     .then(utils.removeOC)
-    .then(links => links.slice(0, 4))
     .then(validateLinks)
     .then(utils.filterUniqueLinks)
     .catch(error => console.error(error));
