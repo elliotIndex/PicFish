@@ -103,18 +103,36 @@ const utils = {
 
   // Async loop method, iterates to nex item in array only after it has finished
   // previous item
-  forEachAsync: (items, callback, index = 0) => {
+  asyncForEach: (items, callback, index = 0) => {
     if (index >= items.length) {
       console.log("Finsihed Iterating!");
-      return;
+      return null;
     }
     return callback(items[index], index, items)
-    .then(() => utils.forEachAsync(items, callback, index + 1))
+    .then(() => utils.asyncForEach(items, callback, index + 1))
     .catch(error => {
       console.error("Error iterating on", items[index], error);
-      return utils.forEachAsync(items, callback, index + 1);
+      return utils.asyncForEach(items, callback, index + 1);
     });
   },
+
+  asyncMap: (items, transform) => {
+    const output = [];
+    return new Promise((resolve, reject) => {
+      utils.asyncForEach(items, (item, index, collection) => {
+        return transform(item, index, collection)
+        .then(transformedVal => {
+          output.push(transformedVal);
+          return transformedVal;
+        })
+      })
+      .then(nextVal => {
+        if (!nextVal) {
+          resolve(output);
+        }
+      })
+    })
+  }
 }
 
 module.exports = utils;
