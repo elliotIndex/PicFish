@@ -2,7 +2,6 @@ const renderTemplate = require('./renderTemplate');
 const globals = require('../globals');
 
 module.exports = function renderDevPage() {
-  console.log("rendering dev page");
   renderTemplate(
     [
       globals.defaultLink, globals.defaultLink, globals.defaultLink,
@@ -13,5 +12,4 @@ module.exports = function renderDevPage() {
     globals.renderedCategoriesDir,
     'Dev'
   )
-  .then(() => console.log('Rendered dev page'))
 }

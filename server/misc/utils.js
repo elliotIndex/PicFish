@@ -111,6 +111,7 @@ const utils = {
     return new Promise((resolve, reject) => {
       emitter.on('next', () => {
         if (index >= items.length) {
+          console.log("Finsihed Iterating");
           resolve();
         }
         callback(items[index], index, items)
@@ -120,6 +121,7 @@ const utils = {
           emitter.emit('next');
         });
       })
+      emitter.emit('next');
     });
   },
 
