@@ -42,9 +42,8 @@ app.get('/:terminal', (req, res) => {
 
 app.delete('/:uri', (req, res) => {
   res.send();
-  console.log("uri", req.params.uri);
-  validate(req.params.uri)
-  .catch(linkId => database.removeLink({ linkId }))
+  console.log("Requesting deletion of", req.params.uri);
+  cleanup.validateOrDelete(req.params.uri)
 })
 
 app.listen(environment.port, () => {
