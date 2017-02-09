@@ -186,8 +186,8 @@ var database = {
   },
 
   removeLink: (link) => {
-    console.log("removing link:", link);
-    return linksCollection.remove({ linkId: link.linkId.toString() }, { justOne: true });
+    console.log("Removing link:", link);
+    return linksCollection.remove(link, { justOne: true });
   },
 
   clearInvalidLinks: () => {
