@@ -17,12 +17,12 @@ const utils = {
   },
 
   filterUniqueLinks: (links) => {
-    const uniqIds = new Set();
+    const uniqTexts = new Set();
     return links.reduce((uniqLinks, link) => {
-      if (!uniqIds.has(link.linkId)) {
+      if (!uniqTexts.has(link.text)) {
         uniqLinks.push(link);
       }
-      uniqIds.add(link.linkId);
+      uniqTexts.add(link.linkId);
       return uniqLinks;
     }, []);
   },
@@ -32,7 +32,9 @@ const utils = {
     return links.filter(link => !(
       link.text.indexOf('r/') > -1 ||
       link.text.indexOf('reddit') > -1 ||
-      link.text.indexOf('Reddit') > -1)
+      link.text.indexOf('Reddit') > -1) ||
+      link.text.indexOf('karma') > -1) ||
+      link.text.indexOf('Karma') > -1)
     );
   },
 
