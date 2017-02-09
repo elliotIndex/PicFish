@@ -15,9 +15,10 @@ const globals = {
   },
   defaultCategory: 'cute',
   errorFilename: __dirname + '/fileCache/renderedSharedLinks/defaultLink.html',
+  // NOTE: DROPLET IS ON EASTERN TIME
   linkRefreshInterval: '30 * * * *', // hourly on the **:30
-  fileCleanupInterval: '10 5 * * *', // daily at 5:10 AM
-  linkCleanupInterval: '17 3 * * *', // daily at 3:17 AM
+  fileCleanupInterval: '10 7 * * *', // daily at 7:10 AM
+  linkCleanupInterval: '17 5 * * *', // daily at 5:17 AM
   invalidLinkCleanupInterval: '20 4 * * *', // daily at 4:20 AM
   renderedCategoriesDir: __dirname + '/fileCache/renderedCategories/',
   renderedSharedLinksDir: __dirname + '/fileCache/renderedSharedLinks/',
