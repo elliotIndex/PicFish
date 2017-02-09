@@ -1,4 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
+var async = require('async');
 var utils = require('../misc/utils');
 var environment = require('../config/environment');
 var globals = require('../globals');
@@ -167,22 +168,10 @@ var database = {
 
   runScanner: (scanner, cursor = null) => {
     console.log("Running Scanner");
-    if (!cursor) {
-      cursor = linksCollection.find();
-    }
-    cursor.next()
-    .then(nextValue => {
-      if (nextValue) {
-        return scanner(nextValue);
-      }
-      return null;
-    })
-    .then(shouldKeepScanning => {
-      if (shouldKeepScanning) {
-        database.runScanner(scanner, cursor);
-      }
-    })
-    .catch(utils.standardError);
+    linksCollection.find().sort({ totalIndex: -1 }).limit(1000).toArray()
+    .then(recentItems => {
+      async.forEach(recentItems, scanner)
+    });
   },
 
   removeLink: (link) => {

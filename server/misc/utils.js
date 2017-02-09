@@ -150,6 +150,17 @@ const utils = {
       })
       .then(() => resolve(output))
     });
+  },
+
+  linkOrUriToLink: (linkOrUri) => {
+    let link = {};
+    if (typeof linkOrUri === "string") {
+      link.href = linkOrUri;
+      link.linkId = utils.generateHashCode(linkOrUri);
+    } else {
+      link = linkOrUri;
+    }
+    return link;
   }
 }
 
