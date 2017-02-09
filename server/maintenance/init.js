@@ -7,6 +7,7 @@ const database = require('../database/database');
 const cleanup = require('./cleanup');
 const renderDevPage = require('../rendering/renderDevPage');
 const renderCategory = require('../rendering/renderCategory');
+const renderFromDb = require('../rendering/renderFromDb');
 const scheduleLinkRefresh = require('../fetching/scheduleLinkRefresh');
 
 module.exports = () => {
@@ -27,13 +28,4 @@ module.exports = () => {
   cleanup.prepForServerShutdown(database.close);
   cleanup.scheduleFileCleanup();
   cleanup.scheduleLinkCleanup();
-}
-
-function renderFromDb() {
-  for (let category in globals.categories) {
-    renderCategory(category)
-    .catch(utils.standardError);
-  }
-  renderCategory()
-  .catch(utils.standardError);
 }

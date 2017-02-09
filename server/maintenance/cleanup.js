@@ -4,6 +4,7 @@ const globals = require('../globals');
 const utils = require('../misc/utils');
 const removeDeadLink = require('../scanners/removeDeadLink');
 const database = require('../database/database');
+const renderFromDb = require('../rendering/renderFromDb');
 const validate = require('../validation/validate');
 
 function noOp() {};
@@ -60,7 +61,17 @@ module.exports = {
   },
 
   validateOrDelete: linkHref => {
-    validate(linkHref)
-    .catch(linkId => database.removeLink({ href: linkHref }))
+    database.findLink({ href: linkHref })
+    .then(found => {
+      return found
+    })
+    .then(validate)
+    .catch(database.removeLink)
+    .then(stats => {
+      if (stats.result.n > 0) {
+        renderFromDb();
+      }
+    })
+    .catch(utils.standardError)
   }
 }
