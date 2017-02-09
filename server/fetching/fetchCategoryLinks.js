@@ -4,7 +4,8 @@ const utils = require('../misc/utils');
 const globals = require('../globals');
 const database = require('../database/database');
 const validate = require('../validation/validate');
-const shuffle = require('knuth-shuffle').knuthShuffle
+const shuffle = require('knuth-shuffle').knuthShuffle;
+const async = require('async');
 
 function fetchPages(category) {
   console.log("Fetching category", category)
@@ -92,21 +93,23 @@ function correctImgurUrls(links) {
   }
 
 
+  function validateMap(link, callback) {
+    console.log("Validating", link.linkId);
+    validate(link)
+    .then(validLink => callback(null, validLink))
+    .catch(error => callback(null, null))
+  }
+
   function validateLinks(links) {
-    console.log("Validating", links.length, "links");
-    return utils.asyncMap(links, validate)
-    .then(links => {
-      console.log("Found", links.length, "valid links");
-      return links.map(link => {
-        link.fbThumbnail = utils.getThumbnail(
-          link.href, link.size, globals.maxFbThumbnailBytes
-        );
-        link.twThumbnail = utils.getThumbnail(
-          link.href, link.size, globals.maxTwThumbnailBytes
-        );
-        delete link.size;
-        return link;
-      })
+    return new Promise((resolve, reject) => {
+      async.mapSeries(links, validateMap, function(err, results) {
+        if (err) {
+          console.error("Error validating links", err);
+          reject(err);
+        } else {
+          resolve(results.filter(i => i));
+        }
+      });
     });
   }
 

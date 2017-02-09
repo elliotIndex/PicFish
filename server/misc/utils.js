@@ -32,8 +32,8 @@ const utils = {
     return links.filter(link => !(
       link.text.indexOf('r/') > -1 ||
       link.text.indexOf('reddit') > -1 ||
-      link.text.indexOf('Reddit') > -1) ||
-      link.text.indexOf('karma') > -1) ||
+      link.text.indexOf('Reddit') > -1 ||
+      link.text.indexOf('karma') > -1 ||
       link.text.indexOf('Karma') > -1)
     );
   },
