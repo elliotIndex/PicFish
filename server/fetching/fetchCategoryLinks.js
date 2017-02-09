@@ -120,8 +120,8 @@ function correctImgurUrls(links) {
   function fetchCategoryLinks(category) {
     return fetchPages(category)
     .then(scrapeLinks)
-    .then(removeDuplicateLinks)
     .then(correctImgurUrls)
+    .then(removeDuplicateLinks)
     .then(removeInvalidLinks)
     .then(utils.removeRedditReferences)
     .then(utils.removeNSFWlinks)
