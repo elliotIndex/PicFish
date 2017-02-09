@@ -21,7 +21,8 @@ const validate = linkOrUri => {
           !error &&
           response.statusCode === 200 &&
           utils.isImageResponse(response) &&
-          response.headers['content-length'] < globals.maxLinkSize
+          response.headers['content-length'] < globals.maxLinkSize &&
+          utils.isNotInvalidImgur(response)
         ) {
           link.size = response.headers['content-length'];
           resolve(link);

@@ -3,8 +3,16 @@ const environment = require('../config/environment');
 const EventEmitter = require('events');
 
 const utils = {
+
   isImageResponse: (res) => {
     return ~res.headers['content-type'].indexOf('image');
+  },
+
+  isNotInvalidImgur: (res) => {
+    if (res && res.request && res.request.uri) {
+      return res.request.uri.path !== "/removed.png";
+    }
+    return true;
   },
 
   isLinkId: (item) => item && !isNaN(parseInt(item)),

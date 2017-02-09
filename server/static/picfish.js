@@ -15,6 +15,7 @@ $shareLinkModal.on('hide.bs.modal', resetShareModal);
 scrollingNav();
 scrollRequests();
 insertAd();
+scanMissingImgurs();
 
 // Toggle height
 var fitHeight = true;
@@ -213,6 +214,7 @@ function makeScrollRequest() {
     .always(function() {
       requestSent = false;
       stopSpinner();
+      scanMissingImgurs();
     });
   }
 }
@@ -324,5 +326,13 @@ function requestLinkDeletion(badUri) {
     url: encodeURIComponent(badUri),
     type: 'DELETE',
     success: function() {}
+  });
+}
+function scanMissingImgurs() {
+  $('img').each((_, img) => {
+    $img = $(img);
+    if ($img.height() === 81 && $img.width() === 161) {
+      requestLinkDeletion($img.attr('src'));
+    }
   });
 }
