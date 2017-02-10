@@ -1,5 +1,3 @@
-console.log("ENV:", process.env.NODE_ENV);
-
 devEnvironment = {
   mode: 'dev',
   domain: 'localhost:3000',

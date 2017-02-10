@@ -26,7 +26,6 @@ module.exports = (links, category, filename, filepath, title) => {
     });
 
     muStream.on('end', () => {
-      console.log('Finished rendering', filename);
       // To make sure all writing has finished before closing stream
       setTimeout(() => {
         wstream.end();

@@ -167,7 +167,6 @@ var database = {
   },
 
   runScanner: (scanner, cursor = null) => {
-    console.log("Running Scanner");
     linksCollection.find().sort({ totalIndex: -1 }).limit(1000).toArray()
     .then(recentItems => {
       async.forEach(recentItems, scanner)
@@ -175,7 +174,6 @@ var database = {
   },
 
   removeLink: (link) => {
-    console.log("Removing link:", link.href);
     return linksCollection.remove({ href: link.href }, { justOne: true });
   },
 

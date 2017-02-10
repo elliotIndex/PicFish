@@ -42,7 +42,6 @@ app.get('/:terminal', (req, res) => {
 
 app.delete('/:uri', (req, res) => {
   res.send();
-  console.log("Requesting deletion of", req.params.uri);
   cleanup.validateOrDelete(req.params.uri)
 })
 
@@ -50,5 +49,4 @@ app.listen(environment.port, () => {
   console.log('Express server connected on port', environment.port);
 });
 
-console.log("Initiating server");
 init();

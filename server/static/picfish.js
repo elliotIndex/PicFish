@@ -274,7 +274,6 @@ function stopSpinner() {
   $loadingSpinner.hide();
 }
 function endRequests() {
-  console.log("ending!");
   $scrollableContent.unbind('scroll', makeScrollRequest);
   $imageList.append($(
     '<div class="header-text main">That\'s it! You\'ve seen all the images. Why don\'t you try out a new category?</div>'

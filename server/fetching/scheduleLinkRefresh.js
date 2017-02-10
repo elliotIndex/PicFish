@@ -20,12 +20,9 @@ function fetchAllCategories(categories) {
 }
 
 function scheduleLinkRefresh(categories) {
-  console.log('Fetching all categories');
   fetchAllCategories(categories);
 
-  console.log('Scheduling Link Refresh');
   cron.schedule(globals.linkRefreshInterval, () => {
-    console.log('Refreshing links');
     fetchAllCategories(categories);
   });
 }

@@ -23,14 +23,11 @@ module.exports = {
 
     // catch ctrl+c event and exit normally
     process.on('SIGINT', function () {
-      console.log('Ctrl-C...');
       process.exit(2);
     });
 
     //catch uncaught exceptions, trace, then exit normally
     process.on('uncaughtException', function(e) {
-      console.log('Uncaught Exception...');
-      console.log(e.stack);
       process.exit(99);
     });
   },
@@ -38,7 +35,6 @@ module.exports = {
   scheduleFileCleanup: () => {
     cron.schedule(globals.fileCleanupInterval, () => {
       fs.readdir(globals.renderedSharedLinksDir, (err, files) => {
-        console.log('Cleaning generated files');
         files.forEach(file => {
           if (file !== '.gitkeep' && file !== 'defaultLink.html') {
             fs.unlink(globals.renderedSharedLinksDir + file);

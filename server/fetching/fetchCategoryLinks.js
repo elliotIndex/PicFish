@@ -8,7 +8,6 @@ const shuffle = require('knuth-shuffle').knuthShuffle;
 const async = require('async');
 
 function fetchPages(category) {
-  console.log("Fetching category", category)
   const pages = globals.categories[category].map(source => new Promise(
     (resolve, reject) => {
       const url = utils.makeUrlOutOf(source);
@@ -94,7 +93,6 @@ function correctImgurUrls(links) {
 
 
   function validateMap(link, callback) {
-    console.log("Validating", link.linkId);
     validate(link)
     .then(validLink => callback(null, validLink))
     .catch(error => callback(null, null))

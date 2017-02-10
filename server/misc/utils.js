@@ -121,7 +121,6 @@ const utils = {
 
       emitter.on('next', () => {
         if (index >= items.length) {
-          console.log("Finished Iterating");
           resolve();
         } else {
           callback(items[index], index, items)

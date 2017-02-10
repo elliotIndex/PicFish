@@ -4,22 +4,18 @@ const findOrCreateFile = require('./findOrCreateFile');
 
 module.exports = {
   serveErrorFile: (res, terminal) => {
-    console.log('Serving Error file to', terminal);
     res.sendFile(path.resolve(globals.errorFilename));
   },
 
   serveDefaultCategory: (res) => {
-    console.log('Serving default category');
     res.sendFile(path.resolve(globals.renderedCategoriesDir + 'all.html'));
   },
 
   serveCategory: (res, category) => {
-    console.log('Serving /', category);
     res.sendFile(path.resolve(globals.renderedCategoriesDir + category + '.html'));
   },
 
   serveLinkFile: (res, linkId) => {
-    console.log('Serving shared link /', linkId);
     findOrCreateFile(linkId) // resolves with filepath, rejects if id not found
     .then(filename => res.sendFile(globals.renderedSharedLinksDir + filename))
     .catch(err => res.sendFile(globals.errorFilename));
