@@ -11,6 +11,7 @@ const renderFromDb = require('../rendering/renderFromDb');
 const scheduleLinkRefresh = require('../fetching/scheduleLinkRefresh');
 
 module.exports = () => {
+  console.log('Starting server', Date());
   // Init db
   database.init()
   .then(() => database.initMaxIndecies())
