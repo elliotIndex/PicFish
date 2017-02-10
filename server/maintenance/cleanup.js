@@ -59,14 +59,16 @@ module.exports = {
   validateOrDelete: linkHref => {
     database.findLink({ href: linkHref })
     .then(found => {
-      return found
-    })
-    .then(validate)
-    .catch(database.removeLink)
-    .then(stats => {
-      if (stats.result.n > 0) {
-        renderFromDb();
+      if (found) {
+        return validate(found)
+        .catch(database.removeLink)
+        .then(stats => {
+          if (stats.result.n > 0) {
+            renderFromDb();
+          }
+        })
       }
+      return null;
     })
     .catch(utils.standardError)
   }
