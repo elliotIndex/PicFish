@@ -9,6 +9,7 @@ const validate = linkOrUri => {
   const link = utils.linkOrUriToLink(linkOrUri);
   return new Promise((resolve, reject) => {
     link.size = 1000;
+    console.log("request.head", request.head);
     request(
       { uri: link.href, timeout: globals.maxValidationRequestTime },
       (error, response, body) => {

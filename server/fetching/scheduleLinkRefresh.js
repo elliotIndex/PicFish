@@ -10,17 +10,17 @@ const renderCategory = require('../rendering/renderCategory');
 
 function fetchAllCategories(categories) {
   async.eachSeries(Object.keys(categories), (category, done) => {
-    (category) => fetchCategoryLinks(category)
-      .then(links => database.insertLinks(links, category))
-      .catch(error => console.error('Error storing category:', category, error))
-      .then(() => renderCategory(category))
-      .catch(error => console.error('Error rendering category', category, error))
-      .then(() => renderCategory())
-      .then(done)
-      .catch(error => {
-        utils.standardError(error);
-        done();
-      });
+    fetchCategoryLinks(category)
+    .then(links => database.insertLinks(links, category))
+    .catch(error => console.error('Error storing category:', category, error))
+    .then(() => renderCategory(category))
+    .catch(error => console.error('Error rendering category', category, error))
+    .then(() => renderCategory())
+    .then(done)
+    .catch(error => {
+      utils.standardError(error);
+      done();
+    });
   });
 }
 
