@@ -112,7 +112,6 @@ function correctImgurUrls(links) {
   }
 
   function fetchCategoryLinks(category) {
-    console.log("fetchin");
     return fetchPages(category)
     .then(scrapeLinks)
     .then(correctImgurUrls)

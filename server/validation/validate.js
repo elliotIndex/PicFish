@@ -8,10 +8,8 @@ const shuffle = require('knuth-shuffle').knuthShuffle
 const validate = linkOrUri => {
   const link = utils.linkOrUriToLink(linkOrUri);
   return new Promise((resolve, reject) => {
-    link.size = 1000;
-    console.log("request.head", request.head);
     request(
-      { uri: link.href, timeout: globals.maxValidationRequestTime },
+      { method: 'HEAD', uri: link.href, timeout: globals.maxValidationRequestTime },
       (error, response, body) => {
         if (
           !error &&
@@ -28,6 +26,13 @@ const validate = linkOrUri => {
         }
       }
     );
+  })
+  .catch(errorOrLink => {
+    if ('linkId' in errorOrLink) {
+      return errorOrLink;
+    }
+    utils.standardError(errorOrLink);
+    return null;
   })
 }
 
