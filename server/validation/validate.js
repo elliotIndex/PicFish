@@ -9,25 +9,24 @@ const validate = linkOrUri => {
   const link = utils.linkOrUriToLink(linkOrUri);
   return new Promise((resolve, reject) => {
     link.size = 1000;
-    resolve(link)
-    // request(
-    //   { uri: link.href, timeout: globals.maxValidationRequestTime },
-    //   (error, response, body) => {
-    //     if (
-    //       !error &&
-    //       response.statusCode === 200 &&
-    //       utils.isImageResponse(response) &&
-    //       response.headers['content-length'] < globals.maxLinkSize &&
-    //       utils.isNotInvalidImgur(response)
-    //     ) {
-    //       link.size = response.headers['content-length'];
-    //       resolve(link);
-    //     } else {
-    //       database.insertInvalidLinkId(link.linkId)
-    //       .then(() => reject(link));
-    //     }
-    //   }
-    // );
+    request(
+      { uri: link.href, timeout: globals.maxValidationRequestTime },
+      (error, response, body) => {
+        if (
+          !error &&
+          response.statusCode === 200 &&
+          utils.isImageResponse(response) &&
+          response.headers['content-length'] < globals.maxLinkSize &&
+          utils.isNotInvalidImgur(response)
+        ) {
+          link.size = response.headers['content-length'];
+          resolve(link);
+        } else {
+          database.insertInvalidLinkId(link.linkId)
+          .then(() => reject(link));
+        }
+      }
+    );
   })
 }
 
