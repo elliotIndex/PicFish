@@ -16,7 +16,11 @@ function fetchAllCategories(categories) {
       .then(() => renderCategory(category))
       .catch(error => console.error('Error rendering category', category, error))
       .then(() => renderCategory())
-      .always(done)
+      .then(done)
+      .catch(error => {
+        utils.standardError(error);
+        done();
+      });
   });
 }
 

@@ -56,7 +56,7 @@ module.exports = {
     });
   },
 
-  validateOrDelete: (linkHref, callback) => {
+  validateOrDelete: (linkHref, done) => {
     database.findLink({ href: linkHref })
     .then(found => {
       if (found) {
@@ -70,7 +70,10 @@ module.exports = {
       }
       return null;
     })
-    .catch(utils.standardError)
-    .always(callback)
+    .then(done)
+    .catch(error => {
+      utils.standardError(error);
+      done();
+    });
   }
 }
