@@ -63,7 +63,7 @@ module.exports = {
         return validate(found)
         .catch(database.removeLink)
         .then(stats => {
-          if (stats.result.n > 0) {
+          if (stats && stats.results && stats.result.n > 0) {
             renderFromDb();
           }
         })
