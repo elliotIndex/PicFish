@@ -169,7 +169,7 @@ var database = {
   runScanner: (scanner) => {
     linksCollection.find().sort({ totalIndex: -1 }).limit(1000).toArray()
     .then(recentItems => {
-      async.each(recentItems, scanner)
+      async.eachSeries(recentItems, scanner)
     });
   },
 

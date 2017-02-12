@@ -112,45 +112,6 @@ const utils = {
     return 'https://www.reddit.com/' + source
   },
 
-  // Async loop method, iterates to nex item in array only after it has finished
-  // previous item
-  asyncForEach: (items, callback) => {
-    return new Promise((resolve, reject) => {
-      const emitter = new EventEmitter();
-      let index = 0;
-
-      emitter.on('next', () => {
-        if (index >= items.length) {
-          resolve();
-        } else {
-          callback(items[index], index, items)
-          .catch(e => e)
-          .then(() => {
-            index++;
-            emitter.emit('next');
-          });
-        }
-      });
-
-      emitter.emit('next');
-    });
-  },
-
-  asyncMap: (items, transform) => {
-    const output = [];
-    return new Promise((resolve, reject) => {
-      utils.asyncForEach(items, (item, index, collection) => {
-        return transform(item, index, collection)
-        .then(transformedVal => {
-          output.push(transformedVal);
-          return transformedVal;
-        })
-        .catch(invalidLink => console.error("Invalid link", invalidLink));
-      })
-      .then(() => resolve(output))
-    });
-  },
-
   linkOrUriToLink: (linkOrUri) => {
     let link = {};
     if (typeof linkOrUri === "string") {
