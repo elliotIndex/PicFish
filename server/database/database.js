@@ -166,10 +166,10 @@ var database = {
     return Promise.all(maxIndecies);
   },
 
-  runScanner: (scanner, cursor = null) => {
+  runScanner: (scanner) => {
     linksCollection.find().sort({ totalIndex: -1 }).limit(1000).toArray()
     .then(recentItems => {
-      async.forEach(recentItems, scanner)
+      async.each(recentItems, scanner)
     });
   },
 

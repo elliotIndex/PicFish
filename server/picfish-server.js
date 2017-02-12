@@ -41,8 +41,8 @@ app.get('/:terminal', (req, res) => {
 });
 
 app.delete('/:uri', (req, res) => {
-  res.send();
   cleanup.validateOrDelete(req.params.uri)
+  res.send();
 })
 
 app.listen(environment.port, () => {
