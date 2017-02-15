@@ -46,7 +46,13 @@ const utils = {
     );
   },
 
-  removeNSFWlinks: (links) => links.filter(link => link.text.indexOf('nsfw') !== 0),
+  removeNSFWlinks: (links) => links.filter(link => (
+    link.text.indexOf('nsfw') < 0 ||
+    link.text.indexOf('rape') < 0 ||
+    link.text.indexOf('fuck') < 0 ||
+    link.text.indexOf('shit') < 0 ||
+    link.text.indexOf('roofie') < 0
+  )),
 
   removeOC: (links) => links.map(link => {
     link.text = link.text
