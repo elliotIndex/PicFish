@@ -34,7 +34,7 @@ var database = {
   },
 
   insertLinks: (links, category) => {
-
+    let numInsertions = 0;
     return new Promise((resolve, reject) => {
       async.eachSeries(links, (currentLink, done) => {
         linksCollection.findOne({ linkId: currentLink.linkId })
@@ -47,7 +47,10 @@ var database = {
             currentLink.categoryIndex = ++maxCategoryIndecies[category];
             currentLink.totalIndex = ++maxTotalIndex;
             return linksCollection.insert(currentLink)
-            .then(() => done())
+            .then(() => {
+              numInsertions++;
+              done()
+            })
             .catch(err => {
               console.error(err);
               done(err);
@@ -64,7 +67,7 @@ var database = {
         if (err) {
           reject(err);
         } else {
-          resolve()
+          resolve(numInsertions)
         }
       });
     });

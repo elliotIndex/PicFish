@@ -12,11 +12,12 @@ function fetchAllCategories(categories) {
   async.eachSeries(Object.keys(categories), (category, done) => {
     fetchCategoryLinks(category)
     .then(links => database.insertLinks(links, category))
+    .then(numInsertions => console.log('Inserted', numInsertions, 'into', category))
     .catch(error => console.error('Error storing category:', category, error))
     .then(() => renderCategory(category))
     .catch(error => console.error('Error rendering category', category, error))
     .then(() => renderCategory())
-    .then(done)
+    .then(() => done())
     .catch(error => {
       utils.standardError(error);
       done(error);

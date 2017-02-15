@@ -70,7 +70,7 @@ module.exports = {
       }
       return null;
     })
-    .then(done)
+    .then(() => done())
     .catch(error => {
       utils.standardError(error);
       done();
