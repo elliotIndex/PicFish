@@ -2,8 +2,8 @@ const environment = require('./config/environment');
 
 const globals = {
   categories: {
-    'funny': [ 'funny', 'memes', 'Unexpected' ],
     'cute': [ 'aww', 'wholesomegifs', 'user/316nuts/m/superaww', 'BearCubGIFs', 'Otters', 'puppies' ],
+    'funny': [ 'funny', 'memes', 'Unexpected' ],
     'general': [ 'pics', 'mildlyinteresting', 'woahdude' ],
     'gifs': [ 'gifs', 'reactiongifs' ],
     'gaming': [ 'gaming' ],

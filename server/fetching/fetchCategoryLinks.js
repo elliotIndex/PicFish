@@ -128,13 +128,15 @@ function correctImgurUrls(links) {
     .then(utils.removeOC)
     .then(validateLinks)
     .then(links => {
-      console.log("Found", links.length, "valid links")
+      console.log("Found", links.length, "valid links");
+      return links;
     })
     .then(utils.filterUniqueLinks)
-    .catch(error => console.error(error))
-    .then(() => {
+    .then(links => {
       console.log("end", category, "++++++++++++++++++++++++++++++++++++++");
-    });
+      return links
+    })
+    .catch(error => console.error(error));
   }
 
 

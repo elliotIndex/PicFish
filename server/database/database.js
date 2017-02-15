@@ -34,28 +34,40 @@ var database = {
   },
 
   insertLinks: (links, category) => {
-    // recursively return number of links inserted
-    if (!links || !links.length) {
-      return new Promise(resolve => resolve(0));
-    }
-    const currentLink = links.pop();
-    return linksCollection.findOne({ linkId: currentLink.linkId })
-    .then(foundLink => {
-      if (!foundLink) {
-        currentLink.category = category;
-        if (!maxCategoryIndecies[category]) {
-          maxCategoryIndecies[category] = 0;
+
+    return new Promise((resolve, reject) => {
+      async.eachSeries(links, (currentLink, done) => {
+        linksCollection.findOne({ linkId: currentLink.linkId })
+        .then(foundLink => {
+          if (!foundLink) {
+            currentLink.category = category;
+            if (!maxCategoryIndecies[category]) {
+              maxCategoryIndecies[category] = 0;
+            }
+            currentLink.categoryIndex = ++maxCategoryIndecies[category];
+            currentLink.totalIndex = ++maxTotalIndex;
+            return linksCollection.insert(currentLink)
+            .then(() => done())
+            .catch(err => {
+              console.error(err);
+              done(err);
+            })
+          } else {
+            done();
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          done(err);
+        });
+      }, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve()
         }
-        currentLink.categoryIndex = ++maxCategoryIndecies[category];
-        currentLink.totalIndex = ++maxTotalIndex;
-        return linksCollection.insert(currentLink)
-        .catch(err => console.error(err))
-        .then(() => database.insertLinks(links, category))
-        .then(insertions => insertions + 1);
-      }
-      return database.insertLinks(links, category);
-    })
-    .catch(err => console.error(err))
+      });
+    });
   },
 
   insertInvalidLinkId: (linkId) => {
