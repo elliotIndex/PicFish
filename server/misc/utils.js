@@ -85,7 +85,12 @@ const utils = {
 
   getDate: () => {
     const now = new Date();
-    return now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+
+    // Date formatted as yyyy-mm-dd
+    // eg, 2017-02-05
+    return now.getFullYear() + '-' +
+    ("0" + now.getMonth()).slice(-2) + '-' +
+    ("0" + now.getDate()).slice(-2);
   },
 
   toTitleCase: (sentence) => {
