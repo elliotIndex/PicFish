@@ -17,7 +17,7 @@ prodEnvironment = {
 if (process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'dev') {
   console.log('Running in mode:', process.env.NODE_ENV);
 } else {
-  console.log('No environment providing, defaulting to prod');
+  console.log('No environment provided, defaulting to prod');
 }
 
 module.exports = process.env.NODE_ENV === 'dev' ? devEnvironment : prodEnvironment;
