@@ -36,7 +36,7 @@ function scrapeLinks(pages) {
       allLinks.push({ text, href, category, linkId });
     });
   });
-
+  console.log("scraped", allLinks.length, "links");
   return Promise.all(shuffle(allLinks));
 }
 
@@ -49,6 +49,8 @@ function removeInvalidLinks(links) {
 }
 
 function removeDuplicateLinks(links) {
+  console.log("removing duplicates from", links.length, "links");
+
   const currentLinksText = new Set();
   return Promise.all(links.map(linkToAdd => {
     return database.findLink({ text: linkToAdd.text })
@@ -64,6 +66,8 @@ function removeDuplicateLinks(links) {
 }
 
 function correctImgurUrls(links) {
+  console.log("correctImgurUrls from", links.length, "links");
+
   return links.reduce(function (correctedLinks, link) {
     if (link.href.indexOf('imgur') > -1) {
       if (link.href.endsWith('.gifv')) {
@@ -99,6 +103,7 @@ function correctImgurUrls(links) {
   }
 
   function validateLinks(links) {
+    console.log("validating from", links.length, "links");
     return new Promise((resolve, reject) => {
       async.mapSeries(links, validateMap, function(err, results) {
         if (err) {
@@ -112,6 +117,7 @@ function correctImgurUrls(links) {
   }
 
   function fetchCategoryLinks(category) {
+    console.log("===============", category, "======================");
     return fetchPages(category)
     .then(scrapeLinks)
     .then(correctImgurUrls)
@@ -121,8 +127,14 @@ function correctImgurUrls(links) {
     .then(utils.removeNSFWlinks)
     .then(utils.removeOC)
     .then(validateLinks)
+    .then(links => {
+      console.log("Found", links.length, "valid links")
+    })
     .then(utils.filterUniqueLinks)
-    .catch(error => console.error(error));
+    .catch(error => console.error(error))
+    .then(() => {
+      console.log("end", category, "++++++++++++++++++++++++++++++++++++++");
+    });
   }
 
 

@@ -170,6 +170,9 @@ var database = {
     linksCollection.find().sort({ totalIndex: -1 }).limit(1000).toArray()
     .then(recentItems => {
       async.eachSeries(recentItems, scanner)
+    })
+    .catch(error => {
+      console.log("Error running scanner:", error);
     });
   },
 
