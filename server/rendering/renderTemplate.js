@@ -6,7 +6,7 @@ var globals = require('../globals');
 
 mu.root = __dirname + '/templates';
 
-module.exports = (links, category, filename, filepath, title) => {
+module.exports = (links, category, filename, filepath, title, keywords) => {
   return new Promise((resolve, reject) => {
     const fullFilepath = filepath + filename;
 
@@ -15,6 +15,7 @@ module.exports = (links, category, filename, filepath, title) => {
       links,
       title,
       category,
+      keywords,
       domain: environment.domain,
       extension: filename.slice(0, -5),
       fbThumbnail: links[0].fbThumbnail,

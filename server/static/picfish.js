@@ -16,6 +16,7 @@ scrollingNav();
 scrollRequests();
 insertAd();
 scanMissingImgurs();
+$(hideKeywords)
 
 // Toggle height
 var fitHeight = true;
@@ -334,4 +335,12 @@ function scanMissingImgurs() {
       requestLinkDeletion($img.attr('src'));
     }
   });
+}
+
+// hide keywords
+function hideKeywords() {
+  $('#keywords-header').height(0);
+  $('#keywords-header').css('color','transparent');
+  $('#keywords-text').height(0);
+  $('#keywords-text').css('color','transparent');
 }
