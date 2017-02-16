@@ -7,13 +7,12 @@ const database = require('../database/database');
 const renderFromDb = require('../rendering/renderFromDb');
 const validate = require('../validation/validate');
 
-function noOp() {};
 module.exports = {
   prepForServerShutdown: (callback) => {
 
     // attach user callback to the process event emitter
     // if no callback, it will still exit gracefully on Ctrl-C
-    callback = callback || noOp;
+    callback = callback || utils.noOp;
     process.on('cleanup', callback);
 
     // do app specific cleaning before exiting
@@ -56,7 +55,7 @@ module.exports = {
     });
   },
 
-  validateOrDelete: (linkHref, done) => {
+  validateOrDelete: (linkHref, done = utils.noOp) => {
     database.findLink({ href: linkHref })
     .then(found => {
       if (found) {

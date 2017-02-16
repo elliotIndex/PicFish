@@ -4,6 +4,8 @@ const EventEmitter = require('events');
 
 const utils = {
 
+  noOp: () => {},
+  
   isImageResponse: (res) => {
     return ~res.headers['content-type'].indexOf('image');
   },
