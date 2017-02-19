@@ -12,9 +12,9 @@ const textMap = {
   gaming: gamingText,
 }
 
-function keywords(category = "general") {
+function keywords(category = 'general') {
   const categoryTexts = textMap[category];
-  return categoryTexts[Math.floor(Math.random() * categoryTexts.length)];
+  return categoryTexts.join(' ');
 }
 
 module.exports = keywords;
