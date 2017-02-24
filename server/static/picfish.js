@@ -11,6 +11,7 @@ var $loadingSpinner = $(".loading-spinner");
 // Page setup
 $scrollableContent.focus();
 $navbarToggle.on('blur', function() { $navbar.collapse('hide'); });
+$scrollableContent.on('scroll', removeHighImage);
 $shareLinkModal.on('hide.bs.modal', resetShareModal);
 scrollingNav();
 scrollRequests();
@@ -343,4 +344,12 @@ function hideKeywords() {
   $('#keywords-header').css('color','transparent');
   $('#keywords-text').height(0);
   $('#keywords-text').css('color','transparent');
+}
+
+// Remove images that have been scrolled past
+function removeHighImage() {
+  var $entry = $($('.list-entry')[0]);
+  if ($body.scrollTop() - $entry.scrollTop() > 3000) {
+    $($entry).find('img').hide();
+  };
 }
