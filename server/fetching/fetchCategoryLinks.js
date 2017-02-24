@@ -36,7 +36,13 @@ function scrapeLinks(pages) {
       allLinks.push({ text, href, category, linkId });
     });
   });
-  return Promise.all(shuffle(allLinks));
+  // return Promise.all(shuffle(allLinks));
+  return Promise.all([new Promise(r => r({
+    text: "Too large link",
+    href: "https://i.imgur.com/xOZ90NG.gif",
+    category: "cute",
+    linkId: "fakeLinkId"
+  }))]);
 }
 
 function removeInvalidLinks(links) {

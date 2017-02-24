@@ -22,7 +22,7 @@ const validate = linkOrUri => {
           resolve(link);
         } else {
           database.insertInvalidLinkId(link.linkId)
-          .then(() => reject(link));
+          .then(() => reject(null));
         }
       }
     );

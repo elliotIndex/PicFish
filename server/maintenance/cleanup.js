@@ -60,7 +60,7 @@ module.exports = {
     .then(found => {
       if (found) {
         return validate(found)
-        .catch(database.removeLink)
+        .catch(() => database.removeLink({ href: linkHref }))
         .then(stats => {
           if (stats && stats.results && stats.result.n > 0) {
             renderFromDb();

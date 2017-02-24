@@ -6,7 +6,6 @@ const environment = require('./config/environment');
 const cleanup = require('./maintenance/cleanup');
 const fileServer = require('./serve/fileServer');
 const dataserver = require('./serve/dataserver');
-const validate = require('./validation/validate');
 const utils = require('./misc/utils');
 const init = require('./maintenance/init');
 
