@@ -15,7 +15,7 @@ $scrollableContent.on('scroll', removeHighImage);
 $shareLinkModal.on('hide.bs.modal', resetShareModal);
 scrollingNav();
 scrollRequests();
-insertAd();
+// insertAd();
 scanMissingImgurs();
 $(hideKeywords)
 
@@ -265,7 +265,7 @@ function addLinks(links) {
     $imageList.append(newLink);
     if (!adAdded && index > 0 && Math.floor(Math.random() * (6 - index)) === 0) {
       adAdded = true;
-      insertAd();
+      // insertAd();
     }
   });
 }
