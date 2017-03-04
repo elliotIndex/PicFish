@@ -229,6 +229,10 @@ button:active, button:focus {
     margin-bottom: 0;
     background-color: #f8f8f8;
   }
+  
+  .header-text {
+    display: none;
+  }
 }
 
 #copy-button {
