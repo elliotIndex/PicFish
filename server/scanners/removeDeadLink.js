@@ -1,6 +1,6 @@
 const cleanup = require('../maintenance/cleanup');
 
-module.exports = (link, done) => {
+const removeDeadLink = (link, done) => {
   return cleanup.validateOrDelete(link.href)
   .then(() => done())
   .catch(error => {
@@ -8,3 +8,5 @@ module.exports = (link, done) => {
     done();
   });
 }
+
+module.exports = removeDeadLink;
